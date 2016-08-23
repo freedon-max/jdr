@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import controleChtullu.EdtitionChtullu.Perso;
 import vueDM.DataDM;
 
 public class EditDM extends JFrame implements DataDM {
@@ -29,6 +31,7 @@ public class EditDM extends JFrame implements DataDM {
 	float vit, tail;
 	double pointRestant;
 	int var = 0;
+	private JButton bouton = new JButton("Enregistrer");
 
 	private ArrayList traversAff = new ArrayList();
 	private ArrayList comptAff = new ArrayList();
@@ -88,6 +91,13 @@ public class EditDM extends JFrame implements DataDM {
 		img.add(aff);
 		container2.add(img);
 		container.add(new JScrollPane(container2));
+		container.add(bouton, BorderLayout.SOUTH);
+		bouton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				convert();
+			}
+		});
+
 		this.setVisible(true);
 		convert();
 
@@ -344,9 +354,6 @@ public class EditDM extends JFrame implements DataDM {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("save ok");
-		// EditPDF testimg = new EditPDF(image, this.getWidth(),
-		// this.getHeight());
 
 	}
 
@@ -439,4 +446,4 @@ public class EditDM extends JFrame implements DataDM {
 
 }
 
-// http://www.jmdoudoux.fr/java/dej/chap-generation-documents.htm
+

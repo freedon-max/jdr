@@ -18,44 +18,41 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import controleChtullu.EdtitionChtullu;
 
-public class FenetreChtullu4 extends JFrame implements DataChtullu{
-	
+public class FenetreChtullu4 extends JFrame implements DataChtullu {
+
+	private static final Logger logger = LogManager.getLogger(FenetreChtullu4.class.getName());
+
 	private ArrayList<String> caractPerso = new ArrayList<String>();
 	private ArrayList compGPerso = new ArrayList();
 	private ArrayList diversPerso = new ArrayList();
-	
+
 	private String lguEtr = "Aucun";
 	private String armeCc = " ";
 	private String amreF = " ";
 	private String dsP = "Aucun";
-	
+
 	private String nomPerso, langueEtrOut, armeCaCOut, PsyOut, armeAFeuOut;
-	
-	private JPanel container = new JPanel(), 
-				   containerLabel = new JPanel(),
-				   containerDescrition = new JPanel(),
-				   containerDescrition2 = new JPanel(),
-				   containerDescrition3 = new JPanel(),
-				   containerChoix = new JPanel(),
-				   containerBT = new JPanel();
-	
+
+	private JPanel container = new JPanel(), containerLabel = new JPanel(), containerDescrition = new JPanel(),
+			containerDescrition2 = new JPanel(), containerDescrition3 = new JPanel(), containerChoix = new JPanel(),
+			containerBT = new JPanel();
+
 	private JButton suivant = new JButton("Editer");
-	
-	private JComboBox langueEtr = new JComboBox(langue),
-						armeCaC = new JComboBox(armeCC),
-						armeAFeu = new JComboBox(armeFeu),
-						desordrePsy = new JComboBox(Psy);
-	
-	private JTextField 	residence = new JTextField(" "),
-						famille = new JTextField(" "),
-						revenu = new JTextField("$");
-	
+
+	private JComboBox langueEtr = new JComboBox(langue), armeCaC = new JComboBox(armeCC),
+			armeAFeu = new JComboBox(armeFeu), desordrePsy = new JComboBox(Psy);
+
+	private JTextField residence = new JTextField(" "), famille = new JTextField(" "), revenu = new JTextField("$");
+
 	private JTextArea description = new JTextArea(10, 15);
-	
+
 	private Font font = new Font("Times New Roman", Font.BOLD, 15);
-	
+
 	public FenetreChtullu4(ArrayList<String> caractPerso, ArrayList compGPerso) {
 		this.caractPerso = caractPerso;
 		this.compGPerso = compGPerso;
@@ -63,26 +60,24 @@ public class FenetreChtullu4 extends JFrame implements DataChtullu{
 		this.setTitle("Création de personnage Chtullu : ");
 		this.setSize(600, 400);
 		this.setLocationRelativeTo(null);
-		//initPerso();
 		screen1();
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
 		this.setVisible(true);
 	}
-	
-	private void screen1(){
-		
+
+	private void screen1() {
+
 		JLabel labelNom = new JLabelP(nomPerso, font);
-		
+
 		JScrollPane scroll = new JScrollPane();
-		JLabel etape = new JLabelP("Etape 4 : ", font),
-				desc = new JLabelP(" Description : ", font);
-		
+		JLabel etape = new JLabelP("Etape 4 : ", font), desc = new JLabelP(" Description : ", font);
+
 		Font police = new Font("Times New Roman", Font.BOLD, 18);
 		Font police2 = new Font("Times New Roman", Font.BOLD, 12);
-		
+
 		container.removeAll();
-		
+
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		containerLabel.setLayout(new GridLayout(1, 2));
 		containerLabel.setBackground(Color.white);
@@ -107,10 +102,10 @@ public class FenetreChtullu4 extends JFrame implements DataChtullu{
 		containerDescrition.add(containerDescrition2);
 		containerDescrition3.setLayout(new GridLayout(2, 1));
 		containerDescrition3.setBackground(Color.white);
-		containerDescrition3.add(new JScrollPane(description));	
+		containerDescrition3.add(new JScrollPane(description));
 		containerDescrition.add(containerDescrition3);
 		container.add(containerDescrition);
-		
+
 		containerChoix.setLayout(new GridLayout(4, 2));
 		containerChoix.setBackground(Color.white);
 		containerChoix.add(new JLabelP("Choix de la langue étrangére : ", font));
@@ -140,20 +135,28 @@ public class FenetreChtullu4 extends JFrame implements DataChtullu{
 		suivant.addActionListener(new next());
 	}
 
-	private void savePerso(){
-		
-		if(lguEtr.equals("Aucun"));
-		else lguEtr = langueEtrOut;
-		
-		if(armeCc.equals(" "));
-		else armeCc = armeCaCOut;
-		
-		if(amreF.equals(" "));
-		else amreF = armeAFeuOut;
-		
-		if(dsP.equals("Aucun"));
-		else dsP = PsyOut;
-				
+	private void savePerso() {
+
+		if (lguEtr.equals("Aucun"))
+			;
+		else
+			lguEtr = langueEtrOut;
+
+		if (armeCc.equals(" "))
+			;
+		else
+			armeCc = armeCaCOut;
+
+		if (amreF.equals(" "))
+			;
+		else
+			amreF = armeAFeuOut;
+
+		if (dsP.equals("Aucun"))
+			;
+		else
+			dsP = PsyOut;
+
 		diversPerso.clear();
 		diversPerso.add(residence.getText());
 		diversPerso.add(famille.getText());
@@ -163,41 +166,40 @@ public class FenetreChtullu4 extends JFrame implements DataChtullu{
 		diversPerso.add(armeCc);
 		diversPerso.add(amreF);
 		diversPerso.add(dsP);
-			}
-	
-		
-	private class next implements ActionListener{
+	}
+
+	private class next implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// passer a l'edition de la fiche
 			savePerso();
+			logger.debug("Divers perso : " + diversPerso.toString());
 			EdtitionChtullu edit = new EdtitionChtullu(caractPerso, compGPerso, diversPerso);
 			dispose();
-		}    
-	  }
-	
-	private class ItemLangueEtr implements ActionListener{
+		}
+	}
+
+	private class ItemLangueEtr implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			langueEtrOut = (String) langueEtr.getSelectedItem();
-			}  
-	  }
-	
-	private class ItemArmeCaC implements ActionListener{
+		}
+	}
+
+	private class ItemArmeCaC implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			armeCaCOut = (String) armeCaC.getSelectedItem();
-			}  
-	  }
-	
-	private class ItemArmeAFeu implements ActionListener{
+		}
+	}
+
+	private class ItemArmeAFeu implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			armeAFeuOut = (String) armeAFeu.getSelectedItem();
-			}    
-	  }
-	
-	private class ItemPsy implements ActionListener{
+		}
+	}
+
+	private class ItemPsy implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			PsyOut = (String) desordrePsy.getSelectedItem();
-			}               
-}
-	
+		}
+	}
 
 }

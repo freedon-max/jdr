@@ -40,34 +40,34 @@ public class APropos extends JFrame{
 	
 	
 	container.add(new JLabelP(" ", font));container.add(new JLabelP("", font));
-	container.add(new JLabelP("	  Bienvenue dans ce logiciel de création  assisté ou ", font));
-	container.add(new JLabelP("  automatique de personnage de jeu de role.", font));
+	container.add(new JLabelP("	  Bienvenue dans ce logiciel de crÃ©ation  assistÃ© ou ", font));
+	container.add(new JLabelP("  automatique de personnage de jeu de rÃ´le.", font));
 	container.add(new JLabelP(" ", font));
 	container.add(new JLabelP(" ", font));
-	container.add(new JLabelP("	  L'utilisation est très simple :", font));
-	container.add(new JLabelP("	  Soit vous lancez vos dés manuellement et vous ", font));
-	container.add(new JLabelP("  completez les sections, sinon vous pouvez générer les ", font));
-	container.add(new JLabelP("	  caractéristiques ou fiche complète automatiquement.", font));
+	container.add(new JLabelP("	  L'utilisation est trÃ¨s simple :", font));
+	container.add(new JLabelP("	  Soit vous lancez vos dÃ©s manuellement et vous ", font));
+	container.add(new JLabelP("  complÃ©tez les sections, sinon vous pouvez gÃ©nÃ©rer les ", font));
+	container.add(new JLabelP("	  caractÃ©ristiques ou fiches complÃ¨tes automatiquements.", font));
 	container.add(new JLabelP("  ", font));
 	container.add(new JLabelP(" ", font));
-	container.add(new JLabelP("	  Une fois terminé, une fiche de perso est générée à ", font));
+	container.add(new JLabelP("	  Une fois terminÃ©, une fiche de perso est gÃ©nÃ©rÃ©e Ã  ", font));
 	container.add(new JLabelP("   l'emplacement de votre choix au format .jpg", font));
 	container.add(new JLabelP(" ", font));
-	container.add(new JLabelP("   Important : les livres de rêgles restent indispensables", font));
-	container.add(new JLabelP("    à la bonne création de vos personnages.", font));
+	container.add(new JLabelP("   Important : les livres de rÃªgles restent indispensables", font));
+	container.add(new JLabelP("    Ã  la bonne crÃ©ation de vos personnages.", font));
 	container.add(new JLabelP(" ", font));
-	container.add(new JLabelP("    Voici ceux que j'ai utilisés : ", font));
+	container.add(new JLabelP("    Voici ceux que j'ai utilisÃ©s : ", font));
 	container.add(new JLabelP("   Chtullu : Edition Choasum, version 5", font));
 	container.add(new JLabelP("   Disque monde : Edtition Edge", font));
-	container.add(new JLabelP("   Dongeon & Dragon : En développement.", font));
-	container.add(new JLabelP("   RuneQuest : En développement.", font));
-	container.add(new JLabelP("   Terre du milieu : En développement.", font));
+	container.add(new JLabelP("   Dongeon & Dragon : En dÃ©veloppement.", font));
+	container.add(new JLabelP("   RuneQuest : En dÃ©veloppement.", font));
+	container.add(new JLabelP("   Terre du milieu : En dÃ©veloppement.", font));
 	container.add(new JLabelP(" ", font));
 	container.add(new JLabelP(" ", font));
 	container.add(new JLabelP("Version 1.0 ", font2));
 	containerT.add(container);
 	
-	Icon img = new ImageIcon(new ImageIcon("img\\edit\\mort.jpg").getImage().getScaledInstance(270, 500, Image.SCALE_DEFAULT));
+	Icon img = new ImageIcon(new ImageIcon("img/edit/mort.jpg").getImage().getScaledInstance(270, 500, Image.SCALE_DEFAULT));
 	
 	containerLabel.setIcon(img);
 	containerRight.setLayout(new FlowLayout(FlowLayout.RIGHT));

@@ -21,11 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import controleDM.DataPerso;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 import controleDM.EditDM;
 import vueChtullu.JLabelP;
 
 public class FenetreDM3 extends JFrame implements DataDM {
+	
+	private static final Logger logger = LogManager.getLogger(FenetreDM3.class.getName());
 
 	private JPanel container = new JPanel();
 
@@ -149,7 +154,7 @@ public class FenetreDM3 extends JFrame implements DataDM {
 			// traversPerso
 			caractPerso.add(description.getText()); // 20
 			caractPerso.add(travers.getText());
-
+			logger.debug("Caractéristique perso final : " + caractPerso.toString());
 			EditDM suivant = new EditDM(caractPerso, initchkA, initchkD, initchkC, initchkL, initchkM);
 
 			dispose();

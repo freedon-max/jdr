@@ -21,9 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import vueChtullu.JLabelP;
 
 public class FenetreDM2 extends JFrame implements DataDM {
+
+	private static final Logger logger = LogManager.getLogger(FenetreDM2.class.getName());
 
 	private JPanel container = new JPanel();
 	private String metier;
@@ -249,7 +254,6 @@ public class FenetreDM2 extends JFrame implements DataDM {
 		int ptMagie = 0;
 		for (int jdm = 0; jdm < choixMagie.length; jdm++) {
 			if (chkM[jdm].isSelected() == true) {
-				System.out.println("Magie : " + chkM[jdm].getText());
 				ptMagie = ptMagie + Integer.parseInt(chkM[jdm].getText().substring(0, 2));
 				initchkM.remove(jdm);
 				initchkM.add(jdm, true);
@@ -258,7 +262,6 @@ public class FenetreDM2 extends JFrame implements DataDM {
 				initchkM.remove(jdm);
 				initchkM.add(jdm, false);
 			}
-			System.out.println("Comp�tence : " + ptMagie);
 		}
 		return ptMagie;
 	}
@@ -271,10 +274,7 @@ public class FenetreDM2 extends JFrame implements DataDM {
 
 	private class reload implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
-			System.out.println("nombre point : " + pointRestant);
 			verifAll();
-			// savePerso();
 			screen();
 		}
 	}
@@ -287,7 +287,6 @@ public class FenetreDM2 extends JFrame implements DataDM {
 			caractPerso.remove(18);
 			caractPerso.add(18, pointFinal);
 			caractPerso.add(app); // 20
-
 			FenetreDM3 suivant = new FenetreDM3(caractPerso, initchkA, initchkD, initchkC, initchkL, initchkM);
 
 			dispose();
@@ -307,7 +306,6 @@ public class FenetreDM2 extends JFrame implements DataDM {
 	private class ItemApp implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			app = (String) apparence.getSelectedItem();
-			System.out.println("ActionListener : action sur " + app);
 		}
 	}
 

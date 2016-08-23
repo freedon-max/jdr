@@ -23,9 +23,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import vueChtullu.JLabelP;
 
 public class FenetreDM extends JFrame implements DataDM {
+	
+	private static final Logger logger = LogManager.getLogger(FenetreDM.class.getName());
+
 
 	private JPanel container = new JPanel();
 
@@ -305,8 +311,7 @@ public class FenetreDM extends JFrame implements DataDM {
 	private class ItemMetier implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			prof = (String) proffs.getSelectedItem();
-			System.out.println("ActionListener : action sur " + prof);
-		}
+			}
 	}
 
 	private int choixNatOut(String arg1) {
@@ -322,7 +327,6 @@ public class FenetreDM extends JFrame implements DataDM {
 	private class ItemNat implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			nat = (String) national.getSelectedItem();
-			System.out.println("ActionListener : action nat sur " + nat);
 		}
 	}
 
@@ -339,7 +343,6 @@ public class FenetreDM extends JFrame implements DataDM {
 	private class ItemPoint implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pt = (String) pointPerso.getSelectedItem();
-			System.out.println("ActionListener : action sur " + pt);
 		}
 	}
 
@@ -373,7 +376,6 @@ public class FenetreDM extends JFrame implements DataDM {
 	private class ItemRace implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			rac = (String) race.getSelectedItem();
-			System.out.println("ActionListener : action sur " + rac);
 		}
 	}
 
@@ -381,13 +383,6 @@ public class FenetreDM extends JFrame implements DataDM {
 		public void actionPerformed(ActionEvent e) {
 
 			ReadPointCrea((String) pointPerso.getSelectedItem());
-			System.out.println("nombre point : " + pointCrea);
-			// etatTravers();
-			// etatAvantages();
-			// etatDesavantages();
-
-			// pointRestant = pointCrea - etatAvantages() + etatTravers() +
-			// etatDesavantages();
 			verifAll();
 			savePerso();
 			screen1();
@@ -423,8 +418,7 @@ public class FenetreDM extends JFrame implements DataDM {
 		caractPerso.add(pointCrea); // 17
 		caractPerso.add(pointRestant); // 18
 		caractPerso.add(vit); // 19
-		System.out.println("save : " + caractPerso.toString());
-
+		
 	}
 
 	private void initPerso() {
@@ -449,14 +443,13 @@ public class FenetreDM extends JFrame implements DataDM {
 		caractPerso.add(0); // 17
 		caractPerso.add(0); // 18
 		caractPerso.add(0); // 19
-		System.out.println("init : " + caractPerso.toString());
+		
 	}
 
 	private int etatAvantages() {
 		int ptAvantages = 0;
 		for (int jav = 0; jav < choixAvantages.length; jav++) {
 			if (chkA[jav].isSelected() == true) {
-				System.out.println("avantage : " + chkA[jav].getText());
 				ptAvantages = ptAvantages + Integer.parseInt(chkA[jav].getText().substring(0, 2));
 				initchkA.remove(jav);
 				initchkA.add(jav, true);
@@ -465,7 +458,6 @@ public class FenetreDM extends JFrame implements DataDM {
 				initchkA.remove(jav);
 				initchkA.add(jav, false);
 			}
-			System.out.println("Avantage : " + ptAvantages);
 		}
 		return ptAvantages;
 	}
@@ -483,7 +475,6 @@ public class FenetreDM extends JFrame implements DataDM {
 				initchkD.remove(jde);
 				initchkD.add(jde, false);
 			}
-			System.out.println("desavantage : " + ptDesavantages);
 		}
 		return ptDesavantages;
 	}
@@ -502,7 +493,6 @@ public class FenetreDM extends JFrame implements DataDM {
 	private int verifCar(int carV) {
 		// calcul des point de creation restant pour la force et la sant�
 		int carOut = 0;
-		System.out.println("carout2 : " + carOut + " et : " + carV);
 		if (carV == 10)
 			carOut = 0;
 		else if (carV <= 9) {
@@ -510,14 +500,12 @@ public class FenetreDM extends JFrame implements DataDM {
 		} else if (carV >= 11) {
 			carOut = -((carV - 10) * 10);
 		}
-		System.out.println("carout2 : " + carOut);
 		return carOut;
 	}
 
 	private int verifCar2(int carV) {
 		// calcul des point de creation restant pour le qi et la dexterit�
 		int carOut = 0;
-		System.out.println("carout2 : " + carOut + " et : " + carV);
 		if (carV == 10)
 			carOut = 0;
 		else if (carV <= 9) {
@@ -525,7 +513,6 @@ public class FenetreDM extends JFrame implements DataDM {
 		} else if (carV >= 11) {
 			carOut = -((carV - 10) * 20);
 		}
-		System.out.println("carout2 : " + carOut);
 		return carOut;
 	}
 
@@ -544,6 +531,7 @@ public class FenetreDM extends JFrame implements DataDM {
 			// les List : caractPerso, avantagesPerso, desavantagesPerso,
 			// traversPerso
 			savePerso();
+			logger.debug("Caractéritique perso : " + caractPerso.toString());
 			FenetreDM2 suivant = new FenetreDM2(caractPerso, initchkA, initchkD);
 
 			dispose();

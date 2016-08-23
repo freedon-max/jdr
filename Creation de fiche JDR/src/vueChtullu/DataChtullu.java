@@ -43,5 +43,19 @@ public interface DataChtullu {
 		
 	String[] Psy = {"Aucun", "Arachnophobe", "Agoraphobe", "Claustrophobe", "Pyrophobie","Scotophobie", "Clinophobe", "Acrophobe", "Ailurophobe"};  //page 52
 	
+	final int[] competenceInit = { 0, 0, 5, 0, 0, 5, 25, 0, 0, 10, 20, 0, 15, 10, 15, 5, 25, 10, 0, 0, 40, 20, 10, 25,
+			0, 0, 5, 20, 5, 5, 0, 25, 10, 5, 15, 0, 10, 0, 0, 30, 0, 5, 25, 10, 0, 10, 25, 20, 25, 30, 15, 15, 25, 50,
+			10, 25, 0, 0, 0, 0, 0, 0, 0 };
+	
+	String[] diplome = { "Aucun", "Certificat d'étude", "Brevet", "Bac", "Ingenieur", "Master", "maitre de conf" };
+	
+	String[] nationnalite = { "Français", "Allemand", "Anglais", "Irlandais", "italien", "Espagnole", "Hollandais",
+			"Belge", "Portugais", "Suisse", "Autrichien", "Polonais", "Russe", "Suédois", "Finlandais", "Norvégiens",
+			"Hongrois", "Roumain", "Techquoslovaque", "Egyptien", "Ethiopien", "Congolain", "Sud affricain",
+			"Sénégalain", "Arabe", "Syrien", "Turque", "Iraquien", "Iranien", "Afgan", "Grecque", "Indonésien",
+			"Chinois", "Coréen", "Japonais", "Indou", "Mongolien", "Tibetien", "Americain", "Canadien", "Mexicain",
+			"Colombien", "Argentien", "Brezilien", "Vénézuelien", "Australien", "Neozélandais", "Haïtien", "Iselandais",
+			"Cubain", "Arménien", "Bolivien", "Bulgare", "Chilien", "Danois", "Georgien", "Luxembourgeois", "Panamien",
+			"Péruvien", "Ukrainien", "Yemenien", "Tripolitien", "Palatien", "Koubanais", "Rhonan" };
 	
 }
