@@ -39,14 +39,16 @@ public class FenetreChtullu extends JFrame implements DataChtullu {
 
 	private int age;
 	private int mytheC = 99;
-	private String nom, sexe, nat, dipl, bd;
+	private String nom, sexe, nat, dipl;
+	private String bd = "aucun";
 	private String prof = "Aucun";
+	private int bd2 = 0;
 
 	private JPanel container = new JPanel();
 
 	private Font font = new Font("Times New Roman", Font.BOLD, 12);
 
-	final JTextField nomPerso = new JTextField(nom);
+	
 	final JTextField agePerso = new JTextField(age);
 	final JTextField nationalite = new JTextField(nat);
 	final JTextField diplome = new JTextField(dipl);
@@ -314,6 +316,7 @@ public class FenetreChtullu extends JFrame implements DataChtullu {
 			pm = Integer.parseInt(pouvoir.getText());
 			sm = san;
 			savePerso();
+			logger.debug("perso : " + caractPerso.toString());
 			readPerso();
 			screen1();
 			repaint();
@@ -330,11 +333,11 @@ public class FenetreChtullu extends JFrame implements DataChtullu {
 		String pv2 = Integer.toString(pv);
 		String pm2 = Integer.toString(pm);
 		String sm2 = Integer.toString(sm);
-		int bd2 = Integer.parseInt(force.getText()) + Integer.parseInt(taille.getText());
+		bd2 = Integer.parseInt(force.getText()) + Integer.parseInt(taille.getText());
 		bd = bonusDegats(bd2);
 
 		caractPerso.clear();
-		caractPerso.add(nomPerso.getText()); // 0
+		caractPerso.add(nom); // 0
 		caractPerso.add(sexe); // 1
 		caractPerso.add(agePerso.getText()); // 2
 		caractPerso.add(nationalite.getText()); // 3
@@ -392,6 +395,7 @@ public class FenetreChtullu extends JFrame implements DataChtullu {
 		} else if (bonusD >= 169 && bonusD <= 184) {
 			BonusOut = "+10D4";
 		}
+		else BonusOut = "aucun";
 		return BonusOut;
 	}
 
