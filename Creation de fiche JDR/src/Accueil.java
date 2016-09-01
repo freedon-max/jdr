@@ -107,7 +107,7 @@ public class Accueil extends JFrame {
 
 	class ecranDM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			FenetreDM fenDm = new FenetreDM();
+			LanceurDM fenDm = new LanceurDM();
 
 		}
 	}

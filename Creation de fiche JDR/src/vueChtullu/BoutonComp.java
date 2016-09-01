@@ -28,7 +28,20 @@ public class BoutonComp extends JPanel {
 		this.name = str;
 		this.arg = st;
 		this.init = init;
-		comp = init;
+		this.comp = init;
+
+		if (st == true)
+			screen();
+		else
+			screen2();
+
+	}
+	
+	public BoutonComp(String str, boolean st, int init, int arg) {
+		this.name = str;
+		this.arg = st;
+		this.init = init;
+		this.comp = arg;
 
 		if (st == true)
 			screen();

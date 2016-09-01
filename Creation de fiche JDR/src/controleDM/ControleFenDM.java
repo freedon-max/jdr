@@ -1,87 +1,88 @@
 package controleDM;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modelDM.PersoDM;
 import vueDM.DataDM;
 import vueDM.FenDM;
-import vueDM.FenDM2;
 import vueDM.FenetreDM;
-import vueDM.FenetreDM2;
 
-public class ControleFenDM implements DataDM{
-	
+public class ControleFenDM implements DataDM {
+
 	private static final Logger logger = LogManager.getLogger(FenetreDM.class.getName());
 	static FenDM fenetre = null;
 	PersoDM persoDisque = null;
-	
+
 	public ControleFenDM(PersoDM obj) {
 		this.persoDisque = obj;
 		logger.debug("controle ok");
 		this.fenetre = new FenDM(this, persoDisque);
 	}
 
-	
-	public void ItemNat() {		
-			persoDisque.setNationalite((String) fenetre.national.getSelectedItem());
-				}
-	public void ItemPoint()  {
-			persoDisque.setPt((String) fenetre.pointPerso.getSelectedItem());
+	public void ItemNat() {
+		persoDisque.setNationalite((String) fenetre.national.getSelectedItem());
+	}
+
+	public void ItemPoint() {
+		persoDisque.setPt((String) fenetre.pointPerso.getSelectedItem());
 
 	}
+
 	public void ItemRace() {
-			persoDisque.setRace((String) fenetre.race.getSelectedItem());
+		persoDisque.setRace((String) fenetre.race.getSelectedItem());
 	}
+
 	public void ItemMetier() {
 		persoDisque.setProffession((String) fenetre.proffs.getSelectedItem());
-				
+
 	}
-	public void ItemSexe() {		
+
+	public void ItemSexe() {
 		persoDisque.setSexe((String) fenetre.sexe.getSelectedItem());
-			}
+	}
+
 	public void ItemApp() {
-		
-			persoDisque.setApparence((String) fenetre.apparence.getSelectedItem());
-		
+
+		persoDisque.setApparence((String) fenetre.apparence.getSelectedItem());
+
 	}
 
 	public void reload() {
-			persoDisque.ReadPointCrea(persoDisque.getPt());
-			persoDisque.setInitchkA(fenetre.getInitchkA());
-			persoDisque.setInitchkD(fenetre.getInitchkD());
-			persoDisque.setInitchkC(fenetre.getInitchkC());
-			persoDisque.setInitchkL(fenetre.getInitchkL());
-			persoDisque.setInitchkM(fenetre.getInitchkM());
-			persoDisque.setNom(fenetre.nomPerso.getText());
-			persoDisque.setAge(Integer.parseInt(fenetre.agePerso.getText()));
-			persoDisque.setTaille(Float.parseFloat(fenetre.taille.getText()));
-			persoDisque.setPoids(Integer.parseInt(fenetre.poids.getText()));
-			persoDisque.setForce(Integer.parseInt(fenetre.force.getText()));			
-			persoDisque.setDex(Integer.parseInt(fenetre.dexterite.getText()));			
-			persoDisque.setInte(Integer.parseInt(fenetre.intelligence.getText()));	
-			persoDisque.setSante(Integer.parseInt(fenetre.sante.getText()));
-			persoDisque.setDescription(fenetre.description.getText());
-			persoDisque.setTravers(fenetre.travers.getText());
-			persoDisque.setProffession((String)fenetre.proffs.getSelectedItem());
-			persoDisque.setNationalite((String)fenetre.national.getSelectedItem());
-			persoDisque.setPt((String)fenetre.pointPerso.getSelectedItem());
-			persoDisque.setRace((String)fenetre.race.getSelectedItem());
-			persoDisque.setApparence((String)fenetre.apparence.getSelectedItem());
-			persoDisque.calcul();
-			verifAll();
-			logger.debug("Pt : " + persoDisque.getPt());
-			fenetre.screen1();
+		persoDisque.ReadPointCrea(persoDisque.getPt());
+		persoDisque.setInitchkA(fenetre.getInitchkA());
+		persoDisque.setInitchkD(fenetre.getInitchkD());
+		persoDisque.setInitchkC(fenetre.getInitchkC());
+		persoDisque.setInitchkL(fenetre.getInitchkL());
+		persoDisque.setInitchkM(fenetre.getInitchkM());
+		persoDisque.setNom(fenetre.nomPerso.getText());
+		persoDisque.setAge(Integer.parseInt(fenetre.agePerso.getText()));
+		persoDisque.setTaille(Float.parseFloat(fenetre.taille.getText()));
+		persoDisque.setPoids(Integer.parseInt(fenetre.poids.getText()));
+		persoDisque.setForce(Integer.parseInt(fenetre.force.getText()));
+		persoDisque.setDex(Integer.parseInt(fenetre.dexterite.getText()));
+		persoDisque.setInte(Integer.parseInt(fenetre.intelligence.getText()));
+		persoDisque.setSante(Integer.parseInt(fenetre.sante.getText()));
+		persoDisque.setDescription(fenetre.description.getText());
+		persoDisque.setTravers(fenetre.travers.getText());
+		persoDisque.setProffession((String) fenetre.proffs.getSelectedItem());
+		persoDisque.setNationalite((String) fenetre.national.getSelectedItem());
+		persoDisque.setPt((String) fenetre.pointPerso.getSelectedItem());
+		persoDisque.setRace((String) fenetre.race.getSelectedItem());
+		persoDisque.setApparence((String) fenetre.apparence.getSelectedItem());
+		persoDisque.calcul();
+		verifAll();
+		logger.debug("Pt : " + persoDisque.getPt());
+		fenetre.screen1();
 	}
+
 	public void next() {
-		
-			logger.debug("Caractéritique perso next ");
-						
+		verifAll();
+		EditionDM ed = new EditionDM(persoDisque);
+		logger.debug("Caractéritique perso next ");
+
 	}
-	
+
 	private int verifCar(int carV) {
 		// calcul des point de creation restant pour la force et la sant�
 		int carOut = 0;
@@ -112,20 +113,13 @@ public class ControleFenDM implements DataDM{
 
 	public void verifAll() {
 		// calcul des point de creation restant
-		persoDisque.setPointRestant(
-				persoDisque.getPointCrea() - fenetre.etatAvantages() 
-				+ fenetre.etatDesavantages() + verifCar(persoDisque.getForce())
-				+ verifCar2(persoDisque.getDex()) + verifCar2(persoDisque.getInte())
-				+ verifCar(persoDisque.getSante())
-				- fenetre.etatCompetences() - fenetre.etatLangues() 
-				- fenetre.etatMagie() + fenetre.etatApp());
-				
-				
+		persoDisque.setPointRestant(persoDisque.getPointCrea() - fenetre.etatAvantages() + fenetre.etatDesavantages()
+				+ verifCar(persoDisque.getForce()) + verifCar2(persoDisque.getDex()) + verifCar2(persoDisque.getInte())
+				+ verifCar(persoDisque.getSante()) - fenetre.etatCompetences() - fenetre.etatLangues()
+				- fenetre.etatMagie() - fenetre.etatApp());
+
 		logger.debug(" PointRestant : " + persoDisque.getPointRestant());
-		
+
 	}
-	
-	
-	
-	
+
 }

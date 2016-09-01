@@ -18,11 +18,16 @@ public class GestionMetierCht implements DataChtullu{
 
 	public ArrayList<Boolean> GestionMCht(String metier) {
 		this.metier = metier;
+		System.out.println("metier2 : " + metier);
 		for (int l = 0; l < competence.length; l++) {
 			competenceBool.add(false);
 		}
+		
+		if(metier.equals("Aucun")){}
+			
+		
 
-		if (metier.equals("Antiquaire")) {
+		else if (metier.equals("Antiquaire")) {
 			// metier est antiquaire : Art, Droit, Bibliotheque, Histoire,
 			// Langue Etrang�re, Marchandage, Trouver Objet Cach�, + 1
 			// comp�tence au choix
@@ -621,7 +626,7 @@ public class GestionMetierCht implements DataChtullu{
 		int compOut = 0, comp = 0;
 
 		nom = (String) jop.showInputDialog(null, "Veuillez Choisir votre " + arg + " competence personnelle!",
-				"Comp�tence personnel, metier : " + metier, JOptionPane.QUESTION_MESSAGE, null, competence,
+				"Compétence personnel du metier : " + metier, JOptionPane.QUESTION_MESSAGE, null, competence,
 				competence[0]);
 
 		for (int f = 0; f < competence.length; f++) {
@@ -636,10 +641,10 @@ public class GestionMetierCht implements DataChtullu{
 	private String choixLangueEtr() {
 		JOptionPane etr = new JOptionPane(), etr2 = new JOptionPane();
 
-		String langueEtr = etr.showInputDialog(null, "Veuillez choisir votre langue �trang�re : ", "Attention",
+		String langueEtr = etr.showInputDialog(null, "Veuillez choisir votre langue étrangère : ", "Attention",
 				JOptionPane.QUESTION_MESSAGE);
 
-		etr2.showMessageDialog(null, "Votre langue etr est " + nom, "Identit�", JOptionPane.INFORMATION_MESSAGE);
+		etr2.showMessageDialog(null, "Votre langue etr est " + nom, "Identité", JOptionPane.INFORMATION_MESSAGE);
 
 		return langueEtr;
 

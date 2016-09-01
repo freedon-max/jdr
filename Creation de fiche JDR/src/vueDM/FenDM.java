@@ -27,42 +27,40 @@ import org.apache.logging.log4j.Logger;
 
 import controleDM.ControleFenDM;
 import modelDM.PersoDM;
-import observer.Observer;
+
 import vueChtullu.JLabelP;
 
+public class FenDM extends JFrame implements DataDM {
 
-public class FenDM extends JFrame implements DataDM{
-	
 	private static final Logger logger = LogManager.getLogger(FenDM.class.getName());
-	
+
 	PersoDM persoDisque = null;
 	ControleFenDM controle = null;
-	
+
 	private JPanel container = new JPanel();
 	private Font font = new Font("Times New Roman", Font.BOLD, 15);
-	private Font font2 = new Font("Times New Roman", Font.BOLD, 14);
-	private String[] sex = {"Homme", "Femme"};
-	
+
+	private String[] sex = { "Homme", "Femme" };
+
 	public JComboBox proffs = new JComboBox(choixMetier);
 	public JComboBox national = new JComboBox(choixNat);
 	public JComboBox pointPerso = new JComboBox(choixPoint);
 	public JComboBox race = new JComboBox(choixRace);
 	public JComboBox sexe = new JComboBox(sex);
 	public JComboBox apparence = new JComboBox(choixApparence);
-	
+
 	JCheckBox[] chkA = new JCheckBox[choixAvantages.length];
 	JCheckBox[] chkD = new JCheckBox[choixDesavantages.length];
 	JCheckBox[] chkC = new JCheckBox[choixCompetences.length];
 	JCheckBox[] chkL = new JCheckBox[choixCompetences.length];
 	JCheckBox[] chkM = new JCheckBox[choixMagie.length];
-	
+
 	private static ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
-	private static ArrayList<Boolean> initchkD = new ArrayList<Boolean>();	
+	private static ArrayList<Boolean> initchkD = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
-	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();	
+	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkM = new ArrayList<Boolean>();
-	
-	
+
 	public final JTextField nomPerso = new JTextField();
 	public final JTextField agePerso = new JTextField();
 	public final JTextField taille = new JTextField();
@@ -73,7 +71,7 @@ public class FenDM extends JFrame implements DataDM{
 	public final JTextField sante = new JTextField();
 	public final JTextField description = new JTextField();
 	public final JTextField travers = new JTextField();
-	
+
 	public FenDM(ControleFenDM ctrl, PersoDM pdm) {
 		this.persoDisque = pdm;
 		this.controle = ctrl;
@@ -82,7 +80,7 @@ public class FenDM extends JFrame implements DataDM{
 		this.setBackground(Color.white);
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
 		initVar();
@@ -90,16 +88,15 @@ public class FenDM extends JFrame implements DataDM{
 		this.setResizable(false);
 		this.setVisible(true);
 	}
-	
+
 	public void screen1() {
-		
+
 		logger.debug("Fenetre ok");
-		
+
 		JLabelP labelApp = new JLabelP("Votre apparence : ", font);
 		JLabelP comp = new JLabelP("Compétences : ", font);
 		JLabelP langue = new JLabelP("Langues : ", font);
 		JLabelP magie = new JLabelP("Magie : ", font);
-		
 
 		JLabel containerLabel = new JLabel();
 		JPanel containerLeft = new JPanel();
@@ -114,23 +111,19 @@ public class FenDM extends JFrame implements DataDM{
 		JPanel containerAttention = new JPanel();
 		JPanel containerLabel4 = new JPanel();
 		JPanel containerCompetence = new JPanel();
-		JPanel containerCompetence2 = new JPanel();
 		JPanel containerLangue = new JPanel();
 		JPanel containerCompetence4 = new JPanel();
 		JPanel containerMagie = new JPanel();
-		JPanel containerMagie2 = new JPanel();
 		JPanel containerDescrition = new JPanel();
-		JPanel containerDescrition2 = new JPanel();
-		JPanel containerDescrition3 = new JPanel();
-		
+
 
 		JButton random = new JButton("Caract. Auto");
 		JButton tousAuto = new JButton("Perso Auto");
 		JButton appercu = new JButton("Actualiser");
 		JButton suivant = new JButton("Suivant");
-		
+
 		System.out.println("Perso : " + persoDisque.getNom());
-		
+
 		nomPerso.setText(persoDisque.getNom());
 		agePerso.setText("" + persoDisque.getAge());
 		taille.setText("" + persoDisque.getTaille());
@@ -141,10 +134,10 @@ public class FenDM extends JFrame implements DataDM{
 		sante.setText("" + persoDisque.getSante());
 		description.setText(persoDisque.getDescription());
 		travers.setText(persoDisque.getTravers());
-		
+
 		JLabelP avantages = new JLabelP("Avantages (retire des Points)", font);
 		JLabelP desavantages = new JLabelP("Desavantage (ajoute des Points)", font);
-		//JLabelP travers = new JLabelP("Travers (ajoute des Pts)", font);
+		// JLabelP travers = new JLabelP("Travers (ajoute des Pts)", font);
 		JLabelP labelPoint = new JLabelP("Point de création restant : ", font);
 		JLabelP labelPointR = new JLabelP("" + persoDisque.getPointRestant(), font);
 		JLabelP PdV = new JLabelP("" + persoDisque.getPdv(), font);
@@ -157,23 +150,21 @@ public class FenDM extends JFrame implements DataDM{
 		JScrollPane scroll2 = new JScrollPane(containerDesavantages);
 		scroll.getVerticalScrollBar().setUnitIncrement(20);
 		scroll2.getVerticalScrollBar().setUnitIncrement(20);
-		
-		JScrollPane scroll4 = new JScrollPane(containerCompetence);
-		scroll.getVerticalScrollBar().setUnitIncrement(30);
-		JScrollPane scroll5 = new JScrollPane(containerLangue);
-		scroll2.getVerticalScrollBar().setUnitIncrement(15);
 		JScrollPane scroll3 = new JScrollPane(containerMagie);
 		scroll3.getVerticalScrollBar().setUnitIncrement(15);
+		JScrollPane scroll4 = new JScrollPane(containerCompetence);
+		scroll4.getVerticalScrollBar().setUnitIncrement(30);	
+		JScrollPane scroll5 = new JScrollPane(containerLangue);
+		scroll5.getVerticalScrollBar().setUnitIncrement(15);
 		
 
-		
 		container.removeAll();
 
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		// affichage de l'id du perso
 
 		Icon img = new ImageIcon(
-				new ImageIcon("img/edit/bandeauDM.jpg").getImage().getScaledInstance(680, 70, Image.SCALE_DEFAULT));
+				new ImageIcon("img/edit/bandeauDM.jpg").getImage().getScaledInstance(880, 90, Image.SCALE_DEFAULT));
 
 		containerLabel.setIcon(img);
 		containerLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -189,28 +180,28 @@ public class FenDM extends JFrame implements DataDM{
 		containerPerso.add(new JLabelP(" Sexe : ", font));
 		national.setPreferredSize(new Dimension(100, 20));
 		national.setBackground(Color.white);
-		
+
 		containerPerso.add(sexe);
+		sexe.setBackground(Color.white);
 		sexe.setSelectedIndex(persoDisque.getSexe2());
 		sexe.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			controle.ItemSexe();
-		}
+			public void actionPerformed(ActionEvent arg0) {
+				controle.ItemSexe();
+			}
 		});
-		
-		
+
 		containerPerso.add(new JLabelP(" Age : ", font));
 		containerPerso.add(agePerso);
 		containerPerso.add(new JLabelP(" Nationnalité : ", font));
 		national.setPreferredSize(new Dimension(100, 20));
 		national.setBackground(Color.white);
-		
+
 		containerPerso.add(national);
 		national.setSelectedIndex(persoDisque.getNat());
 		national.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			controle.ItemNat();
-		}
+			public void actionPerformed(ActionEvent arg0) {
+				controle.ItemNat();
+			}
 		});
 		containerPerso.add(new JLabelP(" Proffession : ", font));
 
@@ -262,13 +253,12 @@ public class FenDM extends JFrame implements DataDM{
 		containerCarac1.add(new JLabelP(" PdF : ", font));
 		containerCarac1.add(Pdf);
 		container.add(containerCarac1);
-		
-		
+
 		containerDescrition.setLayout(new BoxLayout(containerDescrition, BoxLayout.PAGE_AXIS));
 		containerDescrition.setBackground(Color.white);
 		containerDescrition.add(new JLabelP("Veuillez décrire votre personnage : ", font));
 		containerDescrition.add(new JScrollPane(description));
-		
+
 		container.add(containerDescrition);
 
 		containerTravers.setLayout(new BoxLayout(containerTravers, BoxLayout.PAGE_AXIS));
@@ -277,12 +267,10 @@ public class FenDM extends JFrame implements DataDM{
 				new JLabelP("Veuillez indiquer les travers de votre avatar (séparés par une virgule, svp) : ", font));
 		containerTravers.add(new JScrollPane(travers));
 		container.add(containerTravers);
-		
-		
 
 		containerPoints.setLayout(new FlowLayout());
 		containerPoints.setBackground(Color.white);
-		//pointPerso.setPreferredSize(new Dimension(400, 20));
+		// pointPerso.setPreferredSize(new Dimension(400, 20));
 		pointPerso.setBackground(Color.white);
 		containerPoints.add(pointPerso);
 		pointPerso.setSelectedIndex(persoDisque.getPoint());
@@ -296,12 +284,11 @@ public class FenDM extends JFrame implements DataDM{
 		containerPoints.add(labelPoint);
 		containerPoints.add(labelPointR);
 		container.add(containerPoints);
-		
+
 		containerLabel4.setLayout(new BoxLayout(containerLabel4, BoxLayout.LINE_AXIS));
 		containerLabel4.setBackground(Color.white);
 		containerLabel4.add(labelApp);
-		
-		
+
 		apparence.setBackground(Color.white);
 		apparence.setPreferredSize(new Dimension(500, 20));
 		containerLabel4.add(apparence);
@@ -310,14 +297,14 @@ public class FenDM extends JFrame implements DataDM{
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemApp();
 			}
-			});
+		});
 
 		container.add(containerLabel4);
-		
-		
+
 		container.add(containerAttention);
 		containerComp.setLayout(new BoxLayout(containerComp, BoxLayout.LINE_AXIS));
 		containerComp.setBackground(Color.white);
+		containerComp.setPreferredSize(new Dimension(this.getWidth(), 200));
 
 		containerAvantages.setLayout(new BoxLayout(containerAvantages, BoxLayout.PAGE_AXIS));
 		containerAvantages.setBackground(Color.white);
@@ -339,7 +326,7 @@ public class FenDM extends JFrame implements DataDM{
 		}
 		scroll2.setBackground(Color.white);
 		containerComp.add(scroll2);
-		
+
 		containerLangue.setLayout(new BoxLayout(containerLangue, BoxLayout.PAGE_AXIS));
 		containerLangue.setBackground(Color.white);
 		containerLangue.add(langue);
@@ -352,7 +339,7 @@ public class FenDM extends JFrame implements DataDM{
 
 		container.add(containerComp);
 		containerCompetence4.setLayout(new BoxLayout(containerCompetence4, BoxLayout.LINE_AXIS));
-
+		containerCompetence4.setPreferredSize(new Dimension(this.getWidth(), 200));
 		containerCompetence.setLayout(new BoxLayout(containerCompetence, BoxLayout.PAGE_AXIS));
 		containerCompetence.setBackground(Color.white);
 		containerCompetence.add(comp);
@@ -362,7 +349,7 @@ public class FenDM extends JFrame implements DataDM{
 		}
 		scroll4.setBackground(Color.white);
 		containerCompetence4.add(scroll4);
-		
+
 		containerMagie.setLayout(new BoxLayout(containerMagie, BoxLayout.PAGE_AXIS));
 		containerMagie.setBackground(Color.white);
 		containerMagie.add(magie);
@@ -370,28 +357,28 @@ public class FenDM extends JFrame implements DataDM{
 			chkM[r] = new JCheckBox(choixMagie[r], initchkM.get(r));
 			containerMagie.add(chkM[r]);
 		}
-		scroll3.setBackground(Color.white);				
+		scroll3.setBackground(Color.white);
 		containerCompetence4.add(scroll3);
-				
-		container.add(containerCompetence4);		
-		
+
+		container.add(containerCompetence4);
+
 		containerAction.setLayout(new GridLayout(1, 2));
 		containerAction.setBackground(Color.white);
-		containerAction.add(random);
-		containerAction.add(tousAuto);
+		//containerAction.add(random);
+		//containerAction.add(tousAuto);
 		containerAction.add(appercu);
 		containerAction.add(suivant);
 		// tousAuto.addActionListener(new persoAuto());
 		appercu.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			controle.reload();
-		}
+			public void actionPerformed(ActionEvent arg0) {
+				controle.reload();
+			}
 		});
 		suivant.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			controle.next();
-		}
-		});	
+			public void actionPerformed(ActionEvent arg0) {
+				controle.next();
+			}
+		});
 		// random.addActionListener(new auto());
 
 		container.add(containerAction);
@@ -399,7 +386,7 @@ public class FenDM extends JFrame implements DataDM{
 		repaint();
 		revalidate();
 	}
-	
+
 	public int etatAvantages() {
 		int ptAvantages = 0;
 		for (int jav = 0; jav < choixAvantages.length; jav++) {
@@ -434,7 +421,7 @@ public class FenDM extends JFrame implements DataDM{
 		persoDisque.setInitchkD(initchkD);
 		return ptDesavantages;
 	}
-	
+
 	public int etatCompetences() {
 		int ptCompetence = 0;
 		for (int jdc = 0; jdc < choixCompetences.length; jdc++) {
@@ -490,7 +477,7 @@ public class FenDM extends JFrame implements DataDM{
 		persoDisque.setInitchkM(initchkM);
 		return ptMagie;
 	}
-	
+
 	public double etatApp() {
 		double appOut = Double.parseDouble(persoDisque.getApparence().substring(0, 3));
 		return appOut;
@@ -520,23 +507,25 @@ public class FenDM extends JFrame implements DataDM{
 		}
 
 	}
+
 	public static ArrayList<Boolean> getInitchkA() {
 		return initchkA;
 	}
+
 	public static ArrayList<Boolean> getInitchkD() {
 		return initchkD;
 	}
+
 	public static ArrayList<Boolean> getInitchkC() {
 		return initchkC;
 	}
+
 	public static ArrayList<Boolean> getInitchkL() {
 		return initchkL;
 	}
+
 	public static ArrayList<Boolean> getInitchkM() {
 		return initchkM;
 	}
-	
-	
-
 
 }
