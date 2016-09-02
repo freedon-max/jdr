@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import controleDM.EditDM.Perso;
 import modelDM.PersoDM;
 import vueDM.DataDM;
 

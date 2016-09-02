@@ -6,11 +6,10 @@ import org.apache.logging.log4j.Logger;
 import modelDM.PersoDM;
 import vueDM.DataDM;
 import vueDM.FenDM;
-import vueDM.FenetreDM;
 
 public class ControleFenDM implements DataDM {
 
-	private static final Logger logger = LogManager.getLogger(FenetreDM.class.getName());
+	private static final Logger logger = LogManager.getLogger(ControleFenDM.class.getName());
 	static FenDM fenetre = null;
 	PersoDM persoDisque = null;
 

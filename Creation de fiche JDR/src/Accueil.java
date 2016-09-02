@@ -1,17 +1,9 @@
-import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,9 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import vueChtullu.BontonAccueil;
-import vueChtullu.Chtullu;
-import vueChtullu.FenetreChtullu;
-import vueDM.FenetreDM;
 
 public class Accueil extends JFrame {
 
@@ -100,7 +89,7 @@ public class Accueil extends JFrame {
 
 	class ecranChtullu implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			FenetreChtullu fen = new FenetreChtullu();
+			LanceurCht  fenCht = new LanceurCht();
 
 		}
 	}

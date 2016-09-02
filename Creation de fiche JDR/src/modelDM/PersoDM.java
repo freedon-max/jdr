@@ -1,19 +1,14 @@
 package modelDM;
 
-import java.sql.Connection;
 import java.util.ArrayList;
-
-import javax.swing.JCheckBox;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controleDM.ControleFenDM;
-import observer.Observable;
-import observer.Observer;
 import vueDM.DataDM;
 import vueDM.FenDM;
-import vueDM.FenetreDM;
+
 
 public class PersoDM implements DataDM {
 

@@ -22,39 +22,29 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import controleChtullu.ControleFenCht;
-import controleChtullu.GestionMetierCht;
 import modelChtullu.PersoChtullu;
 
+public class FenCht extends JFrame implements DataChtullu {
 
-public class FenCht extends JFrame implements DataChtullu{
-	
 	PersoChtullu persoCht = null;
 	ControleFenCht controle = null;
-	
-	
-	private static final Logger logger = LogManager.getLogger(FenCht.class.getName());
+
 	private JPanel container = new JPanel();
 	private String[] sex = { "Homme", "Femme" };
-	
+
 	private ArrayList<Boolean> competenceBool = new ArrayList<Boolean>();
 	private ArrayList<Boolean> competenceBool2 = new ArrayList<Boolean>();
-	
 
 	private Font font = new Font("Times New Roman", Font.BOLD, 12);
 	private Font font2 = new Font("Times New Roman", Font.BOLD, 14);
-	
-	public JComboBox metier = new JComboBox(choixMetier);
-	public JComboBox sexe = new JComboBox(sex);
-	public JComboBox langueEtr = new JComboBox(langue), armeCaC = new JComboBox(armeCC),
+
+	public JComboBox metier = new JComboBox(choixMetier), sexe = new JComboBox(sex), langueEtr = new JComboBox(langue), armeCaC = new JComboBox(armeCC),
 			armeAFeu = new JComboBox(armeFeu), desordrePsy = new JComboBox(Psy);
-	
+
 	public BoutonComp[] competenceBT = new BoutonComp[competence.length];
 	public BoutonComp[] competenceBT2 = new BoutonComp[competence.length];
-	
+
 	public final JTextField nom = new JTextField();
 	public final JTextField age = new JTextField();
 	public final JTextField nationalite = new JTextField();
@@ -76,14 +66,13 @@ public class FenCht extends JFrame implements DataChtullu{
 	public final JTextField santeMentale = new JTextField();
 	public final JTextField pointMagie = new JTextField();
 	public final JTextField pointVie = new JTextField();
-	
+
 	public final JTextField residence = new JTextField();
 	public final JTextField famille = new JTextField();
 	public final JTextField revenu = new JTextField();
-	public final  JTextArea description = new JTextArea(10, 15);
-	
+	public final JTextArea description = new JTextArea(10, 15);
 
-	public FenCht(ControleFenCht controle, PersoChtullu persoCht){
+	public FenCht(ControleFenCht controle, PersoChtullu persoCht) {
 		this.persoCht = persoCht;
 		this.controle = controle;
 		this.setTitle("Création de personnage Chtullu : ");
@@ -92,7 +81,7 @@ public class FenCht extends JFrame implements DataChtullu{
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		competenceBool = persoCht.getCompetenceBool();
 		competenceBool2 = persoCht.getCompetenceBool2();
 		screen1();
@@ -102,16 +91,12 @@ public class FenCht extends JFrame implements DataChtullu{
 		this.setResizable(false);
 		this.setVisible(true);
 	}
-	
+
 	public void screen1() {
 		// affichage des caracteristqiue du perso, edition automatique ou
 		// manuelle
-		
-		
+
 		JLabel containerLabel = new JLabel();
-		JPanel containerLabelCM = new JPanel();
-		JPanel containerLabelCP = new JPanel();
-		JPanel containerLabelC = new JPanel();
 		JPanel containerLeft = new JPanel();
 		JPanel containerPerso = new JPanel();
 		JPanel containerPoint = new JPanel();
@@ -123,17 +108,18 @@ public class FenCht extends JFrame implements DataChtullu{
 		JPanel containerToutCompetence12 = new JPanel();
 		JPanel containerToutCompetence2 = new JPanel();
 		JPanel containerToutCompetence22 = new JPanel();
-		JPanel containerDescrition = new JPanel(),	containerDescrition2 = new JPanel(), containerDescrition3 = new JPanel(), containerChoix = new JPanel();
-		
+		JPanel containerDescrition = new JPanel(), containerDescrition2 = new JPanel(),
+				containerDescrition3 = new JPanel(), containerChoix = new JPanel();
+
 		JScrollPane scroll = new JScrollPane(containerToutCompetence12);
 		scroll.getVerticalScrollBar().setUnitIncrement(20);
 		JScrollPane scroll2 = new JScrollPane(containerToutCompetence22);
 		scroll2.getVerticalScrollBar().setUnitIncrement(30);
-		
+
 		JButton random = new JButton("Caract. Auto");
 		JButton appercu = new JButton("Actualiser");
 		JButton suivant = new JButton("Editer");
-		
+
 		nom.setText(persoCht.getNom());
 		nationalite.setText(persoCht.getNationnalite());
 		diplome.setText(persoCht.getDiplome());
@@ -157,14 +143,13 @@ public class FenCht extends JFrame implements DataChtullu{
 		bonusDegat.setText(persoCht.getBonusDegat());
 		description.setText(persoCht.getDescription());
 
-		
 		container.removeAll();
 
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		// affichage de l'id du perso
 
-		Icon img = new ImageIcon(
-				new ImageIcon("img/edit/bandeaugauche.jpg").getImage().getScaledInstance(780, 120, Image.SCALE_DEFAULT));
+		Icon img = new ImageIcon(new ImageIcon("img/edit/bandeaugauche.jpg").getImage().getScaledInstance(780, 120,
+				Image.SCALE_DEFAULT));
 
 		containerLabel.setIcon(img);
 		containerLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -199,12 +184,10 @@ public class FenCht extends JFrame implements DataChtullu{
 		metier.setSelectedIndex(persoCht.getMetier());
 		metier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.ItemMetier();	
+				controle.ItemMetier();
 			}
 		});
-		
-		
-		
+
 		containerPerso.add(new JLabelP(" Diplôme : ", font));
 		containerPerso.add(diplome);
 
@@ -256,8 +239,7 @@ public class FenCht extends JFrame implements DataChtullu{
 		containerPoint.add(pointVie);
 
 		container.add(containerPoint);
-		
-				
+
 		containerDescrition.setLayout(new BoxLayout(containerDescrition, BoxLayout.LINE_AXIS));
 		containerDescrition2.setBackground(Color.white);
 		containerDescrition3.setBackground(Color.white);
@@ -296,60 +278,62 @@ public class FenCht extends JFrame implements DataChtullu{
 		container.add(containerChoix);
 		langueEtr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.ItemLangueEtr();	
+				controle.ItemLangueEtr();
 			}
 		});
 		armeCaC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.ItemArmeCaC();	
+				controle.ItemArmeCaC();
 			}
 		});
 		armeAFeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.ItemArmeAFeu();	
+				controle.ItemArmeAFeu();
 			}
 		});
 		desordrePsy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.ItemPsy();	
+				controle.ItemPsy();
 			}
 		});
-		
-				
-		containerToutCompetence.setLayout(new BoxLayout(containerToutCompetence, BoxLayout.LINE_AXIS));				
+
+		containerToutCompetence.setLayout(new BoxLayout(containerToutCompetence, BoxLayout.LINE_AXIS));
 		containerToutCompetence1.setLayout(new BoxLayout(containerToutCompetence1, BoxLayout.PAGE_AXIS));
 		containerToutCompetence1.setBackground(Color.white);
-		containerToutCompetence1.add(new JLabelP("Vous avez " + persoCht.getPointCompMetier() + " points de compétence métier", font2));
-				containerToutCompetence12.setBackground(Color.white);
+		containerToutCompetence1
+				.add(new JLabelP("Vous avez " + persoCht.getPointCompMetier() + " points de compétence métier", font2));
+		containerToutCompetence12.setBackground(Color.white);
 		scroll.setBackground(Color.white);
 
 		containerToutCompetence12.setLayout(new GridLayout(65, 1));
 
 		for (int i = 0; i < competence.length; i++) {
-			competenceBT[i] = new BoutonComp(competence[i], competenceBool.get(i), persoCht.getCompetenceInit(i), persoCht.getCompMetierPerso(i));
+			competenceBT[i] = new BoutonComp(competence[i], competenceBool.get(i), persoCht.getCompetenceInit(i),
+					persoCht.getCompMetierPerso(i));
 			competenceBT[i].setBackground(Color.white);
 			containerToutCompetence12.add(competenceBT[i]);
 		}
-		
+
 		containerToutCompetence1.add(scroll);
 		containerToutCompetence.add(containerToutCompetence1);
-		
+
 		containerToutCompetence2.setLayout(new BoxLayout(containerToutCompetence2, BoxLayout.PAGE_AXIS));
 		containerToutCompetence2.setBackground(Color.white);
-		containerToutCompetence2.add(new JLabelP("Vous avez " + persoCht.getPointCompPerso() + " points de compétence perso.", font2));
+		containerToutCompetence2
+				.add(new JLabelP("Vous avez " + persoCht.getPointCompPerso() + " points de compétence perso.", font2));
 		scroll2.setBackground(Color.white);
-		
+
 		containerToutCompetence22.setBackground(Color.white);
 		containerToutCompetence22.setLayout(new GridLayout(65, 1));
 		for (int i = 0; i < competence.length; i++) {
-			competenceBT2[i] = new BoutonComp(competence[i], competenceBool2.get(i), persoCht.getCompetenceInit(i), persoCht.getCompPPerso(i)); 
+			competenceBT2[i] = new BoutonComp(competence[i], competenceBool2.get(i), persoCht.getCompetenceInit(i),
+					persoCht.getCompPPerso(i));
 			competenceBT2[i].setBackground(Color.white);
 			containerToutCompetence22.add(competenceBT2[i]);
 		}
 		containerToutCompetence2.add(scroll2);
 		containerToutCompetence.add(containerToutCompetence2);
-		
-		
+
 		container.add(containerToutCompetence);
 		containerAction.setLayout(new GridLayout(1, 2));
 		containerAction.setBackground(Color.white);
@@ -358,17 +342,17 @@ public class FenCht extends JFrame implements DataChtullu{
 		containerAction.add(suivant);
 		appercu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.reload();	
+				controle.reload();
 			}
 		});
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			//*controle.ItemMetier();	
+				controle.Edit();
 			}
 		});
 		random.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			controle.auto();	
+				controle.auto();
 			}
 		});
 
@@ -378,10 +362,11 @@ public class FenCht extends JFrame implements DataChtullu{
 		revalidate();
 
 	}
-	
+
 	public ArrayList<Boolean> getCompetenceBool() {
 		return competenceBool;
 	}
+
 	public ArrayList<Boolean> getCompetenceBool2() {
 		return competenceBool2;
 	}
@@ -389,13 +374,16 @@ public class FenCht extends JFrame implements DataChtullu{
 	public void setCompetenceBool(ArrayList<Boolean> competenceBool) {
 		this.competenceBool = competenceBool;
 	}
+
 	public void setCompetenceBool2(ArrayList<Boolean> competenceBool) {
 		this.competenceBool2 = competenceBool2;
 	}
-	public int getCompetenceBT(int arg ) {
+
+	public int getCompetenceBT(int arg) {
 		return competenceBT[arg].getComp();
 	}
-	public int getCompetenceBTI(int arg ) {
+
+	public int getCompetenceBTI(int arg) {
 		return competenceBT[arg].getInit();
 	}
 
