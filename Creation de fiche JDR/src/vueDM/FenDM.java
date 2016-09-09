@@ -52,7 +52,7 @@ public class FenDM extends JFrame implements DataDM {
 	JCheckBox[] chkA = new JCheckBox[choixAvantages.length];
 	JCheckBox[] chkD = new JCheckBox[choixDesavantages.length];
 	JCheckBox[] chkC = new JCheckBox[choixCompetences.length];
-	JCheckBox[] chkL = new JCheckBox[choixCompetences.length];
+	JCheckBox[] chkL = new JCheckBox[choixLangues.length];
 	JCheckBox[] chkM = new JCheckBox[choixMagie.length];
 
 	private static ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
