@@ -1,16 +1,17 @@
 package modelJRTM;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modelDM.PersoDM;
 
-public class PersoJRTM implements DataJRTM{
-	
+public class PersoJRTM implements DataJRTM {
+
 	private static final Logger logger = LogManager.getLogger(PersoJRTM.class.getName());
-	
+
 	private String nom = "";
 	private String sexe = "Homme";
 	private String race = "";
@@ -21,27 +22,38 @@ public class PersoJRTM implements DataJRTM{
 	private String profession = "";
 	private String royaume = "";
 	private int niveau = 1;
-	
-	private int age, taille, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution, intelligence, intuition, presence, apparence = 0;
-	private int bnforce, bnagilite, bnconstitution, bnintelligence, bnintuition, bnpresence, bnapparence, rforce, ragilite, rconstitution, rintelligence, rintuition, rpresence,
-	tforce, tagilite, tconstitution, tintelligence, tintuition, tpresence, tapparence;
-	private int[] bonusRace = {5,0,0,0,0,0};	
-	
+	private String prof2;
+
+	private int age, taille, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution,
+			intelligence, intuition, presence, apparence = 0;
+	private int bnforce, bnagilite, bnconstitution, bnintelligence, bnintuition, bnpresence, bnapparence, rforce,
+			ragilite, rconstitution, rintelligence, rintuition, rpresence, tforce, tagilite, tconstitution,
+			tintelligence, tintuition, tpresence, tapparence;
+	private int[] bonusRace = { 5, 0, 0, 0, 0, 0 };
+
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
-	
-	
-
-
+	private static ArrayList degres5 = new ArrayList();
+	private static ArrayList degres2 = new ArrayList();
 
 
 	public PersoJRTM() {
-		
+
 		logger.debug("Perso ok ");
 		
-		
+		for(int i = 0; i < choixCompetence.length; i++){
+			degres5.add(0);
+			degres2.add(0);					
+		}
+		for(int i = 0; i < choixLangues.length; i++){
+			initchkL.add(false);						
+		}
 	}
 	
+	
 	public void calcul() {
+	
+		CalculBonusRace calcul = new CalculBonusRace(race, this);	
+				
 		bnforce = calculBonus(force);
 		bnagilite = calculBonus(agilite);
 		bnconstitution = calculBonus(constitution);
@@ -49,58 +61,81 @@ public class PersoJRTM implements DataJRTM{
 		bnintuition = calculBonus(intuition);
 		bnpresence = calculBonus(presence);
 		bnapparence = calculBonus(apparence);
-		calculBonusRace(race);
 		
-		tforce = force + bnforce + rforce;
-		tagilite = agilite + bnagilite + ragilite;
-		tconstitution = constitution + bnconstitution + rconstitution;
-		tintelligence = intelligence + bnintelligence + rintelligence;
-		tintuition = intuition + bnintuition + rintuition;
-		tpresence = presence + bnpresence + rpresence;
-		tapparence = apparence + bnapparence;
+		rforce = calcul.getRforce();
+		ragilite = calcul.getRagilite();
+		rconstitution = calcul.getRconstitution();
+		rintelligence = calcul.getRintelligence();
+		rintuition = calcul.getRintuition();
+		rpresence = calcul.getRpresence();	
 		
+		tforce = bnforce + rforce;
+		tagilite = bnagilite + ragilite;
+		tconstitution = bnconstitution + rconstitution;
+		tintelligence = bnintelligence + rintelligence;
+		tintuition = bnintuition + rintuition;
+		tpresence = bnpresence + rpresence;
+		tapparence = bnapparence;		
+		
+		initchkL = calcul.getInitchkL();
+				
+		degres5 = met();		
 		
 	}
 	
+	
+	private int calculBonus(int arg) {
+		int out = 0;
+		if (arg == 1)
+			out = -25;
+		else if (arg == 2)
+			out = -20;
+		else if (arg > 2 & arg < 5)
+			out = -15;
+		else if (arg >= 5 & arg <= 9)
+			out = -10;
+		else if (arg >= 10 & arg <= 24)
+			out = -5;
+		else if (arg >= 25 & arg <= 74)
+			out = 0;
+		else if (arg >= 75 & arg <= 89)
+			out = 5;
+		else if (arg >= 90 & arg <= 94)
+			out = 10;
+		else if (arg >= 95 & arg <= 97)
+			out = 15;
+		else if (arg >= 98 || arg <= 99)
+			out = 20;
+		else if (arg == 100)
+			out = 25;
+		else if (arg == 101)
+			out = 30;
+		else if (arg >= 102)
+			out = 35;
+
+		return out;
+
+	}
+	public void clearList() {
+		degres5.clear();
+		degres2.clear();
+		
+		for(int i = 0; i < choixCompetence.length; i++){
+			degres5.add(0);
+			degres2.add(0);					
+		}
+		
+	}
+	
+	private ArrayList  met() {
+		CalculMetier cal = new CalculMetier(profession, this);
+		prof2 = profession;
+		return cal.getD();
+		
+	}
+
 	
 
-	private int calculBonus(int arg){
-		int out = 0;
-		if(arg == 1) out = -25;
-		else if(arg == 2) out = -20;
-		else if(arg > 2 & arg < 5) out = -15;
-		else if(arg >= 5 & arg <= 9) out = -10;
-		else if(arg >= 10 & arg <= 24) out = -5;
-		else if(arg >= 25 & arg <= 74) out = 0;
-		else if(arg >= 75 & arg <= 89) out = 5;
-		else if(arg >= 90 & arg <= 94) out = 10;
-		else if(arg >= 95 & arg <= 97) out = 15;
-		else if(arg >= 98 || arg <= 99) out = 20;
-		else if(arg == 100) out = 25;
-		else if(arg == 101) out = 30;
-		else if(arg >= 102) out = 35;
-		
-		return out;
-		
-	}
-	
-	private void calculBonusRace(String arg) {
-	
-		if(arg.equals("Humain")) {
-			rforce = 5;
-			ragilite = rconstitution = rintelligence = rintuition = rpresence = 0;
-		}
-		else if(arg.equals("Nain")) {
-			rforce = 5;
-			ragilite = -5;
-			rconstitution = 15;
-			rintelligence = 0;
-			rintuition = -5;
-			rpresence = -5;
-			}
-		
-	}
-	
 	public String getNom() {
 		return nom;
 	}
@@ -280,7 +315,7 @@ public class PersoJRTM implements DataJRTM{
 	public int getApparence() {
 		return apparence;
 	}
-	
+
 	public int getBnforce() {
 		return bnforce;
 	}
@@ -308,6 +343,7 @@ public class PersoJRTM implements DataJRTM{
 	public int getBnapparence() {
 		return bnapparence;
 	}
+
 	public int getRforce() {
 		return rforce;
 	}
@@ -331,6 +367,7 @@ public class PersoJRTM implements DataJRTM{
 	public int getRpresence() {
 		return rpresence;
 	}
+
 	public int getTforce() {
 		return tforce;
 	}
@@ -362,14 +399,49 @@ public class PersoJRTM implements DataJRTM{
 	public void setApparence(int apparence) {
 		this.apparence = apparence;
 	}
-	
+
 	public static ArrayList<Boolean> getInitchkL() {
 		return initchkL;
 	}
+	public static  Boolean get2InitchkL(int arg) {
+		return initchkL.get(arg);
+	}
+	
 	public static void setInitchkL(ArrayList<Boolean> initchkL) {
 		PersoJRTM.initchkL = initchkL;
 	}
 	
+	public static ArrayList getDegres5() {
+		return degres5;
+	}
+	public static int get2Degres5(int arg) {
+		return (int) degres5.get(arg);
+	}
+
+	public static void setDegres5(ArrayList degres5) {
+		PersoJRTM.degres5 = degres5;
+	}
+	public static void addDegres5(int arg, int arg2) {
+		degres5.remove(arg);
+		degres5.add(arg, arg2);
+	}
+	
+
+	public static ArrayList getDegres2() {
+		return degres2;
+	}
+	public static int get2Degres2(int arg) {
+		return (int) degres2.get(arg);
+	}
+
+	public static void setDegres2(ArrayList degres2) {
+		PersoJRTM.degres2 = degres2;
+	}
+	public static void addDegres2(int arg, int arg2) {
+		degres2.remove(arg);
+		degres2.add(arg, arg2);
+	}
+
 	public int getSexe2() {
 		int out;
 		if (getSexe() == "Homme")
@@ -378,7 +450,7 @@ public class PersoJRTM implements DataJRTM{
 			out = 1;
 		return out;
 	}
-	
+
 	public int getRoy() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -388,7 +460,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
-	
+
 	public int getProffs() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -398,7 +470,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
-	
+
 	public int getRac() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -408,7 +480,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
-	
+
 	public int getChev() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -418,6 +490,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
+
 	public int getOeil() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -427,6 +500,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
+
 	public int getAttit() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -436,6 +510,7 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
+
 	public int getSig() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
@@ -445,7 +520,5 @@ public class PersoJRTM implements DataJRTM{
 		}
 		return out;
 	}
-
-	
 
 }

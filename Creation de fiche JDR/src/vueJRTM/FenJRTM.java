@@ -51,10 +51,10 @@ public class FenJRTM extends JFrame implements DataJRTM{
 	public JComboBox attitude = new JComboBox(choixAttitude);
 	public JComboBox signe = new JComboBox(choixSigne);
 	
+	public CompJRTM[] comp = new CompJRTM[choixCompetence.length];
+	
 	JCheckBox[] chkL = new JCheckBox[choixLangues.length];
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
-	
-	
 	
 
 	public final JTextField nomPerso = new JTextField();
@@ -78,7 +78,7 @@ public class FenJRTM extends JFrame implements DataJRTM{
 		this.controle = controle;
 		
 		this.setTitle("Création de personnage Jeux de rôle de la Terre du Milieu : ");
-		this.setSize(800, 500);
+		this.setSize(800, 700);
 		this.setBackground(Color.white);
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
@@ -127,7 +127,9 @@ public class FenJRTM extends JFrame implements DataJRTM{
 		containerApparence.setBackground(Color.WHITE);
 		JPanel containerAction = new JPanel();
 		JPanel containerCar = new JPanel();	
-		JPanel containerLangue = new JPanel();
+		JPanel containerLangue = new JPanel();		
+		JPanel containerComp = new JPanel();
+		JPanel containerComp1 = new JPanel();
 		
 		
 		JButton random = new JButton("Caract. Auto");
@@ -138,6 +140,9 @@ public class FenJRTM extends JFrame implements DataJRTM{
 		JScrollPane scroll = new JScrollPane(containerLangue);
 		scroll.setPreferredSize(new Dimension(100, 20));
 		scroll.getVerticalScrollBar().setUnitIncrement(15);
+		JScrollPane scroll2 = new JScrollPane(containerComp);
+		scroll2.setPreferredSize(new Dimension(100, 150));
+		scroll2.getVerticalScrollBar().setUnitIncrement(15);
 		
 		
 		nomPerso.setText(persoTM.getNom());
@@ -251,7 +256,7 @@ public class FenJRTM extends JFrame implements DataJRTM{
 			}
 		});
 		
-		containerPerso.add(new JLabelP(" Yeux : ", font));
+		containerPerso.add(new JLabelP(" Attitude : ", font));
 		attitude.setBackground(Color.white);
 		attitude.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(attitude);
@@ -262,7 +267,7 @@ public class FenJRTM extends JFrame implements DataJRTM{
 			}
 		});
 		
-		containerPerso.add(new JLabelP(" Yeux : ", font));
+		containerPerso.add(new JLabelP(" Signe : ", font));
 		signe.setBackground(Color.white);
 		signe.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(signe);
@@ -334,7 +339,7 @@ public class FenJRTM extends JFrame implements DataJRTM{
 		containerLangue.setBackground(Color.white);
 		containerLangue.add(langue);
 		for (int h = 0; h < choixLangues.length; h++) {
-			chkL[h] = new JCheckBox(choixLangues[h], initchkL.get(h));
+			chkL[h] = new JCheckBox(choixLangues[h], persoTM.get2InitchkL(h));
 			containerLangue.add(chkL[h]);
 		}
 		scroll.setBackground(Color.white);
@@ -345,7 +350,16 @@ public class FenJRTM extends JFrame implements DataJRTM{
 		
 		container.add(containerCar);
 		
+		containerComp.setLayout(new BoxLayout(containerComp, BoxLayout.PAGE_AXIS));
 		
+		
+		
+		for(int y = 0; y < choixCompetence.length; y++) {
+			comp[y] = new CompJRTM(controle, choixCompetence[y], intiComp[y], init5D[y], persoTM.get2Degres5(y), persoTM.get2Degres2(y), y);
+			containerComp.add(comp[y]);
+		}
+		
+		container.add(scroll2);
 		containerAction.setLayout(new GridLayout(1, 2));
 		containerAction.setBackground(Color.white);
 		//containerAction.add(random);

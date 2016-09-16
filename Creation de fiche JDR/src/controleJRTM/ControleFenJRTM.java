@@ -3,10 +3,11 @@ package controleJRTM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import modelJRTM.DataJRTM;
 import modelJRTM.PersoJRTM;
 import vueJRTM.FenJRTM;
 
-public class ControleFenJRTM {
+public class ControleFenJRTM implements DataJRTM{
 	static FenJRTM fenetre = null;
 	PersoJRTM persoTM = null;
 	
@@ -21,7 +22,7 @@ public class ControleFenJRTM {
 	
 	public void actualiser(){
 		
-		
+		persoTM.clearList();
 		persoTM.setInitchkL(fenetre.getInitchkL());	
 		persoTM.setNom(fenetre.nomPerso.getText());
 		persoTM.setAge(Integer.parseInt(fenetre.agePerso.getText()));
@@ -67,6 +68,17 @@ public class ControleFenJRTM {
 	public void ItemAttitude() {
 		persoTM.setAttitude((String) fenetre.attitude.getSelectedItem());
 	}
+	public void ItemDegres5(int arg) {
+		persoTM.addDegres5(arg, fenetre.comp[arg].getSelectOut());
+	
+		
+	}
+	public void ItemDegres2(int arg) {
+		persoTM.addDegres2(arg, fenetre.comp[arg].getSelect2Out());
+	}
+	
+	
+	
 	
 
 }
