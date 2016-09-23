@@ -28,9 +28,9 @@ public class CompJRTM extends JPanel implements DataJRTM {
 	private JPanel container = new JPanel();
 	private Font font = new Font("Times New Roman", Font.BOLD, 15);
 
-	static String[] niveaux = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
+	static String[] niveaux = {"0 niveau", "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
 			"8 niveau", "9 niveau", "10 niveau" };
-	String[] niveau2 = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau" };
+	String[] niveau2 = { "0 niveau", "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau" };
 
 	JComboBox nv = new JComboBox();
 
@@ -45,31 +45,31 @@ public class CompJRTM extends JPanel implements DataJRTM {
 		this.select2 = arg5;
 
 		if (arg3 == 2) {
-			String niv[] = { "1 niveau", "2 niveau" };
-			this.nv = new JComboBox(niv);
-			longueur = 2;
-		} else if (arg3 == 3) {
-			String niv[] = { "1 niveau", "2 niveau", "3 niveau" };
+			String niv[] = { "0 niveau", "1 niveau", "2 niveau" };
 			this.nv = new JComboBox(niv);
 			longueur = 3;
+		} else if (arg3 == 3) {
+			String niv[] = {"0 niveau",  "1 niveau", "2 niveau", "3 niveau" };
+			this.nv = new JComboBox(niv);
+			longueur = 4;
 		} else if (arg3 == 5) {
-			String niv[] = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau" };
+			String niv[] = {"0 niveau",  "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau" };
 			this.nv = new JComboBox(niv);
-			longueur = 5;
+			longueur = 6;
 		} else if (arg3 == 7) {
-			String niv[] = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau" };
+			String niv[] = { "0 niveau", "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau" };
 			this.nv = new JComboBox(niv);
-			longueur = 7;
+			longueur = 8;
 		} else if (arg3 == 9) {
-			String niv[] = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
+			String niv[] = { "0 niveau", "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
 					"8 niveau", "9 niveau" };
 			this.nv = new JComboBox(niv);
-			longueur = 9;
+			longueur = 10;
 		} else if (arg3 == 10) {
-			String niv[] = { "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
+			String niv[] = { "0 niveau", "1 niveau", "2 niveau", "3 niveau", "4 niveau", "5 niveau", "6 niveau", "7 niveau",
 					"8 niveau", "9 niveau", "10 niveau" };
 			this.nv = new JComboBox(niv);
-			longueur = 10;
+			longueur = 11;
 		}
 		if (arg2 == false)
 			screen();

@@ -11,28 +11,26 @@ public class Test extends JFrame{
 
 	public static void main(String[] args) {
 		
-		Test test = new Test();
+		int srt = calculPP(108);
+		System.out.println(" out : " + srt);
 		
 
 	}
 	
-	public Test() {
-		
-		CompJRTM bt = new CompJRTM("Contondantes 1 main", true, 10, 7, 5);
-		System.out.println("test ok");
-		this.setTitle("test : ");
-		this.setSize(400, 200);
-		this.setBackground(Color.white);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().add(container);
-		container.setBackground(Color.white);
-		
-		container.add(bt);
+	public static int calculPP(int arg) {
 		
 		
-		this.setResizable(false);
-		this.setVisible(true);
+			int out = 0;
+			
+			if(arg < 75 ) {out = 0;}
+			else if (arg >=75 && arg < 95) {out = 1;}
+			else if (arg >=95 && arg < 100) {out = 2;}
+			else if (arg ==100 || arg == 101) {out = 3;}
+			
+			else out = 4;
+			
+			return out;
+		
 		
 	}
 

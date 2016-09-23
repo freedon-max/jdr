@@ -3,6 +3,8 @@ package modelJRTM;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,18 +24,29 @@ public class PersoJRTM implements DataJRTM {
 	private String profession = "";
 	private String royaume = "";
 	private int niveau = 1;
-	private String prof2;
 
-	private int age, taille, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution,
+
+	private int age, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution,
 			intelligence, intuition, presence, apparence = 0;
+	
+	private double taille;
 	private int bnforce, bnagilite, bnconstitution, bnintelligence, bnintuition, bnpresence, bnapparence, rforce,
 			ragilite, rconstitution, rintelligence, rintuition, rpresence, tforce, tagilite, tconstitution,
 			tintelligence, tintuition, tpresence, tapparence;
-	private int[] bonusRace = { 5, 0, 0, 0, 0, 0 };
+	private int resistanceEss, resistanceThe, resistancePoi, resistanceMal;
+	private int pointHit, histT;
+	
+	private String raceTemp = race;
 
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
+	
+
 	private static ArrayList degres5 = new ArrayList();
 	private static ArrayList degres2 = new ArrayList();
+	private static ArrayList bonusComp = new ArrayList();
+	Object[] temph;
+
+
 
 
 	public PersoJRTM() {
@@ -42,11 +55,14 @@ public class PersoJRTM implements DataJRTM {
 		
 		for(int i = 0; i < choixCompetence.length; i++){
 			degres5.add(0);
-			degres2.add(0);					
+			degres2.add(0);		
+			bonusComp.add(0);
 		}
 		for(int i = 0; i < choixLangues.length; i++){
 			initchkL.add(false);						
 		}
+		temph = degres5.toArray();
+		
 	}
 	
 	
@@ -78,11 +94,44 @@ public class PersoJRTM implements DataJRTM {
 		tapparence = bnapparence;		
 		
 		initchkL = calcul.getInitchkL();
-				
-		degres5 = met();		
+		degres5 =  calcul.getDegres5();
+		met();		
+		calculDevCorp((int)degres5.get(22));
+		
 		
 	}
 	
+	public void random(){
+		
+		force = (int) (Math.random() * 80) + 20;
+		agilite = (int) (Math.random() * 80) + 20;
+		constitution = (int) (Math.random() * 80) + 20;
+		intelligence = (int) (Math.random() * 80) + 20;
+		intuition = (int) (Math.random() * 80) + 20;
+		presence = (int) (Math.random() * 80) + 20;
+		apparence = (int) (Math.random() * 80) + 20;
+		profession = choixProfession[(int) (Math.random() * choixProfession.length)];
+		race = choixRace[(int) (Math.random() * choixRace.length)];
+		cheveux = choixCheveux[(int) (Math.random() * choixCheveux.length)];
+		yeux = choixYeux[(int) (Math.random() * choixYeux.length)];
+		attitude = choixAttitude[(int) (Math.random() * choixAttitude.length)];
+		signeParticulier = choixSigne[(int) (Math.random() * choixSigne.length)];
+		sexe = sex[(int) (Math.random() * sex.length)];
+		
+		if( profession == "Guerrier (FO)" || profession == "Scout (AG)") {
+			royaume = choixRoyaume[(int) (Math.random() * choixRoyaume.length)];
+		}
+		
+	}
+	
+	private void calculDevCorp(int arg) {
+		int devCorp = (int) (Math.random() * ((arg*10)-arg)) + arg;
+		bonusComp.remove(22);
+		bonusComp.add(22, devCorp);
+	}
+	private void met() {
+		CalculMetier cal = new CalculMetier(profession, this);	
+	}
 	
 	private int calculBonus(int arg) {
 		int out = 0;
@@ -119,22 +168,129 @@ public class PersoJRTM implements DataJRTM {
 	public void clearList() {
 		degres5.clear();
 		degres2.clear();
-		
+		initchkL.clear();
 		for(int i = 0; i < choixCompetence.length; i++){
 			degres5.add(0);
 			degres2.add(0);					
 		}
+		for(int i = 0; i < choixLangues.length; i++){
+			initchkL.add(false);						
+		}
 		
 	}
 	
-	private ArrayList  met() {
-		CalculMetier cal = new CalculMetier(profession, this);
-		prof2 = profession;
-		return cal.getD();
+	public void calHistorique(){
+		//CalculHistorique cal = new CalculHistorique(this);
+	}
+	
+	public void calHist(){
 		
+		int tempoH = 0;
+			if(race != raceTemp) {
+		
+		}
+		
+		else {
+			for(int i = 0; i < choixCompetence.length; i++){
+				if((int)temph[i] < (int) degres5.get(i)){
+					tempoH = ((int) degres5.get(i) - (int)temph[i]) + tempoH;
+					System.out.print(tempoH + ", ");
+				}
+				if((int)temph[i] >= (int) degres5.get(i)){
+					System.out.print(tempoH + ", ");
+				}
+			}
+			pointHit = pointHit - tempoH;
+			
+		}
+		
+	}
+	
+	
+	
+	public Object[] getTemph() {
+		return temph;
+	}
+
+
+	public void setTemph(Object[] temph) {
+		this.temph = temph;
+	}
+	public int getHistT() {
+		return histT;
+	}
+
+
+	public void setHistT(int histT) {
+		this.histT = histT;
 	}
 
 	
+	public String getRaceTemp() {
+		return raceTemp;
+	}
+
+
+	public void setRaceTemp(String arg) {
+		this.raceTemp = arg;
+	}
+	public int getPointHit() {
+		return pointHit;
+	}
+
+	public void setPointHit(int pointHit) {
+		this.pointHit = pointHit;
+	}
+	public int getResistanceEss() {
+		return resistanceEss;
+	}
+
+
+	public void setResistanceEss(int resistanceEss) {
+		this.resistanceEss = resistanceEss;
+	}
+
+
+	public int getResistanceThe() {
+		return resistanceThe;
+	}
+
+
+	public void setResistanceThe(int resistanceThe) {
+		this.resistanceThe = resistanceThe;
+	}
+
+
+	public int getResistancePoi() {
+		return resistancePoi;
+	}
+
+
+	public void setResistancePoi(int resistancePoi) {
+		this.resistancePoi = resistancePoi;
+	}
+
+
+	public int getResistanceMal() {
+		return resistanceMal;
+	}
+
+
+	public void setResistanceMal(int resistanceMal) {
+		this.resistanceMal = resistanceMal;
+	}
+	
+
+	public static ArrayList getBonusComp() {
+		return bonusComp;
+	}
+	public static int get2BonusComp(int arg) {
+		return (int) bonusComp.get(arg);
+	}
+
+	public static void setBonusComp(ArrayList bonusComp) {
+		PersoJRTM.bonusComp = bonusComp;
+	}
 
 	public String getNom() {
 		return nom;
@@ -224,11 +380,11 @@ public class PersoJRTM implements DataJRTM {
 		this.age = age;
 	}
 
-	public int getTaille() {
+	public double getTaille() {
 		return taille;
 	}
 
-	public void setTaille(int taille) {
+	public void setTaille(double taille) {
 		this.taille = taille;
 	}
 
@@ -407,8 +563,12 @@ public class PersoJRTM implements DataJRTM {
 		return initchkL.get(arg);
 	}
 	
+	
 	public static void setInitchkL(ArrayList<Boolean> initchkL) {
 		PersoJRTM.initchkL = initchkL;
+	}
+	public static void clearInitchkL() {
+		initchkL.clear();
 	}
 	
 	public static ArrayList getDegres5() {

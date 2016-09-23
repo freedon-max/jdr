@@ -1,5 +1,7 @@
 package controleJRTM;
 
+import javax.swing.JOptionPane;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,11 +24,10 @@ public class ControleFenJRTM implements DataJRTM{
 	
 	public void actualiser(){
 		
-		persoTM.clearList();
 		persoTM.setInitchkL(fenetre.getInitchkL());	
 		persoTM.setNom(fenetre.nomPerso.getText());
 		persoTM.setAge(Integer.parseInt(fenetre.agePerso.getText()));
-		persoTM.setTaille(Integer.parseInt(fenetre.taille.getText()));
+		persoTM.setTaille(Double.parseDouble(fenetre.taille.getText()));
 		persoTM.setPoids(Integer.parseInt(fenetre.poids.getText()));
 		persoTM.setForce(Integer.parseInt(fenetre.force.getText()));
 		persoTM.setAgilite(Integer.parseInt(fenetre.agilite.getText()));
@@ -39,11 +40,18 @@ public class ControleFenJRTM implements DataJRTM{
 		persoTM.setPointExp(Integer.parseInt(fenetre.pointEX.getText()));
 		fenetre.etatLangues();
 		persoTM.calcul();
+		//persoTM.calHistorique();
 		fenetre.screen1();
 		logger.debug("Chargement ok");
 		
 	}
-	
+	public void random(){
+		persoTM.clearList();
+		persoTM.random();
+		persoTM.calcul();
+		fenetre.screen1();
+		
+	}
 	public void ItemRoy() {
 		persoTM.setRoyaume((String) fenetre.royaume.getSelectedItem());
 	}
@@ -70,14 +78,32 @@ public class ControleFenJRTM implements DataJRTM{
 	}
 	public void ItemDegres5(int arg) {
 		persoTM.addDegres5(arg, fenetre.comp[arg].getSelectOut());
-	
-		
+				
 	}
 	public void ItemDegres2(int arg) {
 		persoTM.addDegres2(arg, fenetre.comp[arg].getSelect2Out());
 	}
 	
-	
+	public void Edit(){
+		JOptionPane jop1, jop2;
+		if(persoTM.getPointHit() < 0){
+			
+			jop1 = new JOptionPane();
+			jop1.showMessageDialog(null,
+					"Vous utilisez " + Math.abs(persoTM.getPointHit()) + " points d'historique en trop.",
+					"Attention", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if(persoTM.getPointHit() > 0){
+			jop2 = new JOptionPane();
+			jop2.showMessageDialog(null,
+					"Il vous reste " + Math.abs(persoTM.getPointHit()) + " points d'historique à distribuer.",
+					"Attention", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else { 
+			System.out.println("Edtition OK !");
+			EditionJRTM edit = new EditionJRTM(persoTM);
+		}
+	}
 	
 	
 
