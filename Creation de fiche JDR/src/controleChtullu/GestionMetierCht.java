@@ -4,28 +4,37 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelChtullu.PersoChtullu;
 import vueChtullu.DataChtullu;
 
-public class GestionMetierCht implements DataChtullu{
+public class GestionMetierCht implements DataChtullu {
 
-	String metier, nom;
+	PersoChtullu persoCht = null;
 	
+	String metier, nom;
+
 	ArrayList<Boolean> competenceBool = new ArrayList<Boolean>();
 	int comp, comp2, comp3, comp4;
 
 	public GestionMetierCht() {
 	};
 
-	public ArrayList<Boolean> GestionMCht(String metier) {
-		this.metier = metier;
-		System.out.println("metier2 : " + metier);
+	public ArrayList<Boolean> GestionMCht(PersoChtullu obj) {
+		this.persoCht = obj;	
+	
+		metier = persoCht.getProffession();
+		
+		comp = persoCht.getComp(); 
+		comp2 = persoCht.getComp2(); 
+		comp3 = persoCht.getComp3();
+		comp4 = persoCht.getComp4();
+		
 		for (int l = 0; l < competence.length; l++) {
 			competenceBool.add(false);
 		}
-		
-		if(metier.equals("Aucun")){}
-			
-		
+
+		if (metier.equals("Aucun")) {
+		}
 
 		else if (metier.equals("Antiquaire")) {
 			// metier est antiquaire : Art, Droit, Bibliotheque, Histoire,
@@ -46,7 +55,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(26, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -66,10 +75,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(41, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -92,7 +101,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(24, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 
@@ -110,10 +119,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(29, true);
 			competenceBool.remove(42);
 			competenceBool.add(42, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -135,7 +144,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(34, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -155,10 +164,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(44, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -180,7 +189,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(44, true);
 			competenceBool.remove(45);
 			competenceBool.add(45, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -191,16 +200,16 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(12, true);
 			competenceBool.remove(29);
 			competenceBool.add(29, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
-			comp3 = compPerso("3eme");
+			comp3 = CompPerso("3eme", comp3);
 			competenceBool.remove(comp3);
 			competenceBool.add(comp3, true);
-			comp4 = compPerso("4eme");
+			comp4 = CompPerso("4eme", comp4);
 			competenceBool.remove(comp4);
 			competenceBool.add(comp4, true);
 		}
@@ -220,10 +229,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(34, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -266,7 +275,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(39, true);
 			competenceBool.remove(45);
 			competenceBool.add(45, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -288,10 +297,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(45, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -311,10 +320,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(27, true);
 			competenceBool.remove(37);
 			competenceBool.add(37, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -336,7 +345,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(41, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -356,10 +365,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(36, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -405,7 +414,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(34, true);
 			competenceBool.remove(39);
 			competenceBool.add(39, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -425,10 +434,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(34, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 			competenceBool.remove(58);
@@ -473,7 +482,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(36, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -517,10 +526,10 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(55, true);
 			competenceBool.remove(39);
 			competenceBool.add(39, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
-			comp2 = compPerso("2eme");
+			comp2 = CompPerso("2eme", comp2);
 			competenceBool.remove(comp2);
 			competenceBool.add(comp2, true);
 		}
@@ -544,7 +553,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(39, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -562,7 +571,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(34, true);
 			competenceBool.remove(41);
 			competenceBool.add(41, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -584,7 +593,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(43, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -606,7 +615,7 @@ public class GestionMetierCht implements DataChtullu{
 			competenceBool.add(43, true);
 			competenceBool.remove(46);
 			competenceBool.add(46, true);
-			comp = compPerso("1er");
+			comp = CompPerso("1er", comp);
 			competenceBool.remove(comp);
 			competenceBool.add(comp, true);
 		}
@@ -616,14 +625,21 @@ public class GestionMetierCht implements DataChtullu{
 				competenceBool.add(true);
 			}
 		}
+		
+		persoCht.setComp(comp); 
+		persoCht.setComp2(comp2); 
+		persoCht.setComp3(comp3);
+		persoCht.setComp4(comp4);
 
 		return competenceBool;
 	}
 
-	private int compPerso(String arg) {
-
+	private int CompPerso(String arg, int arg2) {
+		int compOut = 0;
+		if(arg2 == 100){
+		
 		JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-		int compOut = 0, comp = 0;
+		
 
 		nom = (String) jop.showInputDialog(null, "Veuillez Choisir votre " + arg + " competence personnelle!",
 				"Compétence personnel du metier : " + metier, JOptionPane.QUESTION_MESSAGE, null, competence,
@@ -634,11 +650,15 @@ public class GestionMetierCht implements DataChtullu{
 				compOut = f;
 			}
 		}
+		}
+		else {
+			compOut = arg2;
+			}
 		return compOut;
 
 	}
 
-	private String choixLangueEtr() {
+	private String ChoixLangueEtr() {
 		JOptionPane etr = new JOptionPane(), etr2 = new JOptionPane();
 
 		String langueEtr = etr.showInputDialog(null, "Veuillez choisir votre langue étrangère : ", "Attention",

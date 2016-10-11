@@ -61,9 +61,9 @@ public class EditionDM extends JFrame implements DataDM {
 		initchkC = persoDisque.getInitchkC();
 		initchkM = persoDisque.getInitchkM();
 
-		statut();
-		readTravers();
-		readComp();
+		Statut();
+		ReadTravers();
+		ReadComp();
 		Perso aff = new Perso();
 
 		this.setTitle("Edition Disque Monde");
@@ -91,12 +91,12 @@ public class EditionDM extends JFrame implements DataDM {
 		container.add(bouton, BorderLayout.SOUTH);
 		bouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				convert();
+				Convert();
 			}
 		});
 
 		this.setVisible(true);
-		convert();
+		Convert();
 
 	}
 
@@ -318,7 +318,7 @@ public class EditionDM extends JFrame implements DataDM {
 		}
 	}
 
-	public String selecChemin() {
+	public String SelecChemin() {
 		// permet de choisir la destination et le nom de la fiche pour
 		// l'enregistrement
 		JOptionPane jop2 = new JOptionPane();
@@ -339,12 +339,12 @@ public class EditionDM extends JFrame implements DataDM {
 		return monFichier;
 	}
 
-	public void convert() {
+	public void Convert() {
 
 		BufferedImage image = new BufferedImage(container2.getSize().width, container2.getSize().height,
 				BufferedImage.TYPE_INT_ARGB);
 		container2.paint(image.createGraphics());
-		File imageFile = new File(selecChemin());
+		File imageFile = new File(SelecChemin());
 		try {
 			imageFile.createNewFile();
 			ImageIO.write(image, "png", imageFile);
@@ -354,7 +354,7 @@ public class EditionDM extends JFrame implements DataDM {
 
 	}
 
-	public void statut() {
+	public void Statut() {
 
 		double stat = Double.parseDouble(persoDisque.getApparence().substring(0, 3));
 		if (stat == -16)
@@ -374,7 +374,7 @@ public class EditionDM extends JFrame implements DataDM {
 
 	}
 
-	public void readTravers() {
+	public void ReadTravers() {
 		// decompose le string travers en une arraylist de string (mots s�par�
 		// par les virgule)
 		int z2 = 0;
@@ -393,7 +393,7 @@ public class EditionDM extends JFrame implements DataDM {
 		}
 	}
 
-	public void readComp() {
+	public void ReadComp() {
 		String comptTemp = null;
 		int xt = 0;
 		for (int x = 0; x < choixCompetences.length; x++) {

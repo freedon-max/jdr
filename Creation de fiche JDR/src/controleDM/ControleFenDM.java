@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modelDM.PersoDM;
+import modelDM.WriteBDDDM;
 import vueDM.DataDM;
 import vueDM.FenDM;
 
@@ -15,6 +16,13 @@ public class ControleFenDM implements DataDM {
 
 	public ControleFenDM(PersoDM obj) {
 		this.persoDisque = obj;
+		logger.debug("controle ok");
+		this.fenetre = new FenDM(this, persoDisque);
+	}
+	
+	public ControleFenDM(PersoDM obj, boolean arg) {
+		this.persoDisque = obj;
+		persoDisque.Calcul();
 		logger.debug("controle ok");
 		this.fenetre = new FenDM(this, persoDisque);
 	}
@@ -47,7 +55,7 @@ public class ControleFenDM implements DataDM {
 
 	}
 
-	public void reload() {
+	public void Reload() {
 		persoDisque.ReadPointCrea(persoDisque.getPt());
 		persoDisque.setInitchkA(fenetre.getInitchkA());
 		persoDisque.setInitchkD(fenetre.getInitchkD());
@@ -69,20 +77,20 @@ public class ControleFenDM implements DataDM {
 		persoDisque.setPt((String) fenetre.pointPerso.getSelectedItem());
 		persoDisque.setRace((String) fenetre.race.getSelectedItem());
 		persoDisque.setApparence((String) fenetre.apparence.getSelectedItem());
-		persoDisque.calcul();
-		verifAll();
+		persoDisque.Calcul();
+		VerifAll();
 		logger.debug("Pt : " + persoDisque.getPt());
 		fenetre.screen1();
 	}
 
-	public void next() {
-		verifAll();
+	public void Next() {
+		VerifAll();
 		EditionDM ed = new EditionDM(persoDisque);
 		logger.debug("Caractéritique perso next ");
 
 	}
 
-	private int verifCar(int carV) {
+	private int VerifCar(int carV) {
 		// calcul des point de creation restant pour la force et la sant�
 		int carOut = 0;
 		if (carV == 10)
@@ -96,7 +104,7 @@ public class ControleFenDM implements DataDM {
 		return carOut;
 	}
 
-	private int verifCar2(int carV) {
+	private int VerifCar2(int carV) {
 		// calcul des point de creation restant pour le qi et la dexterit�
 		int carOut = 0;
 		if (carV == 10)
@@ -110,15 +118,20 @@ public class ControleFenDM implements DataDM {
 		return carOut;
 	}
 
-	public void verifAll() {
+	public void VerifAll() {
 		// calcul des point de creation restant
 		persoDisque.setPointRestant(persoDisque.getPointCrea() - fenetre.etatAvantages() + fenetre.etatDesavantages()
-				+ verifCar(persoDisque.getForce()) + verifCar2(persoDisque.getDex()) + verifCar2(persoDisque.getInte())
-				+ verifCar(persoDisque.getSante()) - fenetre.etatCompetences() - fenetre.etatLangues()
+				+ VerifCar(persoDisque.getForce()) + VerifCar2(persoDisque.getDex()) + VerifCar2(persoDisque.getInte())
+				+ VerifCar(persoDisque.getSante()) - fenetre.etatCompetences() - fenetre.etatLangues()
 				- fenetre.etatMagie() - fenetre.etatApp());
 
 		logger.debug(" PointRestant : " + persoDisque.getPointRestant());
 
+	}
+	
+	public void Sauver(){
+		
+		WriteBDDDM write = new WriteBDDDM(persoDisque);
 	}
 
 }

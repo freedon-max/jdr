@@ -83,7 +83,13 @@ public class FenDM extends JFrame implements DataDM {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
-		initVar();
+		
+		initchkL = persoDisque.getInitchkL();
+		initchkA = persoDisque.getInitchkA();
+		initchkD = persoDisque.getInitchkD();
+		initchkC = persoDisque.getInitchkC();
+		initchkM = persoDisque.getInitchkM();
+		
 		screen1();
 		this.setResizable(false);
 		this.setVisible(true);
@@ -121,6 +127,7 @@ public class FenDM extends JFrame implements DataDM {
 		JButton tousAuto = new JButton("Perso Auto");
 		JButton appercu = new JButton("Actualiser");
 		JButton suivant = new JButton("Suivant");
+		JButton sauver = new JButton("Sauver");
 
 		System.out.println("Perso : " + persoDisque.getNom());
 
@@ -183,7 +190,7 @@ public class FenDM extends JFrame implements DataDM {
 
 		containerPerso.add(sexe);
 		sexe.setBackground(Color.white);
-		sexe.setSelectedIndex(persoDisque.getSexe2());
+		sexe.setSelectedIndex(persoDisque.GetSexe2());
 		sexe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemSexe();
@@ -197,7 +204,7 @@ public class FenDM extends JFrame implements DataDM {
 		national.setBackground(Color.white);
 
 		containerPerso.add(national);
-		national.setSelectedIndex(persoDisque.getNat());
+		national.setSelectedIndex(persoDisque.GetNat());
 		national.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemNat();
@@ -208,7 +215,7 @@ public class FenDM extends JFrame implements DataDM {
 		proffs.setBackground(Color.white);
 		proffs.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(proffs);
-		proffs.setSelectedIndex(persoDisque.getMetier());
+		proffs.setSelectedIndex(persoDisque.GetMetier());
 		proffs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemMetier();
@@ -219,7 +226,7 @@ public class FenDM extends JFrame implements DataDM {
 		race.setPreferredSize(new Dimension(100, 20));
 		race.setBackground(Color.white);
 		containerPerso.add(race);
-		race.setSelectedIndex(persoDisque.getRac());
+		race.setSelectedIndex(persoDisque.GetRac());
 		race.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemRace();
@@ -273,7 +280,7 @@ public class FenDM extends JFrame implements DataDM {
 		// pointPerso.setPreferredSize(new Dimension(400, 20));
 		pointPerso.setBackground(Color.white);
 		containerPoints.add(pointPerso);
-		pointPerso.setSelectedIndex(persoDisque.getPoint());
+		pointPerso.setSelectedIndex(persoDisque.GetPoint());
 		pointPerso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemPoint();
@@ -292,7 +299,7 @@ public class FenDM extends JFrame implements DataDM {
 		apparence.setBackground(Color.white);
 		apparence.setPreferredSize(new Dimension(500, 20));
 		containerLabel4.add(apparence);
-		apparence.setSelectedIndex(persoDisque.getApp());
+		apparence.setSelectedIndex(persoDisque.GetApp());
 		apparence.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemApp();
@@ -310,7 +317,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerAvantages.setBackground(Color.white);
 		containerAvantages.add(avantages);
 		for (int g = 0; g < choixAvantages.length; g++) {
-			chkA[g] = new JCheckBox(choixAvantages[g], initchkA.get(g));
+			chkA[g] = new JCheckBox(choixAvantages[g], persoDisque.getInitchkA(g));
 			containerAvantages.add(chkA[g]);
 		}
 
@@ -321,7 +328,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerDesavantages.setBackground(Color.white);
 		containerDesavantages.add(desavantages);
 		for (int h = 0; h < choixDesavantages.length; h++) {
-			chkD[h] = new JCheckBox(choixDesavantages[h], initchkD.get(h));
+			chkD[h] = new JCheckBox(choixDesavantages[h], persoDisque.getInitchkD(h));
 			containerDesavantages.add(chkD[h]);
 		}
 		scroll2.setBackground(Color.white);
@@ -331,7 +338,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerLangue.setBackground(Color.white);
 		containerLangue.add(langue);
 		for (int h = 0; h < choixLangues.length; h++) {
-			chkL[h] = new JCheckBox(choixLangues[h], initchkL.get(h));
+			chkL[h] = new JCheckBox(choixLangues[h], persoDisque.getInitchkL(h));
 			containerLangue.add(chkL[h]);
 		}
 		scroll5.setBackground(Color.white);
@@ -344,7 +351,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerCompetence.setBackground(Color.white);
 		containerCompetence.add(comp);
 		for (int g = 0; g < choixCompetences.length; g++) {
-			chkC[g] = new JCheckBox(choixCompetences[g], initchkC.get(g));
+			chkC[g] = new JCheckBox(choixCompetences[g], persoDisque.getInitchkC(g));
 			containerCompetence.add(chkC[g]);
 		}
 		scroll4.setBackground(Color.white);
@@ -354,7 +361,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerMagie.setBackground(Color.white);
 		containerMagie.add(magie);
 		for (int r = 0; r < choixMagie.length; r++) {
-			chkM[r] = new JCheckBox(choixMagie[r], initchkM.get(r));
+			chkM[r] = new JCheckBox(choixMagie[r], persoDisque.getInitchkM(r));
 			containerMagie.add(chkM[r]);
 		}
 		scroll3.setBackground(Color.white);
@@ -364,22 +371,25 @@ public class FenDM extends JFrame implements DataDM {
 
 		containerAction.setLayout(new GridLayout(1, 2));
 		containerAction.setBackground(Color.white);
-		//containerAction.add(random);
-		//containerAction.add(tousAuto);
 		containerAction.add(appercu);
+		containerAction.add(sauver);
 		containerAction.add(suivant);
-		// tousAuto.addActionListener(new persoAuto());
 		appercu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controle.reload();
+				controle.Reload();
 			}
 		});
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controle.next();
+				controle.Next();
 			}
 		});
-		// random.addActionListener(new auto());
+		sauver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controle.Sauver();
+			}
+		});
+		
 
 		container.add(containerAction);
 
@@ -483,11 +493,11 @@ public class FenDM extends JFrame implements DataDM {
 		return appOut;
 	}
 
-	private static void initVar() {
+	private static void initVar1() {
 		initchkA.clear();
 		initchkD.clear();
 		initchkC.clear();
-		initchkL.clear();
+		//initchkL.clear();
 		initchkM.clear();
 
 		for (int v = 0; v < choixAvantages.length; v++) {

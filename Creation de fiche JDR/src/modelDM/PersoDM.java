@@ -11,7 +11,8 @@ import vueDM.FenDM;
 
 
 public class PersoDM implements DataDM {
-
+	
+	
 	private static final Logger logger = LogManager.getLogger(PersoDM.class.getName());
 
 	ControleFenDM controle = null;
@@ -31,29 +32,36 @@ public class PersoDM implements DataDM {
 
 	private int force, dex, inte, volonte, pdv, pdf, perception, sante;
 	private float vitesse, taille = 0;
-	private ArrayList avantagesPerso = new ArrayList();
-	private ArrayList desavantagesPerso = new ArrayList();
+	//private ArrayList avantagesPerso = new ArrayList();
+	//private ArrayList desavantagesPerso = new ArrayList();
 	private static ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkD = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkM = new ArrayList<Boolean>();
 
-	/*
-	 * private static PersoDM perso = null;
-	 * 
-	 * public static PersoDM getInstance(){ if( perso == null){ perso = new
-	 * PersoDM();
-	 * 
-	 * } return perso; }
-	 */
+	
 	public PersoDM() {
 		logger.debug("Perso ok ");
 		force = dex = inte = sante = 10;
-
+		for (int v = 0; v < choixAvantages.length; v++) {
+			initchkA.add(false);
+		}
+		for (int w = 0; w < choixDesavantages.length; w++) {
+			initchkD.add(false);
+		}
+		for (int t = 0; t < choixCompetences.length; t++) {
+			initchkC.add(false);
+		}
+		for (int v = 0; v < choixLangues.length; v++) {
+			initchkL.add(false);
+		}
+		for (int w = 0; w < choixMagie.length; w++) {
+			initchkM.add(false);
+		}
 	}
 
-	public void calcul() {
+	public void Calcul() {
 		setPdf(getSante());
 		setPdv(getForce());
 		setPerception(getInte());
@@ -77,6 +85,10 @@ public class PersoDM implements DataDM {
 	public void addInitchkA(boolean arg) {
 		initchkA.add(arg);
 	}
+	public void addInitchkA(int arg, boolean arg2) {
+		initchkA.remove(arg);
+		initchkA.add(arg, arg2);
+	}
 
 	public static ArrayList<Boolean> getInitchkD() {
 		return initchkD;
@@ -92,6 +104,11 @@ public class PersoDM implements DataDM {
 
 	public void addInitchkD(boolean arg) {
 		initchkD.add(arg);
+	}
+	
+	public void addInitchkD(int arg, boolean arg2) {
+		initchkD.remove(arg);
+		initchkD.add(arg, arg2);
 	}
 
 	public static Boolean getInitchkC(int arg) {
@@ -109,6 +126,11 @@ public class PersoDM implements DataDM {
 	public void addInitchkC(boolean arg) {
 		initchkC.add(arg);
 	}
+	
+	public void addInitchkC(int arg, boolean arg2) {
+		initchkC.remove(arg);
+		initchkC.add(arg, arg2);
+	}
 
 	public static Boolean getInitchkL(int arg) {
 		return initchkL.get(arg);
@@ -125,6 +147,11 @@ public class PersoDM implements DataDM {
 	public void addInitchkL(boolean arg) {
 		initchkL.add(arg);
 	}
+	public void addInitchkL(int arg, boolean arg2) {
+		initchkL.remove(arg);
+		initchkL.add(arg, arg2);
+	}
+	
 
 	public static Boolean getInitchkM(int arg) {
 		return initchkM.get(arg);
@@ -141,6 +168,11 @@ public class PersoDM implements DataDM {
 	public void addInitchkM(boolean arg) {
 		initchkM.add(arg);
 	}
+	
+	public void addInitchkM(int arg, boolean arg2) {
+		initchkM.remove(arg);
+		initchkM.add(arg, arg2);
+	}
 
 	public String getNom() {
 		return nom;
@@ -154,9 +186,9 @@ public class PersoDM implements DataDM {
 		return sexe;
 	}
 
-	public int getSexe2() {
+	public int GetSexe2() {
 		int out;
-		if (getSexe() == "Homme")
+		if (sexe.equals("Homme"))
 			out = 0;
 		else
 			out = 1;
@@ -335,31 +367,7 @@ public class PersoDM implements DataDM {
 		this.taille = taille;
 	}
 
-	public ArrayList getAvantagesPerso() {
-		return avantagesPerso;
-	}
-
-	public void setAvantagesPerso(ArrayList avantagesPerso) {
-		this.avantagesPerso = avantagesPerso;
-	}
-
-	public void addAvantagesPerso(String arg) {
-		avantagesPerso.add(arg);
-	}
-
-	public ArrayList getDesavantagesPerso() {
-		return desavantagesPerso;
-	}
-
-	public void setDesavantagesPerso(ArrayList desavantagesPerso) {
-		this.desavantagesPerso = desavantagesPerso;
-	}
-
-	public void addDesavantagesPerso(String arg) {
-		desavantagesPerso.add(arg);
-	}
-
-	public int getMetier() {
+	public int GetMetier() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixMetier.length; i++) {
@@ -369,7 +377,7 @@ public class PersoDM implements DataDM {
 		return out;
 	}
 
-	public int getNat() {
+	public int GetNat() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixNat.length; i++) {
@@ -379,7 +387,7 @@ public class PersoDM implements DataDM {
 		return out;
 	}
 
-	public int getPoint() {
+	public int GetPoint() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixPoint.length; i++) {
@@ -389,7 +397,7 @@ public class PersoDM implements DataDM {
 		return out;
 	}
 
-	public int getRac() {
+	public int GetRac() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixRace.length; i++) {
@@ -399,7 +407,7 @@ public class PersoDM implements DataDM {
 		return out;
 	}
 
-	public int getApp() {
+	public int GetApp() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixApparence.length; i++) {

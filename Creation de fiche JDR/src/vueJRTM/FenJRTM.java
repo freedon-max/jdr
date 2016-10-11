@@ -48,7 +48,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 	public JComboBox race = new JComboBox(choixRace);
 	public JComboBox sexe = new JComboBox(sex);
 	public JComboBox attitude = new JComboBox(choixAttitude);
-	public JComboBox signe = new JComboBox(choixSigne);
+	public JComboBox alignement = new JComboBox(choixAlignement);
 
 	public CompJRTM[] comp = new CompJRTM[choixCompetence.length];
 
@@ -83,14 +83,14 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
-		initVar();
-		screen1();
+		InitVar();
+		Screen1();
 		this.setResizable(false);
 		this.setVisible(true);
 
 	}
 
-	public void screen1() {
+	public void Screen1() {
 
 		JLabelP langue = new JLabelP("Langues : ", font);
 		langue.setBackground(Color.WHITE);
@@ -148,7 +148,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		containerAction.setBackground(Color.white);
 
 		JButton random = new JButton("Caract. Auto");
-		JButton tousAuto = new JButton("Perso Auto");
+		JButton sauver = new JButton("Sauver");
 		JButton appercu = new JButton("Actualiser");
 		JButton suivant = new JButton("Suivant");
 
@@ -182,7 +182,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		// affichage de l'id du perso
 
 		Icon img = new ImageIcon(
-				new ImageIcon("img/edit/texteanneau.jpg").getImage().getScaledInstance(880, 90, Image.SCALE_DEFAULT));
+				new ImageIcon("img/edit/Gollum.jpg").getImage().getScaledInstance(880, 120, Image.SCALE_DEFAULT));
 
 		containerLabel.setIcon(img);
 		containerLeft.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -196,7 +196,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		containerPerso.add(new JLabelP(" Sexe : ", font));
 		containerPerso.add(sexe);
 		sexe.setBackground(Color.white);
-		sexe.setSelectedIndex(persoTM.getSexe2());
+		sexe.setSelectedIndex(persoTM.GetSexe2());
 		sexe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemSexe();
@@ -215,7 +215,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		race.setPreferredSize(new Dimension(100, 20));
 		race.setBackground(Color.white);
 		containerPerso.add(race);
-		race.setSelectedIndex(persoTM.getRac());
+		race.setSelectedIndex(persoTM.GetRac());
 		race.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemRace();
@@ -226,7 +226,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		royaume.setPreferredSize(new Dimension(100, 20));
 		royaume.setBackground(Color.white);
 		containerPerso.add(royaume);
-		royaume.setSelectedIndex(persoTM.getRoy());
+		royaume.setSelectedIndex(persoTM.GetRoy());
 		royaume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemRoy();
@@ -237,7 +237,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		proffs.setBackground(Color.white);
 		proffs.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(proffs);
-		proffs.setSelectedIndex(persoTM.getProffs());
+		proffs.setSelectedIndex(persoTM.GetProffs());
 		proffs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemMetier();
@@ -248,7 +248,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		cheveux.setBackground(Color.white);
 		cheveux.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(cheveux);
-		cheveux.setSelectedIndex(persoTM.getChev());
+		cheveux.setSelectedIndex(persoTM.GetChev());
 		cheveux.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemCheveux();
@@ -259,7 +259,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		yeux.setBackground(Color.white);
 		yeux.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(yeux);
-		yeux.setSelectedIndex(persoTM.getOeil());
+		yeux.setSelectedIndex(persoTM.GetOeil());
 		yeux.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemOeil();
@@ -270,19 +270,19 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		attitude.setBackground(Color.white);
 		attitude.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(attitude);
-		attitude.setSelectedIndex(persoTM.getAttit());
+		attitude.setSelectedIndex(persoTM.GetAttit());
 		attitude.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemAttitude();
 			}
 		});
 
-		containerPerso.add(new JLabelP(" Signe : ", font));
-		signe.setBackground(Color.white);
-		signe.setPreferredSize(new Dimension(100, 20));
-		containerPerso.add(signe);
-		signe.setSelectedIndex(persoTM.getSig());
-		signe.addActionListener(new ActionListener() {
+		containerPerso.add(new JLabelP(" Alignement : ", font));
+		alignement.setBackground(Color.white);
+		alignement.setPreferredSize(new Dimension(100, 20));
+		containerPerso.add(alignement);
+		alignement.setSelectedIndex(persoTM.GetAl());
+		alignement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controle.ItemSigne();
 			}
@@ -344,7 +344,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		containerLangue.setLayout(new BoxLayout(containerLangue, BoxLayout.PAGE_AXIS));
 		containerLangue.add(langue);
 		for (int h = 0; h < choixLangues.length; h++) {
-			chkL[h] = new JCheckBox(choixLangues[h], persoTM.get2InitchkL(h));
+			chkL[h] = new JCheckBox(choixLangues[h] + " au degré " + persoTM.get2DegLangue(h), persoTM.get2InitchkL(h));
 			containerLangue.add(chkL[h]);
 		}
 
@@ -355,20 +355,6 @@ public class FenJRTM extends JFrame implements DataJRTM {
 
 		container.add(containerCar);
 
-		containerComp.setLayout(new BoxLayout(containerComp, BoxLayout.PAGE_AXIS));
-
-		for (int y = 0; y < choixCompetence.length; y++) {
-			JPanel containerComp1 = new JPanel();
-			containerComp1.setLayout(new GridLayout(1, 0));
-			containerComp1.setBackground(Color.white);
-			comp[y] = new CompJRTM(controle, choixCompetence[y], intiComp[y], init5D[y], persoTM.get2Degres5(y),
-					persoTM.get2Degres2(y), y);
-			containerComp1.add(comp[y]);
-			int aff = persoTM.get2BonusComp(y) + (persoTM.get2Degres5(y) * 5) + (persoTM.get2Degres2(y) * 2);
-			containerComp1.add(new JLabelP("Total :" + aff, font));
-
-			containerComp.add(containerComp1);
-		}
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		JLabelP labelP = new JLabelP("Point d'historique restant : " + persoTM.getPointHit() + "   ", font);
 		labelP.setForeground(Color.BLACK);
@@ -385,14 +371,29 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		JLabelP labelP_4 = new JLabelP("Resist. Maladie : " + persoTM.getResistanceMal(), font);
 		labelP_4.setForeground(Color.GRAY);
 		panel.add(labelP_4);
-
 		container.add(panel);
+
+		containerComp.setLayout(new BoxLayout(containerComp, BoxLayout.PAGE_AXIS));
+
+		for (int y = 0; y < choixCompetence.length; y++) {
+			JPanel containerComp1 = new JPanel();
+			containerComp1.setLayout(new GridLayout(1, 0));
+			containerComp1.setBackground(Color.white);
+			comp[y] = new CompJRTM(controle, choixCompetence[y], intiComp[y], init5D[y], persoTM.get2Degres5(y),
+					persoTM.get2Degres2(y), y);
+			containerComp1.add(comp[y]);
+			int aff = persoTM.get2BonusComp(y) + (persoTM.get2Degres5(y) * 5) + (persoTM.get2Degres2(y) * 2);
+			containerComp1.add(new JLabelP("Total :" + aff, font));
+
+			containerComp.add(containerComp1);
+		}
 
 		container.add(scroll2);
 		containerAction.setLayout(new GridLayout(1, 2));
 
 		containerAction.add(random);
 		containerAction.add(appercu);
+		containerAction.add(sauver);
 		containerAction.add(suivant);
 		appercu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -409,13 +410,19 @@ public class FenJRTM extends JFrame implements DataJRTM {
 				controle.random();
 			}
 		});
+		
+		sauver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controle.ecrire();
+			}
+		});
 		container.add(containerAction);
 
 		repaint();
 		revalidate();
 	}
 
-	public void initVar() {
+	public void InitVar() {
 		initchkL.clear();
 		for (int v = 0; v < choixLangues.length; v++) {
 			initchkL.add(false);
@@ -430,7 +437,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		FenJRTM.initchkL = initchkL;
 	}
 
-	public void etatLangues() {
+	public void EtatLangues() {
 
 		for (int jdl = 0; jdl < choixLangues.length; jdl++) {
 			if (chkL[jdl].isSelected() == true) {

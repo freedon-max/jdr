@@ -15,94 +15,123 @@ public class PersoJRTM implements DataJRTM {
 	private static final Logger logger = LogManager.getLogger(PersoJRTM.class.getName());
 
 	private String nom = "";
-	private String sexe = "Homme";
+	private String sexe = "Masculin";
 	private String race = "";
 	private String cheveux = "";
 	private String yeux = "";
 	private String attitude = "";
-	private String signeParticulier = "";
+	private String alignement = "";
 	private String profession = "";
 	private String royaume = "";
 	private int niveau = 1;
 
+	private int age, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution, intelligence,
+			intuition, presence, apparence = 0;
 
-	private int age, poids, pointPouvoir, pointExp, penaliteEncombrement, force, agilite, constitution,
-			intelligence, intuition, presence, apparence = 0;
-	
 	private double taille;
 	private int bnforce, bnagilite, bnconstitution, bnintelligence, bnintuition, bnpresence, bnapparence, rforce,
 			ragilite, rconstitution, rintelligence, rintuition, rpresence, tforce, tagilite, tconstitution,
 			tintelligence, tintuition, tpresence, tapparence;
 	private int resistanceEss, resistanceThe, resistancePoi, resistanceMal;
 	private int pointHit, histT;
-	
+
 	private String raceTemp = race;
 
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
-	
+	private static ArrayList degLangue = new ArrayList();
 
 	private static ArrayList degres5 = new ArrayList();
 	private static ArrayList degres2 = new ArrayList();
 	private static ArrayList bonusComp = new ArrayList();
+	private static ArrayList bonusAff = new ArrayList();
+	private static ArrayList bonusCaract = new ArrayList();
 	Object[] temph;
-
-
-
 
 	public PersoJRTM() {
 
 		logger.debug("Perso ok ");
-		
-		for(int i = 0; i < choixCompetence.length; i++){
-			degres5.add(0);
-			degres2.add(0);		
-			bonusComp.add(0);
+
+		InitVar();
+
+	}
+
+	public PersoJRTM(boolean arg) {
+
+		logger.debug("Perso ok ");
+
+		for (int i = 0; i < choixCompetence.length; i++) {
+
 		}
-		for(int i = 0; i < choixLangues.length; i++){
-			initchkL.add(false);						
+
+	}
+
+	private void InitVar() {
+		for (int i = 0; i < choixCompetence.length; i++) {
+			degres5.add(0);
+			degres2.add(0);
+			bonusComp.add(0);
+			bonusAff.add(0);
+			bonusCaract.add(0);
+		}
+		for (int i = 0; i < choixLangues.length; i++) {
+			initchkL.add(false);
+			degLangue.add(0);
 		}
 		temph = degres5.toArray();
-		
 	}
-	
-	
-	public void calcul() {
-	
-		CalculBonusRace calcul = new CalculBonusRace(race, this);	
-				
-		bnforce = calculBonus(force);
-		bnagilite = calculBonus(agilite);
-		bnconstitution = calculBonus(constitution);
-		bnintelligence = calculBonus(intelligence);
-		bnintuition = calculBonus(intuition);
-		bnpresence = calculBonus(presence);
-		bnapparence = calculBonus(apparence);
-		
+
+	public void Calcul() {
+
+		CalculBonusRace calcul = new CalculBonusRace(race, this);
+
+		bonusAff.clear();
+		for (int i = 0; i < choixCompetence.length; i++) {
+			bonusAff.add(0);
+		}
+
+		bnforce = CalculBonus(force);
+		bnagilite = CalculBonus(agilite);
+		bnconstitution = CalculBonus(constitution);
+		bnintelligence = CalculBonus(intelligence);
+		bnintuition = CalculBonus(intuition);
+		bnpresence = CalculBonus(presence);
+		bnapparence = CalculBonus(apparence);
+
 		rforce = calcul.getRforce();
 		ragilite = calcul.getRagilite();
 		rconstitution = calcul.getRconstitution();
 		rintelligence = calcul.getRintelligence();
 		rintuition = calcul.getRintuition();
-		rpresence = calcul.getRpresence();	
-		
+		rpresence = calcul.getRpresence();
+
 		tforce = bnforce + rforce;
 		tagilite = bnagilite + ragilite;
 		tconstitution = bnconstitution + rconstitution;
 		tintelligence = bnintelligence + rintelligence;
 		tintuition = bnintuition + rintuition;
 		tpresence = bnpresence + rpresence;
-		tapparence = bnapparence;		
-		
+		tapparence = bnapparence;
+
 		initchkL = calcul.getInitchkL();
-		degres5 =  calcul.getDegres5();
-		met();		
-		calculDevCorp((int)degres5.get(22));
-		
-		
+		degres5 = calcul.getDegres5();
+		degLangue = calcul.getDegL();
+		Met();
+		CalculDevCorp((int) degres5.get(22));
+		CaractAff();
+
 	}
-	
-	public void random(){
-		
+
+	public void Random() {
+
+		degres5.clear();
+		degres2.clear();
+		bonusComp.clear();
+		bonusAff.clear();
+		bonusCaract.clear();
+		initchkL.clear();
+		degLangue.clear();
+		InitVar();
+
 		force = (int) (Math.random() * 80) + 20;
 		agilite = (int) (Math.random() * 80) + 20;
 		constitution = (int) (Math.random() * 80) + 20;
@@ -115,25 +144,26 @@ public class PersoJRTM implements DataJRTM {
 		cheveux = choixCheveux[(int) (Math.random() * choixCheveux.length)];
 		yeux = choixYeux[(int) (Math.random() * choixYeux.length)];
 		attitude = choixAttitude[(int) (Math.random() * choixAttitude.length)];
-		signeParticulier = choixSigne[(int) (Math.random() * choixSigne.length)];
+		alignement = choixAlignement[(int) (Math.random() * choixAlignement.length)];
 		sexe = sex[(int) (Math.random() * sex.length)];
-		
-		if( profession == "Guerrier (FO)" || profession == "Scout (AG)") {
+
+		if (profession == "Guerrier (FO)" || profession == "Scout (AG)") {
 			royaume = choixRoyaume[(int) (Math.random() * choixRoyaume.length)];
 		}
-		
+
 	}
-	
-	private void calculDevCorp(int arg) {
-		int devCorp = (int) (Math.random() * ((arg*10)-arg)) + arg;
+
+	private void CalculDevCorp(int arg) {
+		int devCorp = (int) (Math.random() * ((arg * 10) - arg)) + arg;
 		bonusComp.remove(22);
 		bonusComp.add(22, devCorp);
 	}
-	private void met() {
-		CalculMetier cal = new CalculMetier(profession, this);	
+
+	private void Met() {
+		CalculMetier cal = new CalculMetier(profession, this);
 	}
-	
-	private int calculBonus(int arg) {
+
+	private int CalculBonus(int arg) {
 		int out = 0;
 		if (arg == 1)
 			out = -25;
@@ -165,75 +195,99 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 
 	}
-	public void clearList() {
+
+	public void ClearList() {
 		degres5.clear();
 		degres2.clear();
 		initchkL.clear();
-		for(int i = 0; i < choixCompetence.length; i++){
+		degLangue.clear();
+		for (int i = 0; i < choixCompetence.length; i++) {
 			degres5.add(0);
-			degres2.add(0);					
+			degres2.add(0);
 		}
-		for(int i = 0; i < choixLangues.length; i++){
-			initchkL.add(false);						
+		for (int i = 0; i < choixLangues.length; i++) {
+			initchkL.add(false);
+			degLangue.add(0);
 		}
-		
+
 	}
-	
-	public void calHistorique(){
-		//CalculHistorique cal = new CalculHistorique(this);
-	}
-	
-	public void calHist(){
-		
+
+	public void CalHist() {
+
 		int tempoH = 0;
-			if(race != raceTemp) {
-		
+		if (race != raceTemp) {
+
 		}
-		
+
 		else {
-			for(int i = 0; i < choixCompetence.length; i++){
-				if((int)temph[i] < (int) degres5.get(i)){
-					tempoH = ((int) degres5.get(i) - (int)temph[i]) + tempoH;
+			for (int i = 0; i < choixCompetence.length; i++) {
+				if ((int) temph[i] < (int) degres5.get(i)) {
+					tempoH = ((int) degres5.get(i) - (int) temph[i]) + tempoH;
 					System.out.print(tempoH + ", ");
 				}
-				if((int)temph[i] >= (int) degres5.get(i)){
+				if ((int) temph[i] >= (int) degres5.get(i)) {
 					System.out.print(tempoH + ", ");
 				}
 			}
 			pointHit = pointHit - tempoH;
-			
+
 		}
-		
+
 	}
-	
-	
-	
+
+	private void CaractAff() {
+
+		addBonusCaract(0, tagilite);
+		addBonusCaract(1, tagilite);
+		addBonusCaract(2, tagilite);
+		addBonusCaract(3, tforce);
+		addBonusCaract(4, tforce);
+		addBonusCaract(5, tforce);
+		addBonusCaract(6, tforce);
+		addBonusCaract(7, tforce);
+		addBonusCaract(8, tagilite);
+		addBonusCaract(9, tagilite);
+		addBonusCaract(10, tforce);
+		addBonusCaract(11, tagilite);
+		addBonusCaract(12, tintuition);
+		addBonusCaract(13, tagilite);
+		addBonusCaract(14, tintelligence);
+		addBonusCaract(15, 00);
+		addBonusCaract(16, tpresence);
+		addBonusCaract(17, tintelligence);
+		addBonusCaract(18, tintuition);
+		addBonusCaract(19, tintelligence);
+		addBonusCaract(20, tintuition);
+		addBonusCaract(21, tagilite);
+		addBonusCaract(22, tintuition);
+		addBonusCaract(23, tconstitution);
+
+	}
+
 	public Object[] getTemph() {
 		return temph;
 	}
 
-
 	public void setTemph(Object[] temph) {
 		this.temph = temph;
 	}
+
 	public int getHistT() {
 		return histT;
 	}
-
 
 	public void setHistT(int histT) {
 		this.histT = histT;
 	}
 
-	
 	public String getRaceTemp() {
 		return raceTemp;
 	}
 
-
 	public void setRaceTemp(String arg) {
 		this.raceTemp = arg;
 	}
+
 	public int getPointHit() {
 		return pointHit;
 	}
@@ -241,55 +295,62 @@ public class PersoJRTM implements DataJRTM {
 	public void setPointHit(int pointHit) {
 		this.pointHit = pointHit;
 	}
+
 	public int getResistanceEss() {
 		return resistanceEss;
 	}
-
 
 	public void setResistanceEss(int resistanceEss) {
 		this.resistanceEss = resistanceEss;
 	}
 
-
 	public int getResistanceThe() {
 		return resistanceThe;
 	}
-
 
 	public void setResistanceThe(int resistanceThe) {
 		this.resistanceThe = resistanceThe;
 	}
 
-
 	public int getResistancePoi() {
 		return resistancePoi;
 	}
-
 
 	public void setResistancePoi(int resistancePoi) {
 		this.resistancePoi = resistancePoi;
 	}
 
-
 	public int getResistanceMal() {
 		return resistanceMal;
 	}
 
-
 	public void setResistanceMal(int resistanceMal) {
 		this.resistanceMal = resistanceMal;
 	}
-	
 
 	public static ArrayList getBonusComp() {
 		return bonusComp;
 	}
+
 	public static int get2BonusComp(int arg) {
 		return (int) bonusComp.get(arg);
 	}
 
 	public static void setBonusComp(ArrayList bonusComp) {
 		PersoJRTM.bonusComp = bonusComp;
+	}
+
+	public static ArrayList getBonusAff() {
+		return bonusAff;
+	}
+
+	public static int get2BonusAff(int arg) {
+		return (int) bonusAff.get(arg);
+	}
+
+	public static void addBonusAff(int arg, int arg2) {
+		bonusAff.remove(arg);
+		bonusAff.add(arg, arg2);
 	}
 
 	public String getNom() {
@@ -340,12 +401,12 @@ public class PersoJRTM implements DataJRTM {
 		this.attitude = attitude;
 	}
 
-	public String getSigneParticulier() {
-		return signeParticulier;
+	public String getAlignement() {
+		return alignement;
 	}
 
-	public void setSigneParticulier(String signeParticulier) {
-		this.signeParticulier = signeParticulier;
+	public void setAlignement(String alignement) {
+		this.alignement = alignement;
 	}
 
 	public String getProfession() {
@@ -559,21 +620,44 @@ public class PersoJRTM implements DataJRTM {
 	public static ArrayList<Boolean> getInitchkL() {
 		return initchkL;
 	}
-	public static  Boolean get2InitchkL(int arg) {
+
+	public static Boolean get2InitchkL(int arg) {
 		return initchkL.get(arg);
 	}
-	
-	
+
 	public static void setInitchkL(ArrayList<Boolean> initchkL) {
 		PersoJRTM.initchkL = initchkL;
 	}
+
 	public static void clearInitchkL() {
 		initchkL.clear();
 	}
-	
+
+	public static void addInitchkL(int arg, boolean arg2) {
+		initchkL.remove(arg);
+		initchkL.add(arg, arg2);
+	}
+
+	public static ArrayList getDegLangue() {
+		return degLangue;
+	}
+
+	public static Object get2DegLangue(int arg) {
+		return degLangue.get(arg);
+	}
+
+	public static void setDegLangue(ArrayList degLangue) {
+		PersoJRTM.degLangue = degLangue;
+	}
+
+	public static void clearDegLangueL() {
+		degLangue.clear();
+	}
+
 	public static ArrayList getDegres5() {
 		return degres5;
 	}
+
 	public static int get2Degres5(int arg) {
 		return (int) degres5.get(arg);
 	}
@@ -581,15 +665,25 @@ public class PersoJRTM implements DataJRTM {
 	public static void setDegres5(ArrayList degres5) {
 		PersoJRTM.degres5 = degres5;
 	}
+
 	public static void addDegres5(int arg, int arg2) {
 		degres5.remove(arg);
 		degres5.add(arg, arg2);
 	}
-	
+
+	public static void addBonusCaract(int arg, int arg2) {
+		bonusCaract.remove(arg);
+		bonusCaract.add(arg, arg2);
+	}
+
+	public static int get2BonusCaract(int arg) {
+		return (int) bonusCaract.get(arg);
+	}
 
 	public static ArrayList getDegres2() {
 		return degres2;
 	}
+
 	public static int get2Degres2(int arg) {
 		return (int) degres2.get(arg);
 	}
@@ -597,21 +691,22 @@ public class PersoJRTM implements DataJRTM {
 	public static void setDegres2(ArrayList degres2) {
 		PersoJRTM.degres2 = degres2;
 	}
+
 	public static void addDegres2(int arg, int arg2) {
 		degres2.remove(arg);
 		degres2.add(arg, arg2);
 	}
 
-	public int getSexe2() {
+	public int GetSexe2() {
 		int out;
-		if (getSexe() == "Homme")
+		if (getSexe() == "Masculin")
 			out = 0;
 		else
 			out = 1;
 		return out;
 	}
 
-	public int getRoy() {
+	public int GetRoy() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixRoyaume.length; i++) {
@@ -621,7 +716,7 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getProffs() {
+	public int GetProffs() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixProfession.length; i++) {
@@ -631,7 +726,7 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getRac() {
+	public int GetRac() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixRace.length; i++) {
@@ -641,7 +736,7 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getChev() {
+	public int GetChev() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixCheveux.length; i++) {
@@ -651,7 +746,7 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getOeil() {
+	public int GetOeil() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixYeux.length; i++) {
@@ -661,7 +756,7 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getAttit() {
+	public int GetAttit() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < choixAttitude.length; i++) {
@@ -671,11 +766,11 @@ public class PersoJRTM implements DataJRTM {
 		return out;
 	}
 
-	public int getSig() {
+	public int GetAl() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
-		for (int i = 0; i < choixSigne.length; i++) {
-			if (signeParticulier.equals(choixSigne[i]))
+		for (int i = 0; i < choixAlignement.length; i++) {
+			if (alignement.equals(choixAlignement[i]))
 				out = i;
 		}
 		return out;

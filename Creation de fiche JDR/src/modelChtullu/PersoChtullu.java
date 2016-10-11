@@ -22,6 +22,7 @@ public class PersoChtullu implements DataChtullu {
 			10, 25, 0, 0, 0, 0, 0, 0, 0 };
 
 	private String sexe = "Homme";
+	private int id = 0;
 	private int age, pointCompMetier, pointCompPerso;
 	private int mytheC = 99;
 	private String bonusDegat = "aucun";
@@ -36,6 +37,8 @@ public class PersoChtullu implements DataChtullu {
 	private String revenu = "";
 	private String description = "";
 	private int temp5, temp6, temp7, temp8;
+	
+	private int comp, comp2, comp3, comp4;
 
 	private ArrayList<Boolean> competenceBool = new ArrayList<Boolean>();
 	private ArrayList<Boolean> competenceBool2 = new ArrayList<Boolean>();
@@ -47,14 +50,29 @@ public class PersoChtullu implements DataChtullu {
 
 		logger.debug("Perso ok ");
 		nom = "test";
+		comp = comp2 = comp3 = comp4 = 100;
+		competenceBool = gestion.GestionMCht(this);
+		Init();
+		for (int i = 0; i < competence.length; i++) {
+			compMetierPerso.add(competenceInit[i]);
+			compPPerso.add(competenceInit[i]);
+		}
+		
 
-		competenceBool = gestion.GestionMCht(proffession);
-		init();
+	}
+	
+	public PersoChtullu(boolean arg) {
+		
+		logger.debug("Perso via BDD ok ");
+		competenceBool = gestion.GestionMCht(this);	
+		Init();
 		for (int i = 0; i < competence.length; i++) {
 			compMetierPerso.add(competenceInit[i]);
 			compPPerso.add(competenceInit[i]);
 		}
 
+
+		
 	}
 
 	public void Calcul() {
@@ -62,7 +80,7 @@ public class PersoChtullu implements DataChtullu {
 		competenceBool2.clear();
 		compMetierPerso.clear();
 		compPPerso.clear();
-		competenceInit = initSpec();
+		competenceInit = InitSpec();
 		idee = intelligence * 5;
 		sante = pouvoir * 5;
 		chance = pouvoir * 5;
@@ -72,21 +90,21 @@ public class PersoChtullu implements DataChtullu {
 		santeMentale = sante;
 		pointCompMetier = education * 20;
 		pointCompPerso = intelligence * 10;
-		bonusDegats();
+		BonusDegats();
 		if (prof.equals(proffession)) {
 		} else {
 			competenceBool.clear();
-			competenceBool = gestion.GestionMCht(proffession);
+			competenceBool = gestion.GestionMCht(this);
 			for (int i = 0; i < competence.length; i++) {
 				compMetierPerso.add(competenceInit[i]);
 				compPPerso.add(competenceInit[i]);
 			}
 		}
-		init();
+		Init();
 		prof = proffession;
 	}
 
-	private void init() {
+	private void Init() {
 		// inverse la List competence bool
 		for (int l = 0; l < competence.length; l++) {
 			competenceBool2.add(false);
@@ -114,15 +132,16 @@ public class PersoChtullu implements DataChtullu {
 		intelligence = (int) (Math.random() * 10) + 10;
 		education = (int) (Math.random() * 15) + 6;
 		age = (int) (Math.random() * 52) + 18;
+		comp = comp2 = comp3 = comp4 = 100;
 
 		int metierIn = (int) (Math.random() * choixMetier.length);
 		proffession = choixMetier[metierIn];
-		diplome = choixDiplome(education);
+		diplome = ChoixDiplome(education);
 		int pays = (int) (Math.random() * nationnaliteP.length);
 		nationnalite = nationnaliteP[pays];
 	}
 
-	private String choixDiplome(int arg) {
+	private String ChoixDiplome(int arg) {
 		// 7 choix de metier, education 6 min, 21 max ==>
 		// 6 = 0
 		// 7-8 = 1
@@ -151,6 +170,14 @@ public class PersoChtullu implements DataChtullu {
 		diplOut = diplomeP[diplIN];
 		return diplOut;
 
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getResidence() {
@@ -473,6 +500,12 @@ public class PersoChtullu implements DataChtullu {
 	public void addCompMetierPerso(int arg) {
 		compMetierPerso.add(arg);
 	}
+	
+	public void addCompMetierPerso(int arg, int arg2) {
+		compMetierPerso.remove(arg);
+		compMetierPerso.add(arg, arg2);
+	}
+	
 
 	public ArrayList getCompPPerso() {
 		return compPPerso;
@@ -497,6 +530,11 @@ public class PersoChtullu implements DataChtullu {
 	public void addCompPPerso(int arg) {
 		compPPerso.add(arg);
 	}
+	
+	public void addCompPPerso(int arg, int arg2) {
+		compPPerso.remove(arg);
+		compPPerso.add(arg, arg2);
+	}
 
 	public void setCompGPerso(ArrayList compGPerso) {
 		this.compGPerso = compGPerso;
@@ -506,7 +544,7 @@ public class PersoChtullu implements DataChtullu {
 		return logger;
 	}
 
-	public void bonusDegats() {
+	public void BonusDegats() {
 		// calcul du bonus de dégat
 
 		int bonusD = getForce() + getTaille();
@@ -544,7 +582,7 @@ public class PersoChtullu implements DataChtullu {
 
 	}
 
-	public int getMetier() {
+	public int GetMetier() {
 		// actualise l'affichage du metier lors du reload
 		int out = 1;
 		for (int i = 0; i < choixMetier.length; i++) {
@@ -554,7 +592,7 @@ public class PersoChtullu implements DataChtullu {
 		return out;
 	}
 
-	public int getLangueEtrangere() {
+	public int GetLangueEtrangere() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < langue.length; i++) {
@@ -564,7 +602,7 @@ public class PersoChtullu implements DataChtullu {
 		return out;
 	}
 
-	public int getArmeCaC() {
+	public int GetArmeCaC() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < armeCC.length; i++) {
@@ -574,7 +612,7 @@ public class PersoChtullu implements DataChtullu {
 		return out;
 	}
 
-	public int getArmeAFeu() {
+	public int GetArmeAFeu() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < armeFeu.length; i++) {
@@ -584,7 +622,7 @@ public class PersoChtullu implements DataChtullu {
 		return out;
 	}
 
-	public int getPsy() {
+	public int GetPsy() {
 		// actualise l'affichage du metier lors du reload
 		int out = 0;
 		for (int i = 0; i < Psy.length; i++) {
@@ -594,7 +632,7 @@ public class PersoChtullu implements DataChtullu {
 		return out;
 	}
 
-	private int[] initSpec() {
+	private int[] InitSpec() {
 		// initialise les valeurs initiale des compétence esquiver (dex*2) 18 et
 		// langue natale(edu*5) 25
 		int temp1 = dexterite * 2;
@@ -605,7 +643,7 @@ public class PersoChtullu implements DataChtullu {
 		return competenceInit2;
 	}
 
-	public void initSpec2() {
+	public void InitSpec2() {
 		
 		if ((int) compMetierPerso.get(18) < competenceInit[18]) {
 			compMetierPerso.remove(18);
@@ -657,7 +695,7 @@ public class PersoChtullu implements DataChtullu {
 		temp8 = (int) compPPerso.get(25);
 	}
 
-	public void initCompGeneral() {
+	public void InitCompGeneral() {
 		// initialise la List compétence générale
 		final ArrayList<Boolean> competenceBoolIn = new ArrayList<Boolean>(competenceBool);
 		final ArrayList<Boolean> competenceBoolOut = new ArrayList<Boolean>(competenceBool2);
@@ -669,6 +707,44 @@ public class PersoChtullu implements DataChtullu {
 				compGPerso.add(compPPerso.get(w));
 			}
 		}
+	}
+	
+	public void ClearComp() {
+		
+		compMetierPerso.clear();
+		compPPerso.clear();
+	}
+
+	public int getComp() {
+		return comp;
+	}
+
+	public void setComp(int comp) {
+		this.comp = comp;
+	}
+
+	public int getComp2() {
+		return comp2;
+	}
+
+	public void setComp2(int comp2) {
+		this.comp2 = comp2;
+	}
+
+	public int getComp3() {
+		return comp3;
+	}
+
+	public void setComp3(int comp3) {
+		this.comp3 = comp3;
+	}
+
+	public int getComp4() {
+		return comp4;
+	}
+
+	public void setComp4(int comp4) {
+		this.comp4 = comp4;
 	}
 
 }

@@ -72,13 +72,13 @@ public class CompJRTM extends JPanel implements DataJRTM {
 			longueur = 11;
 		}
 		if (arg2 == false)
-			screen();
+			Screen();
 		else
-			screen2();
+			Screen2();
 
 	}
 
-	public void screen() {
+	public void Screen() {
 
 		container.removeAll();
 		setBackground(Color.WHITE);
@@ -102,7 +102,7 @@ public class CompJRTM extends JPanel implements DataJRTM {
 
 	}
 
-	public void screen2() {
+	public void Screen2() {
 
 		container.removeAll();
 		setBackground(Color.WHITE);
@@ -137,12 +137,12 @@ public class CompJRTM extends JPanel implements DataJRTM {
 	}
 
 	private void ItemNV() {
-		selectOut = getD5();
+		selectOut = GetD5();
 		controle.ItemDegres5(pos);
 	}
 
 	private void ItemNV2() {
-		select2Out = getD2();
+		select2Out = GetD2();
 		controle.ItemDegres2(pos);
 	}
 
@@ -162,7 +162,7 @@ public class CompJRTM extends JPanel implements DataJRTM {
 		return select2Out;
 	}
 
-	public int getD5() {
+	public int GetD5() {
 		int out = 0;
 		for (int i = 0; i < longueur; i++) {
 			if (nv.getSelectedItem().equals(niveau[i]))
@@ -171,7 +171,7 @@ public class CompJRTM extends JPanel implements DataJRTM {
 		return out;
 	}
 
-	public int getD2() {
+	public int GetD2() {
 		int out = 0;
 		for (int i = 0; i < 4; i++) {
 			if (nv2.getSelectedItem().equals(niveau[i]))

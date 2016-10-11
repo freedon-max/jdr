@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modelChtullu.PersoChtullu;
+import modelChtullu.ReadBDDChtullu;
+import modelChtullu.WriteBDDChtullu;
 import vueChtullu.DataChtullu;
 import vueChtullu.FenCht;
 
@@ -23,6 +25,16 @@ public class ControleFenCht implements DataChtullu {
 
 	}
 
+	public ControleFenCht(PersoChtullu persoCht, boolean arg) {
+		this.persoCht = persoCht;
+		this.fenetre = new FenCht(this, persoCht);
+
+		ChargementBDD();
+		fenetre.Screen1();
+		logger.debug("Controle ok");
+
+	}
+
 	public void ItemMetier() {
 		persoCht.setProffession((String) fenetre.metier.getSelectedItem());
 	}
@@ -31,7 +43,7 @@ public class ControleFenCht implements DataChtullu {
 		persoCht.setSexe((String) fenetre.sexe.getSelectedItem());
 	}
 
-	public void reload() {
+	public void Reload() {
 
 		persoCht.setNom(fenetre.nom.getText());
 		persoCht.setAge(Integer.parseInt(fenetre.age.getText()));
@@ -56,18 +68,18 @@ public class ControleFenCht implements DataChtullu {
 
 		persoCht.setSexe("" + fenetre.sexe.getSelectedItem());
 		persoCht.setProffession("" + fenetre.metier.getSelectedItem());
-		persoCht.setCompetenceBool(fenetre.getCompetenceBool());
-		persoCht.setCompetenceBool2(fenetre.getCompetenceBool2());
+		persoCht.setCompetenceBool(fenetre.GetCompetenceBool());
+		persoCht.setCompetenceBool2(fenetre.GetCompetenceBool2());
 
 		persoCht.setResidence(fenetre.residence.getText());
 		persoCht.setFamille(fenetre.famille.getText());
 		persoCht.setRevenu(fenetre.revenu.getText());
 		persoCht.setDescription(fenetre.description.getText());
 		persoCht.Calcul();
-		comp();
+		Comp();
 		Calculcomp();
 
-		fenetre.screen1();
+		fenetre.Screen1();
 
 	}
 
@@ -77,7 +89,7 @@ public class ControleFenCht implements DataChtullu {
 
 		for (int k = 0; k < competence.length; k++) {
 			cont2 = persoCht.getCompetenceInit(k);
-			compT = fenetre.getCompetenceBT2(k) - cont2 + compT;
+			compT = fenetre.GetCompetenceBT2(k) - cont2 + compT;
 		}
 
 		persoCht.setPointCompPerso(persoCht.getPointCompPerso() - compT);
@@ -86,7 +98,7 @@ public class ControleFenCht implements DataChtullu {
 		int contP2 = 0;
 		for (int k = 0; k < competence.length; k++) {
 			contP2 = persoCht.getCompetenceInit(k);
-			compPT = fenetre.getCompetenceBT(k) - contP2 + compPT;
+			compPT = fenetre.GetCompetenceBT(k) - contP2 + compPT;
 		}
 
 		persoCht.setPointCompMetier(persoCht.getPointCompMetier() - compPT);
@@ -94,7 +106,7 @@ public class ControleFenCht implements DataChtullu {
 				"CalculComp, cont2 : " + cont2 + " compT : " + compT + " total : " + persoCht.getPointCompMetier());
 	}
 
-	public void auto() {
+	public void Auto() {
 		persoCht.setNom(fenetre.nom.getText());
 		persoCht.setSexe("" + fenetre.sexe.getSelectedItem());
 		persoCht.setResidence(fenetre.residence.getText());
@@ -104,10 +116,17 @@ public class ControleFenCht implements DataChtullu {
 
 		persoCht.Random();
 
-		comp();
+		Comp();
 		Calculcomp();
 		persoCht.Calcul();
-		fenetre.screen1();
+		fenetre.Screen1();
+
+	}
+
+	public void ChargementBDD() {
+		Comp();
+		Calculcomp();
+		persoCht.Calcul();
 
 	}
 
@@ -139,7 +158,7 @@ public class ControleFenCht implements DataChtullu {
 			}
 
 			else {
-				persoCht.initCompGeneral();
+				persoCht.InitCompGeneral();
 				EditCht edit = new EditCht(persoCht);
 				logger.debug("Edit ok");
 			}
@@ -171,15 +190,21 @@ public class ControleFenCht implements DataChtullu {
 
 	}
 
-	public void comp() {
+	public void Comp() {
 
 		for (int m = 0; m < competence.length; m++) {
-			persoCht.addCompMetierPerso(fenetre.getCompetenceBT(m));
+			persoCht.addCompMetierPerso(fenetre.GetCompetenceBT(m));
 		}
 		for (int n = 0; n < competence.length; n++) {
-			persoCht.addCompPPerso(fenetre.getCompetenceBT2(n));
+			persoCht.addCompPPerso(fenetre.GetCompetenceBT2(n));
 		}
-		persoCht.initSpec2();
+		persoCht.InitSpec2();
+	}
+
+	
+	public void Ecrire() {
+		persoCht.InitCompGeneral();
+		WriteBDDChtullu write = new WriteBDDChtullu(persoCht);
 	}
 
 }

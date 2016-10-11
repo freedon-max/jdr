@@ -33,9 +33,9 @@ public class CalculMetier implements DataJRTM{
 			addBonus(9, 3);
 			addBonus(10, 3);
 			if(persoTM.getRoyaume().equals("Ëssenliel")) {
-				persoTM.setPointPouvoir(calculPP(persoTM.getIntelligence()));
+				persoTM.setPointPouvoir(CalculPP(persoTM.getIntelligence()));
 			}
-			else persoTM.setPointPouvoir(calculPP(persoTM.getIntuition()));
+			else persoTM.setPointPouvoir(CalculPP(persoTM.getIntuition()));
 		}
 		
 		else if (str.equals("Scout (AG)")) {
@@ -56,9 +56,9 @@ public class CalculMetier implements DataJRTM{
 			addBonus(23, 3);
 			
 			if(persoTM.getRoyaume().equals("Ëssenliel")) {
-				persoTM.setPointPouvoir(calculPP(persoTM.getIntelligence()));
+				persoTM.setPointPouvoir(CalculPP(persoTM.getIntelligence()));
 			}
-			else persoTM.setPointPouvoir(calculPP(persoTM.getIntuition()));
+			else persoTM.setPointPouvoir(CalculPP(persoTM.getIntuition()));
 		}
 		
 		else if (str.equals("Mage (IN)")) {
@@ -68,7 +68,7 @@ public class CalculMetier implements DataJRTM{
 			addBonus(21, 2);
 			addBonus(24, 2);
 			persoTM.setRoyaume("Ëssenliel");
-			persoTM.setPointPouvoir(calculPP(persoTM.getIntelligence()));
+			persoTM.setPointPouvoir(CalculPP(persoTM.getIntelligence()));
 			
 		}
 		
@@ -82,7 +82,7 @@ public class CalculMetier implements DataJRTM{
 			addBonus(23, 1);
 			addBonus(21, 2);
 			persoTM.setRoyaume("Théurgie");
-			persoTM.setPointPouvoir(calculPP(persoTM.getIntuition()));
+			persoTM.setPointPouvoir(CalculPP(persoTM.getIntuition()));
 		}
 		else if (str.equals("Ranger (CO)")) {
 			addBonus(5, 2);
@@ -99,7 +99,7 @@ public class CalculMetier implements DataJRTM{
 			addBonus(14, 3);
 			
 			persoTM.setRoyaume("Théurgie");
-			persoTM.setPointPouvoir(calculPP(persoTM.getIntuition()));
+			persoTM.setPointPouvoir(CalculPP(persoTM.getIntuition()));
 		}
 		else if (str.equals("Barde (PR)")) {
 			addBonus(5, 1);
@@ -119,7 +119,7 @@ public class CalculMetier implements DataJRTM{
 			addBonus(23, 1);
 			addBonus(24, 1);
 			persoTM.setRoyaume("Ëssenliel");
-			persoTM.setPointPouvoir(calculPP(persoTM.getIntelligence()));
+			persoTM.setPointPouvoir(CalculPP(persoTM.getIntelligence()));
 		}
 		
 		persoTM.setBonusComp(bonus);
@@ -130,9 +130,10 @@ public class CalculMetier implements DataJRTM{
 	private void addBonus(int arg, int arg2){
 		bonus.remove(arg);
 		bonus.add(arg, arg2);
+		persoTM.addBonusAff(arg, arg2);
 	}
 	
-	private int calculPP(int arg) {
+	private int CalculPP(int arg) {
 		int out = 0;		
 		if(arg < 75 ) {out = 0;}
 		else if (arg >=75 && arg < 95) {out = 1;}

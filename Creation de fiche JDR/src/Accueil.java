@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import vueBDD.VueBDDGen;
 import vueChtullu.BontonAccueil;
 
 public class Accueil extends JFrame {
@@ -25,7 +26,7 @@ public class Accueil extends JFrame {
 	private JMenuItem quitter = new JMenuItem("QUITTER"), aProposItem = new JMenuItem("?"),
 			chtullu = new JMenuItem("Chtullu"), disque = new JMenuItem("Disque monde"),
 			donjon = new JMenuItem("Donjon & Dragon"), rune = new JMenuItem("Runequest"),
-			milieu = new JMenuItem("JRD de la terre du milieu");
+			milieu = new JMenuItem("JRTM"), bdd = new JMenuItem("BDD");
 
 	private BontonAccueil cht = new BontonAccueil("img/img1.jpg"), dm = new BontonAccueil("img/img2.jpg"),
 			dd = new BontonAccueil("img/img3.jpg"), ru = new BontonAccueil("img/img4.jpg"),
@@ -33,7 +34,7 @@ public class Accueil extends JFrame {
 
 	public Accueil() {
 		this.setTitle("Créateur de personnage de Jeu de Rôle.");
-		this.setSize(400, 600);
+		this.setSize(400, 450);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -44,16 +45,17 @@ public class Accueil extends JFrame {
 		container.setLayout(new BorderLayout());
 		// container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		container.add(new JLabel("Veuillez choisir votre Jeu : "), BorderLayout.NORTH);
-		containerB.setLayout(new GridLayout(5, 1));
+		containerB.setLayout(new GridLayout(3, 1));
 		containerB.add(cht);
 		containerB.add(dm);
-		containerB.add(dd);
-		containerB.add(ru);
+		//containerB.add(dd);
+		//containerB.add(ru);
 		containerB.add(tdm);
 		container.add(containerB, BorderLayout.CENTER);
 
 		cht.addActionListener(new ecranChtullu());
 		dm.addActionListener(new ecranDM());
+		tdm.addActionListener(new ecranJRTM());
 
 		this.setVisible(true);
 		// convert();
@@ -63,10 +65,11 @@ public class Accueil extends JFrame {
 	private void initMenu() {
 		creer.add(chtullu);
 		creer.add(disque);
-		creer.add(donjon);
-		creer.add(rune);
+		//creer.add(donjon);
+		//creer.add(rune);
 		creer.add(milieu);
 		fichier.add(creer);
+		fichier.add(bdd);
 		fichier.setMnemonic('f');
 		fichier.addSeparator();
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
@@ -78,7 +81,9 @@ public class Accueil extends JFrame {
 		});
 		chtullu.addActionListener(new ecranChtullu());
 		disque.addActionListener(new ecranDM());
+		milieu.addActionListener(new ecranJRTM());
 		// recommencer.addActionListener(ecranActif);
+		bdd.addActionListener(new ecranBDD());
 		menuBar.add(fichier);
 		menuBar.add(aPropos);
 		aProposItem.addActionListener(new propos());
@@ -97,6 +102,20 @@ public class Accueil extends JFrame {
 	class ecranDM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			LanceurDM fenDm = new LanceurDM();
+
+		}
+	}
+	
+	class ecranJRTM implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			LanceurJRTM fenTM = new LanceurJRTM();
+
+		}
+	}
+	
+	class ecranBDD implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			VueBDDGen bdd = new VueBDDGen();
 
 		}
 	}

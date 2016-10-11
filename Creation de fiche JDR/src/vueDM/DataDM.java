@@ -480,7 +480,7 @@ public interface DataDM {
 
 	String[] choixPoint = { "25 pts : faible(Zombies, Petit enfants...)", "50 pts : moyen(gens normaux)",
 			"75 pts : compétents(Policiers, Athlètes, Nobles...", "100 pts : Exceptionelle(Vétérans, Dirigeants...)",
-			"200 pts : Heros(Genies, Millionnaires, Guerriers d'�lites..)",
+			"200 pts : Heros(Genies, Millionnaires, Guerriers d'élites..)",
 			"300 pts : Légende(Héros barbares, Dieux)" };
 
 	String[] choixMetier = { "Aucun", "Acteur", "Agent du guet", "Alchimistes", "Assassin", "Avocat", "Boulanger",
