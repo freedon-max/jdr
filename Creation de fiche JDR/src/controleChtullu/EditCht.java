@@ -70,11 +70,11 @@ public class EditCht extends JFrame implements DataChtullu {
 		container.add(bouton, BorderLayout.SOUTH);
 		bouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				convert();
+				Convert();
 			}
 		});
 		this.setVisible(true);
-		convert();
+		Convert();
 	}
 
 	public class Perso extends JPanel {
@@ -411,7 +411,7 @@ public class EditCht extends JFrame implements DataChtullu {
 		}
 	}
 
-	public String selecChemin() {
+	public String SelecChemin() {
 		// permet de choisir la destination et le nom de la fiche pour
 		// l'enregistrement
 		JOptionPane jop2 = new JOptionPane();
@@ -432,12 +432,12 @@ public class EditCht extends JFrame implements DataChtullu {
 		return monFichier;
 	}
 
-	public void convert() {
+	public void Convert() {
 
 		BufferedImage image = new BufferedImage(container2.getSize().width, container2.getSize().height,
 				BufferedImage.TYPE_INT_ARGB);
 		container2.paint(image.createGraphics());
-		File imageFile = new File(selecChemin());
+		File imageFile = new File(SelecChemin());
 		try {
 			imageFile.createNewFile();
 			ImageIO.write(image, "png", imageFile);

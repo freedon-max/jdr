@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Oct 11 13:52:54 CEST 2016:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0157-b396-9b6f-000000577110 
+dans le répertoire de base de données G:\projet jdr\Creation de fiche JDR\db\BaseJDR  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@387f44
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_45-b15
+user.dir=G:\projet jdr\Creation de fiche JDR
+os.name=Windows 7
+os.arch=x86
+os.version=6.1
+derby.system.home=null
+Chargeur de classe de la base de données démarré - derby.database.classpath=''
