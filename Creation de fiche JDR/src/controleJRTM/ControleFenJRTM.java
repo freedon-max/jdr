@@ -117,12 +117,12 @@ public class ControleFenJRTM implements DataJRTM {
 					"Attention", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			System.out.println("Edition OK !");
-			EditionJRTM edit = new EditionJRTM(persoTM);
+			new EditionJRTM(persoTM);
 		}
 	}
 
 	public void ecrire() {
-		WriteJRTM ecriture = new WriteJRTM(persoTM);
+		new WriteJRTM(persoTM);
 
 	}
 

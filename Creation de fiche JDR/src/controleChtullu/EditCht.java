@@ -414,7 +414,6 @@ public class EditCht extends JFrame implements DataChtullu {
 	public String SelecChemin() {
 		// permet de choisir la destination et le nom de la fiche pour
 		// l'enregistrement
-		JOptionPane jop2 = new JOptionPane();
 		String monFichier = "";
 		JFileChooser cheminInt = new JFileChooser();
 

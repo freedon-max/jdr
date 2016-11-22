@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import modelChtullu.PersoChtullu;
-import modelChtullu.ReadBDDChtullu;
 import modelChtullu.WriteBDDChtullu;
 import vueChtullu.DataChtullu;
 import vueChtullu.FenCht;
@@ -28,8 +27,7 @@ public class ControleFenCht implements DataChtullu {
 	public ControleFenCht(PersoChtullu persoCht, boolean arg) {
 		this.persoCht = persoCht;
 		this.fenetre = new FenCht(this, persoCht);
-
-		ChargementBDD();
+		ChargementBDD();		
 		fenetre.Screen1();
 		logger.debug("Controle ok");
 
@@ -102,8 +100,7 @@ public class ControleFenCht implements DataChtullu {
 		}
 
 		persoCht.setPointCompMetier(persoCht.getPointCompMetier() - compPT);
-		System.out.println(
-				"CalculComp, cont2 : " + cont2 + " compT : " + compT + " total : " + persoCht.getPointCompMetier());
+		
 	}
 
 	public void Auto() {
@@ -124,9 +121,11 @@ public class ControleFenCht implements DataChtullu {
 	}
 
 	public void ChargementBDD() {
+		persoCht.CalculBDD();
 		Comp();
+		
 		Calculcomp();
-		persoCht.Calcul();
+		
 
 	}
 
@@ -159,7 +158,7 @@ public class ControleFenCht implements DataChtullu {
 
 			else {
 				persoCht.InitCompGeneral();
-				EditCht edit = new EditCht(persoCht);
+				new EditCht(persoCht);
 				logger.debug("Edit ok");
 			}
 		}
@@ -204,7 +203,7 @@ public class ControleFenCht implements DataChtullu {
 	
 	public void Ecrire() {
 		persoCht.InitCompGeneral();
-		WriteBDDChtullu write = new WriteBDDChtullu(persoCht);
+		new WriteBDDChtullu(persoCht);
 	}
 
 }

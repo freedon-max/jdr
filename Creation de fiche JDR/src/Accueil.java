@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import controleAdmin.ControleFenAdmin;
 import vueBDD.VueBDDGen;
 import vueChtullu.BontonAccueil;
 
@@ -26,7 +27,7 @@ public class Accueil extends JFrame {
 	private JMenuItem quitter = new JMenuItem("QUITTER"), aProposItem = new JMenuItem("?"),
 			chtullu = new JMenuItem("Chtullu"), disque = new JMenuItem("Disque monde"),
 			donjon = new JMenuItem("Donjon & Dragon"), rune = new JMenuItem("Runequest"),
-			milieu = new JMenuItem("JRTM"), bdd = new JMenuItem("BDD");
+			milieu = new JMenuItem("JRTM"), bdd = new JMenuItem("BDD"), edition = new JMenuItem("Edition MJ");
 
 	private BontonAccueil cht = new BontonAccueil("img/img1.jpg"), dm = new BontonAccueil("img/img2.jpg"),
 			dd = new BontonAccueil("img/img3.jpg"), ru = new BontonAccueil("img/img4.jpg"),
@@ -53,9 +54,9 @@ public class Accueil extends JFrame {
 		containerB.add(tdm);
 		container.add(containerB, BorderLayout.CENTER);
 
-		cht.addActionListener(new ecranChtullu());
-		dm.addActionListener(new ecranDM());
-		tdm.addActionListener(new ecranJRTM());
+		cht.addActionListener(new EcranChtullu());
+		dm.addActionListener(new EcranDM());
+		tdm.addActionListener(new EcranJRTM());
 
 		this.setVisible(true);
 		// convert();
@@ -70,6 +71,7 @@ public class Accueil extends JFrame {
 		creer.add(milieu);
 		fichier.add(creer);
 		fichier.add(bdd);
+		fichier.add(edition);
 		fichier.setMnemonic('f');
 		fichier.addSeparator();
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
@@ -79,48 +81,56 @@ public class Accueil extends JFrame {
 				System.exit(0);
 			}
 		});
-		chtullu.addActionListener(new ecranChtullu());
-		disque.addActionListener(new ecranDM());
-		milieu.addActionListener(new ecranJRTM());
+		chtullu.addActionListener(new EcranChtullu());
+		disque.addActionListener(new EcranDM());
+		milieu.addActionListener(new EcranJRTM());
 		// recommencer.addActionListener(ecranActif);
-		bdd.addActionListener(new ecranBDD());
+		bdd.addActionListener(new EcranBDD());
+		edition.addActionListener(new EcranEdition());
 		menuBar.add(fichier);
 		menuBar.add(aPropos);
-		aProposItem.addActionListener(new propos());
+		aProposItem.addActionListener(new Propos());
 		aPropos.add(aProposItem);
 
 		this.setJMenuBar(menuBar);
 	}
 
-	class ecranChtullu implements ActionListener {
+	class EcranChtullu implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			LanceurCht  fenCht = new LanceurCht();
 
 		}
 	}
 
-	class ecranDM implements ActionListener {
+	class EcranDM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			LanceurDM fenDm = new LanceurDM();
 
 		}
 	}
 	
-	class ecranJRTM implements ActionListener {
+	class EcranJRTM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			LanceurJRTM fenTM = new LanceurJRTM();
 
 		}
 	}
 	
-	class ecranBDD implements ActionListener {
+	class EcranBDD implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			VueBDDGen bdd = new VueBDDGen();
 
 		}
 	}
 
-	class propos implements ActionListener {
+	class EcranEdition implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			ControleFenAdmin Edit = new ControleFenAdmin();
+
+		}
+	}
+	
+	class Propos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("test");
 			APropos fenAPropos = new APropos();

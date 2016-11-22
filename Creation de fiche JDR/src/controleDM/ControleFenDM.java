@@ -59,7 +59,8 @@ public class ControleFenDM implements DataDM {
 		persoDisque.ReadPointCrea(persoDisque.getPt());
 		persoDisque.setInitchkA(fenetre.getInitchkA());
 		persoDisque.setInitchkD(fenetre.getInitchkD());
-		persoDisque.setInitchkC(fenetre.getInitchkC());
+		//persoDisque.setInitchkC(fenetre.getInitchkC());
+		persoDisque.setInitComp(fenetre.getInitComp());
 		persoDisque.setInitchkL(fenetre.getInitchkL());
 		persoDisque.setInitchkM(fenetre.getInitchkM());
 		persoDisque.setNom(fenetre.nomPerso.getText());
@@ -80,12 +81,13 @@ public class ControleFenDM implements DataDM {
 		persoDisque.Calcul();
 		VerifAll();
 		logger.debug("Pt : " + persoDisque.getPt());
+				
 		fenetre.screen1();
 	}
 
 	public void Next() {
 		VerifAll();
-		EditionDM ed = new EditionDM(persoDisque);
+		new EditionDM(persoDisque);
 		logger.debug("Caractéritique perso next ");
 
 	}
@@ -129,9 +131,8 @@ public class ControleFenDM implements DataDM {
 
 	}
 	
-	public void Sauver(){
-		
-		WriteBDDDM write = new WriteBDDDM(persoDisque);
+	public void Sauver(){	
+		new WriteBDDDM(persoDisque);
 	}
 
 }

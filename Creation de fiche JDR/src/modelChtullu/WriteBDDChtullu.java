@@ -1,14 +1,10 @@
 package modelChtullu;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,14 +29,14 @@ public class WriteBDDChtullu implements DataChtullu {
 		final Timestamp dateSQL = new Timestamp(new Date().getTime());
 
 		String query = "INSERT INTO chtullu (nom, sexe, age, prof, nat, resisdence, dipl, force, dexterite, intelligence, constitution, apparence, pouvoir, taille, sante, education, famille, revenu, langue_etrangere, armeCC, armeFeu, desordre_Psy, description, comp, comp2, comp3, comp4 ,jeux, date) "
-				+ "VALUES ('" + persoCHT.getNom() + "', ' " + persoCHT.getSexe() + "', " + persoCHT.getAge() + ", '"
+				+ "VALUES ('" + VerifString(persoCHT.getNom()) + "', ' " + persoCHT.getSexe() + "', " + persoCHT.getAge() + ", '"
 				+ persoCHT.getProffession() + "', '" + persoCHT.getNationnalite() + "', '" + persoCHT.getResidence()
 				+ "', '" + persoCHT.getDiplome() + "', " + persoCHT.getForce() + ", " + persoCHT.getDexterite() + ","
 				+ persoCHT.getIntelligence() + ", " + persoCHT.getConstitution() + ", " + persoCHT.getApparance() + ", "
 				+ persoCHT.getPouvoir() + ", " + persoCHT.getTaille() + ", " + persoCHT.getSante() + ", "
 				+ persoCHT.getEducation() + ", '" + persoCHT.getFamille() + "', '" + persoCHT.getRevenu() + "', '"
 				+ persoCHT.getLangueEtr() + "', '" + persoCHT.getArmeCc() + "', '" + persoCHT.getArmeF() + "', '"
-				+ persoCHT.getDesordrePsy() + "', '" + persoCHT.getDescription() + "', "
+				+ persoCHT.getDesordrePsy() + "', '" + VerifString(persoCHT.getDescription()) + "', "
 				+ persoCHT.getComp() + ", " + persoCHT.getComp2() + ", " + persoCHT.getComp3() + ", " + persoCHT.getComp4() + ", 'Chtullu', '"+ dateSQL +"')";
 		
 		System.err.println("query : " + query);
@@ -97,11 +93,9 @@ public class WriteBDDChtullu implements DataChtullu {
 			Statement state = ConnexionBDD.getInstance().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
 			ResultSet result = state.executeQuery(requete);
-			ResultSetMetaData resultMeta = result.getMetaData();
-
+			
 			while (result.next()) {
-				if (result.last())
-					out = result.getInt("id");
+				if(result.getInt("id") > out) {out = result.getInt("id");}
 			}
 			result.close();
 			state.close();
@@ -110,6 +104,11 @@ public class WriteBDDChtullu implements DataChtullu {
 		}
 		System.out.println(" out : " + out);
 		return out;
+	}
+	
+	public String VerifString(String str) {
+		String strOut = str.replace("'", "£");
+		return strOut;
 	}
 
 }

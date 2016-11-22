@@ -36,9 +36,11 @@ public class PersoDM implements DataDM {
 	//private ArrayList desavantagesPerso = new ArrayList();
 	private static ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkD = new ArrayList<Boolean>();
-	private static ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
+	//private static ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkM = new ArrayList<Boolean>();
+	
+	private static ArrayList initComp = new ArrayList();
 
 	
 	public PersoDM() {
@@ -51,7 +53,8 @@ public class PersoDM implements DataDM {
 			initchkD.add(false);
 		}
 		for (int t = 0; t < choixCompetences.length; t++) {
-			initchkC.add(false);
+			//initchkC.add(false);
+			initComp.add(-1);
 		}
 		for (int v = 0; v < choixLangues.length; v++) {
 			initchkL.add(false);
@@ -110,7 +113,7 @@ public class PersoDM implements DataDM {
 		initchkD.remove(arg);
 		initchkD.add(arg, arg2);
 	}
-
+/*
 	public static Boolean getInitchkC(int arg) {
 		return initchkC.get(arg);
 	}
@@ -130,6 +133,31 @@ public class PersoDM implements DataDM {
 	public void addInitchkC(int arg, boolean arg2) {
 		initchkC.remove(arg);
 		initchkC.add(arg, arg2);
+	}
+	*/
+	
+	public void ClearInitComp() {
+		initComp.clear();
+	}
+
+	public static ArrayList getInitComp() {
+		return initComp;
+	}
+	public static int getInitComp(int arg) {
+		return (int) initComp.get(arg);
+	}
+
+	public static void setInitComp(ArrayList initComp) {
+		PersoDM.initComp = initComp;
+	}
+	
+	public void addInitComp(int arg) {
+		initComp.add(arg);
+	}
+	
+	public void addInitComp(int arg, int arg2) {
+		initComp.remove(arg);
+		initComp.add(arg, arg2);
 	}
 
 	public static Boolean getInitchkL(int arg) {

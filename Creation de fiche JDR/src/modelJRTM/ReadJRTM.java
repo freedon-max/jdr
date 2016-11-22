@@ -34,7 +34,7 @@ public class ReadJRTM {
 						data = result.getObject(i).toString();
 				}
 
-				persoTM.setNom(result.getString("NOM"));
+				persoTM.setNom(VerifString(result.getString("NOM")));
 
 				persoTM.setSexe(result.getString("sexe"));
 				persoTM.setAge(result.getInt("age"));
@@ -64,8 +64,7 @@ public class ReadJRTM {
 			logger.error("erreur lecture Perso");
 		}
 
-		String queryL = "SELECT langue1, langue2, langue3, langue4, langue5, langue6, langue7, langue8, langue9, langue10, langue11, langue12, langue13, langue14, langue15, langue16, langue17, langue18, langue19, langue20, langue21, langue22, langue23 "
-				+ "FROM languetm WHERE ID = " + arg;
+		String queryL = "SELECT * FROM languetm WHERE ID = " + arg;
 
 		try {
 			Statement state = ConnexionBDD.getInstance().createStatement();
@@ -75,7 +74,8 @@ public class ReadJRTM {
 			while (result.next()) {
 
 				for (int j = 1; j < resultMeta.getColumnCount(); j++) {
-					persoTM.addInitchkL(j - 1, result.getBoolean(j));
+					String str = "langue" + j;
+					persoTM.addInitchkL(j - 1, result.getBoolean(str));
 				}
 			}
 			result.close();
@@ -85,8 +85,7 @@ public class ReadJRTM {
 			logger.error("erreur lecture langue");
 		}
 
-		String queryC = "SELECT competence1, competence2, competence3, competence4, competence5, competence6, competence7, competence8, competence9, competence10, competence11, competence12, competence13, competence14, competence15, competence16, competence17, competence18, competence19, competence20, competence21, competence22, competence23, competence24, competence25"
-				+ " FROM competencetm WHERE ID = " + arg;
+		String queryC = "SELECT * FROM competencetm WHERE ID = " + arg;
 
 
 		try {
@@ -97,7 +96,8 @@ public class ReadJRTM {
 			while (result.next()) {
 
 				for (int j = 1; j < resultMeta.getColumnCount(); j++) {
-					persoTM.addDegres5(j - 1, result.getInt(j));
+					String str = "competence" + j;
+					persoTM.addDegres5(j - 1, result.getInt(str));
 				}
 			}
 			result.close();
@@ -112,6 +112,12 @@ public class ReadJRTM {
 	public PersoJRTM getPersoJRTM() {
 		return persoTM;
 	}
+	
+	public String VerifString(String str) {
+		String strOut = str.replace("£", "'");
+		return strOut;
+	}
+	
 }
 
 /*

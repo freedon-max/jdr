@@ -42,9 +42,10 @@ public class EditionDM extends JFrame implements DataDM {
 	private ArrayList caractPerso = new ArrayList();
 	private ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
 	private ArrayList<Boolean> initchkD = new ArrayList<Boolean>();
-	private ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
 	private ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
 	private ArrayList<Boolean> initchkM = new ArrayList<Boolean>();
+
+	private static ArrayList initComp = new ArrayList();
 
 	private JPanel container = new JPanel(), container2 = new JPanel();
 
@@ -58,12 +59,13 @@ public class EditionDM extends JFrame implements DataDM {
 		initchkA = persoDisque.getInitchkA();
 		initchkD = persoDisque.getInitchkD();
 		initchkL = persoDisque.getInitchkL();
-		initchkC = persoDisque.getInitchkC();
+
+		initComp = persoDisque.getInitComp();
 		initchkM = persoDisque.getInitchkM();
 
 		Statut();
 		ReadTravers();
-		ReadComp();
+		// ReadComp();
 		Perso aff = new Perso();
 
 		this.setTitle("Edition Disque Monde");
@@ -107,7 +109,6 @@ public class EditionDM extends JFrame implements DataDM {
 			Font font = new Font("Times New Roman", Font.BOLD, 20);
 			Font font2 = new Font("Times New Roman", Font.BOLD, 15);
 			Font font3 = new Font("Times New Roman", Font.BOLD, 17);
-			Font font4 = new Font("Times New Roman", Font.BOLD, 18);
 			Font font5 = new Font("Times New Roman", Font.BOLD, 30);
 
 			g.setFont(font);
@@ -279,22 +280,22 @@ public class EditionDM extends JFrame implements DataDM {
 			g.drawString("Niveau", 950, 685);
 
 			int tempC = choixCompetences.length;
-			int posXC = 590;
 			int posYC = 705;
-			String strCompetences;
 			int posC = 0;
 			g.setFont(font2);
 			for (int ccompetence = 0; ccompetence < tempC; ccompetence++) {
 
-				if (initchkC.get(ccompetence) == true) {
-					// strCompetences =
-					// choixCompetences[ccompetence].substring(4);
-					g.drawString("" + comptAff.get(ccompetence).toString(), 590, posYC + (posC * 20));
-					g.drawString("" + comptAffType.get(ccompetence).toString(), 850, posYC + (posC * 20));
-					g.drawString("" + comptAffNv.get(ccompetence).toString(), 950, posYC + (posC * 20));
+				if ((int) initComp.get(ccompetence) > -1) {
+					g.drawString("" + choixCompetences[ccompetence][0], 590, posYC + (posC * 20));
+					g.drawString("" + choixCompetences[ccompetence][1], 850, posYC + (posC * 20));
+					g.drawString(
+							"" + Formatage(Integer.parseInt(choixCompetences[ccompetence][2]),
+									choixCompetences[ccompetence][1], (int) initComp.get(ccompetence)),
+							950, posYC + (posC * 20));
 
 					posC++;
 				}
+
 			}
 
 			// Magie
@@ -413,6 +414,122 @@ public class EditionDM extends JFrame implements DataDM {
 			}
 			comptAffNv.add(comptTemp.substring(comptTemp.length() - 5));
 		}
+	}
+
+	private String Formatage(int arg, String arg2, int arg3) {
+		String str = "";
+		String type = "";
+
+		switch (arg2) {
+		case "Force":
+			type = "Fo";
+			break;
+		case "Dextérité":
+			type = "Dx";
+			break;
+		case "QI":
+			type = "Qi";
+			break;
+		case "Santé":
+			type = "Sa";
+			break;
+		}
+
+		switch (arg) {
+
+		case 1:
+			str = type;
+			break;
+
+		case 2:
+			switch (arg3) {
+			case 0:
+				str = type;
+				break;
+			case 1:
+				str = type + "+1";
+				break;
+			}
+			break;
+
+		case 3:
+			switch (arg3) {
+			case 0:
+				str = type;
+				break;
+			case 1:
+				str = type + "+1";
+				break;
+			case 2:
+				str = type + "21";
+				break;
+			}
+			break;
+
+		case 4:
+			switch (arg3) {
+			case 0:
+				str = type;
+				break;
+			case 1:
+				str = type + "+1";
+				break;
+			case 2:
+				str = type + "+2";
+				break;
+			case 3:
+				str = type + "+3";
+				break;
+			}
+			break;
+
+		case 5:
+
+			switch (arg3) {
+			case 0:
+				str = type + "-1";
+				break;
+			case 1:
+				str = type;
+				break;
+			case 2:
+				str = type + "+1";
+				break;
+			case 3:
+				str = type + "+2";
+				break;
+			case 4:
+				str = type + "+3";
+				break;
+			}
+			break;
+
+		case 6:
+			switch (arg3) {
+			case 0:
+				str = type + "-2";
+				break;
+			case 1:
+				str = type + "+1";
+				;
+				break;
+			case 2:
+				str = type;
+				break;
+			case 3:
+				str = type + "+1";
+				break;
+			case 4:
+				str = type + "+2";
+				break;
+			case 5:
+				str = type + "+3";
+				break;
+			}
+			break;
+
+		}
+		return str;
 	}
 
 }

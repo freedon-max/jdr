@@ -88,9 +88,7 @@ public class VueBDDGen extends JFrame {
 
 		// Les titres des colonnes
 
-		System.err.println("var : " + var);
 		for (int g = 0; g <= var; g++) {
-			System.out.println(" title : " + dataTittle.get(g).toString());
 			title[g] = dataTittle.get(g).toString();
 		}
 		final JTable tableau = new JTable(datajT, title);
@@ -197,8 +195,8 @@ public class VueBDDGen extends JFrame {
 		int vartemp = 0;
 
 		if (arg4 == null) {
-			//arg4 = "SELECT id, jeux, nom, sexe, prof, nat, date FROM chtullu WHERE date IS NOT NULL";
 			arg4 = "SELECT id, jeux, nom, sexe, prof, date FROM chtullu WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM disquemonde WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM terremilieu WHERE date IS NOT NULL";
+			
 		}
 
 		try {
@@ -206,17 +204,14 @@ public class VueBDDGen extends JFrame {
 			ResultSet result = state.executeQuery(arg4);
 			ResultSetMetaData resultMeta = result.getMetaData();
 
-			System.out.println(
-					"\n************************************************************************************************************");
-			for (int i = 1; i <= resultMeta.getColumnCount(); i++) {
-				System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
+			
+			for (int i = 1; i <= resultMeta.getColumnCount(); i++) {				
 				tempT.add(resultMeta.getColumnName(i).toUpperCase());
 			}
 			dataTittle = tempT;
 			setCol(resultMeta.getColumnCount());
 
-			System.out.println(
-					"\n************************************************************************************************************");
+			
 			while (result.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
 				for (int i = 1; i <= resultMeta.getColumnCount(); i++) {
@@ -249,7 +244,6 @@ public class VueBDDGen extends JFrame {
 
 	public static void setRequete(String arg3) {
 		req = arg3;
-		System.out.println("requete2 : " + req);
 
 	}
 

@@ -29,7 +29,7 @@ public class FenCht extends JFrame implements DataChtullu {
 
 	PersoChtullu persoCht = null;
 	ControleFenCht controle = null;
-
+	
 	private JPanel container = new JPanel();
 	private String[] sex = { "Homme", "Femme" };
 

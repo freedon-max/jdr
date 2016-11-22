@@ -1,14 +1,9 @@
 package modelJRTM;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import modelDM.PersoDM;
 
 public class PersoJRTM implements DataJRTM {
 
@@ -82,7 +77,8 @@ public class PersoJRTM implements DataJRTM {
 
 	public void Calcul() {
 
-		CalculBonusRace calcul = new CalculBonusRace(race, this);
+		
+		CalculBRace calcul = new CalculBRace(race, this);
 
 		bonusAff.clear();
 		for (int i = 0; i < choixCompetence.length; i++) {
@@ -160,7 +156,7 @@ public class PersoJRTM implements DataJRTM {
 	}
 
 	private void Met() {
-		CalculMetier cal = new CalculMetier(profession, this);
+		new CalculMetier(profession, this);
 	}
 
 	private int CalculBonus(int arg) {

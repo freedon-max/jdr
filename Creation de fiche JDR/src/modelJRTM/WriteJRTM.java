@@ -28,7 +28,7 @@ public class WriteJRTM implements DataJRTM {
 
 		String query = "INSERT INTO terremilieu (nom, sexe, age, prof, race, force, agilite, constitution, intelligence, intuition, presence, apparence, "
 				+ "pointpouvoir, pointexp, cheveux, yeux, attitude, alignement, royaume, niveau, poids, jeux, date) "
-				+ "VALUES ('" + persoTM.getNom() + "', '" + persoTM.getSexe() + "', " + persoTM.getAge() + ", '"
+				+ "VALUES ('" + VerifString(persoTM.getNom()) + "', '" + persoTM.getSexe() + "', " + persoTM.getAge() + ", '"
 				+ persoTM.getProfession() + "', '" + persoTM.getRace() + "', " + persoTM.getForce() + ", "
 				+ persoTM.getAgilite() + ", " + persoTM.getConstitution() + ", " + persoTM.getIntelligence() + ", "
 				+ persoTM.getIntuition() + "," + persoTM.getPresence() + ", " + persoTM.getApparence() + ", "
@@ -41,24 +41,26 @@ public class WriteJRTM implements DataJRTM {
 		int pos = InitIDComp();
 
 		String strL = "";
+		String strL1 = "";
 
 		for (int i = 0; i < choixLangues.length; i++) {
 			strL = strL + ", " + persoTM.get2InitchkL(i);
+			strL1 = strL1 + ", langue" + (i+1);
 		}
 
-		String queryL = "INSERT INTO langueTM (id, langue1, langue2, langue3, langue4, langue5, langue6, langue7, langue8, langue9, langue10, langue11, langue12, langue13, langue14, langue15, langue16, langue17, langue18, langue19, langue20, langue21, langue22, langue23)"
-				+ "VALUES (" + pos + strL + ")";
+		String queryL = "INSERT INTO langueTM (id " + strL1 + ") VALUES (" + pos + strL + ")";
 
 		insert.GetInsert(queryL);
 
 		String strC = "";
+		String strC1 = "";
 
 		for (int i = 0; i < choixCompetence.length; i++) {
 			strC = strC + ", " + persoTM.get2Degres5(i);
+			strC1 = strC1 + ", competence" + (i+1);
 		}
 
-		String queryC = "INSERT INTO competenceTM (id, competence1, competence2, competence3, competence4, competence5, competence6, competence7, competence8, competence9, competence10, competence11, competence12, competence13, competence14, competence15, competence16, competence17, competence18, competence19, competence20, competence21, competence22, competence23, competence24, competence25)"
-				+ " VALUES (" + pos + strC + ")";
+		String queryC = "INSERT INTO competenceTM (id " + strC1 + " ) VALUES (" + pos + strC + ")";
 
 		insert.GetInsert(queryC);
 
@@ -79,11 +81,9 @@ public class WriteJRTM implements DataJRTM {
 			Statement state = ConnexionBDD.getInstance().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
 			ResultSet result = state.executeQuery(requete);
-			ResultSetMetaData resultMeta = result.getMetaData();
-
+			
 			while (result.next()) {
-				if (result.last())
-					out = result.getInt("id");
+				if(result.getInt("id") > out) {out = result.getInt("id");}
 			}
 			result.close();
 			state.close();
@@ -92,6 +92,11 @@ public class WriteJRTM implements DataJRTM {
 		}
 		System.out.println(" out : " + out);
 		return out;
+	}
+	
+	public String VerifString(String str) {
+		String strOut = str.replace("'", "£");
+		return strOut;
 	}
 
 }

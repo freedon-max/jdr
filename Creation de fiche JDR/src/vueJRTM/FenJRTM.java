@@ -29,14 +29,11 @@ import controleJRTM.ControleFenJRTM;
 import modelJRTM.DataJRTM;
 import modelJRTM.PersoJRTM;
 import vueChtullu.JLabelP;
-import java.awt.Component;
 
 public class FenJRTM extends JFrame implements DataJRTM {
 
 	PersoJRTM persoTM = null;
 	ControleFenJRTM controle = null;
-
-	private static final Logger logger = LogManager.getLogger(FenJRTM.class.getName());
 
 	private JPanel container = new JPanel();
 	private Font font = new Font("Times New Roman", Font.BOLD, 15);

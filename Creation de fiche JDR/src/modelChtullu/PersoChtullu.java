@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controleChtullu.GestionMetierCht;
 import vueChtullu.DataChtullu;
 
 
 public class PersoChtullu implements DataChtullu {
-	GestionMetierCht gestion = new GestionMetierCht();
+
+	MetierChtullu gestion = new MetierChtullu();
+	
 
 	private static final Logger logger = LogManager.getLogger(PersoChtullu.class.getName());
 	private int force, dexterite, intelligence, idee, constitution, apparance, pouvoir, chance, taille, sante,
@@ -47,11 +48,12 @@ public class PersoChtullu implements DataChtullu {
 	private ArrayList compGPerso = new ArrayList();
 
 	public PersoChtullu() {
-
+		// chargement d'un nouveau perso
 		logger.debug("Perso ok ");
 		nom = "test";
 		comp = comp2 = comp3 = comp4 = 100;
-		competenceBool = gestion.GestionMCht(this);
+		//competenceBool = gestion.GestionMCht(this);
+		gestion.GestionMCht(this);
 		Init();
 		for (int i = 0; i < competence.length; i++) {
 			compMetierPerso.add(competenceInit[i]);
@@ -62,17 +64,10 @@ public class PersoChtullu implements DataChtullu {
 	}
 	
 	public PersoChtullu(boolean arg) {
-		
+		// chargement d'un perso via la base de donnée
 		logger.debug("Perso via BDD ok ");
-		competenceBool = gestion.GestionMCht(this);	
-		Init();
-		for (int i = 0; i < competence.length; i++) {
-			compMetierPerso.add(competenceInit[i]);
-			compPPerso.add(competenceInit[i]);
-		}
-
-
-		
+		gestion.GestionMCht(this);
+		Init();		
 	}
 
 	public void Calcul() {
@@ -93,8 +88,10 @@ public class PersoChtullu implements DataChtullu {
 		BonusDegats();
 		if (prof.equals(proffession)) {
 		} else {
+			comp = comp2 = comp3 = comp4 = 100;
 			competenceBool.clear();
-			competenceBool = gestion.GestionMCht(this);
+			//competenceBool = gestion.GestionMCht(this);
+			gestion.GestionMCht(this);
 			for (int i = 0; i < competence.length; i++) {
 				compMetierPerso.add(competenceInit[i]);
 				compPPerso.add(competenceInit[i]);
@@ -102,6 +99,30 @@ public class PersoChtullu implements DataChtullu {
 		}
 		Init();
 		prof = proffession;
+	}
+	
+	public void CalculBDD() {
+			
+		competenceInit = InitSpec();	
+		idee = intelligence * 5;
+		sante = pouvoir * 5;
+		chance = pouvoir * 5;
+		connaissance = education * 5;
+		pv = (constitution + taille) / 2;
+		pm = pouvoir;
+		santeMentale = sante;
+		pointCompMetier = education * 20;
+		pointCompPerso = intelligence * 10;
+		BonusDegats();
+		competenceBool.clear();
+		gestion.GestionMCht(this);
+		for (int i = 0; i < competence.length; i++) {
+			compMetierPerso.add(competenceInit[i]);
+			compPPerso.add(competenceInit[i]);
+		}		
+		Init();
+		prof = proffession;
+		
 	}
 
 	private void Init() {
@@ -476,6 +497,17 @@ public class PersoChtullu implements DataChtullu {
 	public void setCompetenceBool(ArrayList<Boolean> competenceBool) {
 		this.competenceBool = competenceBool;
 	}
+	public void ClearCompetenceBool(){
+		competenceBool.clear();
+	}
+	public void addCompetenceBool(boolean arg){
+		competenceBool.add(arg);
+	}
+	
+	public void addCompetenceBool(int arg, boolean arg2){
+		competenceBool.remove(arg);
+		competenceBool.add(arg, arg2);
+	}
 
 	public ArrayList<Boolean> getCompetenceBool2() {
 		return competenceBool2;
@@ -748,15 +780,3 @@ public class PersoChtullu implements DataChtullu {
 	}
 
 }
-/*
- * for, con, pou, dex app = 3d6 = 18max tai, int = 2d6 + 8 = 20max edu = 3d6 + 3
- * = 21max san = pou * 5 = 25max
- * 
- * id�e = int * 5 chance = pou * 5 connaissance = edu*5
- * 
- * bonus degat = for + tai ==> voir tableau pages 19 du livre de regles
- * 
- * pv = con + tai / 2 pm = pou sante mentale = san
- * 
- * comp metier = edu * 20 comp personnel = int * 10
- */

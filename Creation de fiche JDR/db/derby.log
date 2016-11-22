@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Oct 07 14:00:32 CEST 2016:
-Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0157-9f04-2995-000000b6db38 
+Mon Nov 21 17:50:20 CET 2016:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835) : instance a816c00e-0158-87cb-a50e-000000b6de58 
 dans le répertoire de base de données G:\projet jdr\Creation de fiche JDR\db\BaseJDR  avec le chargeur de classe sun.misc.Launcher$AppClassLoader@647e05
 
 java.vendor=Oracle Corporation
@@ -11,3 +11,9 @@ os.arch=x86
 os.version=6.1
 derby.system.home=null
 Chargeur de classe de la base de données démarré - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Nov 21 17:51:50 CET 2016 : fermeture du moteur Derby
+----------------------------------------------------------------
+Mon Nov 21 17:51:51 CET 2016:
+Fermeture de l'instance a816c00e-0158-87cb-a50e-000000b6de58 sur le répertoire de base de données G:\projet jdr\Creation de fiche JDR\db\BaseJDR avec le chargeur de classe sun.misc.Launcher$AppClassLoader@647e05
+----------------------------------------------------------------

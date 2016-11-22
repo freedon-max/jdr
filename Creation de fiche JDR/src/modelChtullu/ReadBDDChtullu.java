@@ -20,7 +20,7 @@ public class ReadBDDChtullu {
 	PersoChtullu persoCHT = new PersoChtullu(true);
 
 	private static String data = "";
-	private static ArrayList<String> dataTittle = new ArrayList<String>();
+
 
 	public ReadBDDChtullu(String arg) {
 
@@ -42,7 +42,7 @@ public class ReadBDDChtullu {
 				}
 				
 				persoCHT.setId(result.getInt("id"));
-				persoCHT.setNom(result.getString("nom"));
+				persoCHT.setNom(VerifString(result.getString("nom")));
 				persoCHT.setSexe(result.getString("sexe"));
 				persoCHT.setAge(result.getInt("age"));
 				persoCHT.setProffession(result.getString("prof"));
@@ -64,7 +64,7 @@ public class ReadBDDChtullu {
 				persoCHT.setArmeCc(result.getString("armeCC"));
 				persoCHT.setArmeF(result.getString("armeFeu"));
 				persoCHT.setDesordrePsy(result.getString("desordre_Psy"));
-				persoCHT.setDescription(result.getString("description"));
+				persoCHT.setDescription(VerifString(result.getString("description")));
 				persoCHT.setComp(result.getInt("comp"));
 				persoCHT.setComp2(result.getInt("comp2"));
 				persoCHT.setComp3(result.getInt("comp3"));
@@ -88,17 +88,25 @@ public class ReadBDDChtullu {
 			Statement stateCompM = ConnexionBDD.getInstance().createStatement();
 			ResultSet resultCompM = stateCompM.executeQuery(queryM);
 			ResultSetMetaData resultMetaCompM = resultCompM.getMetaData();
-
+			
+			int[] temp1 = new int[resultMetaCompM.getColumnCount()];
+			
 			while (resultCompM.next()) {
 
-				for (int j = 1; j < resultMetaCompM.getColumnCount(); j++) {
-					persoCHT.addCompMetierPerso(j - 1, resultCompM.getInt(j));
+				for (int j = 1; j <= resultMetaCompM.getColumnCount(); j++) {
+					//persoCHT.addCompMetierPerso(j - 1, resultCompM.getInt(j));
+					temp1[j-1] = resultCompM.getInt(j);
 				}
 			}
 			resultCompM.close();
 			stateCompM.close();
+			
+			for (int j = 1; j <= resultMetaCompM.getColumnCount(); j++) {
+				persoCHT.addCompMetierPerso(temp1[j-1]);
+			}
+			
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e + " erreur CompMetierPerso");
 		}
 
 		String queryP = "SELECT Anthropologie, Archeologie, Art, Art_Martiaux, Astronomie, Baratin, Bibliotheque, Camouflage, Chimie, Comptabilite, Conduire_Auto, "
@@ -113,23 +121,36 @@ public class ReadBDDChtullu {
 			Statement stateCompP = ConnexionBDD.getInstance().createStatement();
 			ResultSet resultCompP = stateCompP.executeQuery(queryP);
 			ResultSetMetaData resultMetaCompP = resultCompP.getMetaData();
+			
+			int[] temp2 = new int[resultMetaCompP.getColumnCount()];
 
 			while (resultCompP.next()) {
 
-				for (int j = 1; j < resultMetaCompP.getColumnCount(); j++) {
-					persoCHT.addCompPPerso(j - 1, resultCompP.getInt(j));
+				for (int j = 1; j <= resultMetaCompP.getColumnCount(); j++) {
+					//persoCHT.addCompPPerso(j - 1, resultCompP.getInt(j));
+					temp2[j-1] = resultCompP.getInt(j);
 				}
 			}
 			resultCompP.close();
 			stateCompP.close();
+			
+			for (int j = 1; j <= resultMetaCompP.getColumnCount(); j++) {
+				persoCHT.addCompPPerso(temp2[j-1]);
+			}
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e + " erreur CompPPerso");
 		}
-
+		
+		
 	}
 
 	public PersoChtullu getPersoCht() {
 		return persoCHT;
+	}
+	
+	public String VerifString(String str) {
+		String strOut = str.replace("£", "'");
+		return strOut;
 	}
 
 }

@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -27,7 +29,6 @@ import org.apache.logging.log4j.Logger;
 
 import controleDM.ControleFenDM;
 import modelDM.PersoDM;
-
 import vueChtullu.JLabelP;
 
 public class FenDM extends JFrame implements DataDM {
@@ -36,7 +37,8 @@ public class FenDM extends JFrame implements DataDM {
 
 	PersoDM persoDisque = null;
 	ControleFenDM controle = null;
-
+	
+	
 	private JPanel container = new JPanel();
 	private Font font = new Font("Times New Roman", Font.BOLD, 15);
 
@@ -51,13 +53,14 @@ public class FenDM extends JFrame implements DataDM {
 
 	JCheckBox[] chkA = new JCheckBox[choixAvantages.length];
 	JCheckBox[] chkD = new JCheckBox[choixDesavantages.length];
-	JCheckBox[] chkC = new JCheckBox[choixCompetences.length];
 	JCheckBox[] chkL = new JCheckBox[choixLangues.length];
 	JCheckBox[] chkM = new JCheckBox[choixMagie.length];
 
+	BoutonComp[] chkC = new BoutonComp[choixCompetences.length];
+
 	private static ArrayList<Boolean> initchkA = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkD = new ArrayList<Boolean>();
-	private static ArrayList<Boolean> initchkC = new ArrayList<Boolean>();
+	private static ArrayList initComp = new ArrayList();
 	private static ArrayList<Boolean> initchkL = new ArrayList<Boolean>();
 	private static ArrayList<Boolean> initchkM = new ArrayList<Boolean>();
 
@@ -83,13 +86,13 @@ public class FenDM extends JFrame implements DataDM {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
-		
+
 		initchkL = persoDisque.getInitchkL();
 		initchkA = persoDisque.getInitchkA();
 		initchkD = persoDisque.getInitchkD();
-		initchkC = persoDisque.getInitchkC();
+		initComp = persoDisque.getInitComp();
 		initchkM = persoDisque.getInitchkM();
-		
+
 		screen1();
 		this.setResizable(false);
 		this.setVisible(true);
@@ -122,9 +125,6 @@ public class FenDM extends JFrame implements DataDM {
 		JPanel containerMagie = new JPanel();
 		JPanel containerDescrition = new JPanel();
 
-
-		JButton random = new JButton("Caract. Auto");
-		JButton tousAuto = new JButton("Perso Auto");
 		JButton appercu = new JButton("Actualiser");
 		JButton suivant = new JButton("Suivant");
 		JButton sauver = new JButton("Sauver");
@@ -159,11 +159,10 @@ public class FenDM extends JFrame implements DataDM {
 		scroll2.getVerticalScrollBar().setUnitIncrement(20);
 		JScrollPane scroll3 = new JScrollPane(containerMagie);
 		scroll3.getVerticalScrollBar().setUnitIncrement(15);
-		JScrollPane scroll4 = new JScrollPane(containerCompetence);
-		scroll4.getVerticalScrollBar().setUnitIncrement(30);	
+		final JScrollPane scroll4 = new JScrollPane(containerCompetence);
+		scroll4.getVerticalScrollBar().setUnitIncrement(30);
 		JScrollPane scroll5 = new JScrollPane(containerLangue);
 		scroll5.getVerticalScrollBar().setUnitIncrement(15);
-		
 
 		container.removeAll();
 
@@ -351,7 +350,11 @@ public class FenDM extends JFrame implements DataDM {
 		containerCompetence.setBackground(Color.white);
 		containerCompetence.add(comp);
 		for (int g = 0; g < choixCompetences.length; g++) {
-			chkC[g] = new JCheckBox(choixCompetences[g], persoDisque.getInitchkC(g));
+			// chkC[g] = new JCheckBox(choixCompetences[g],
+			// persoDisque.getInitchkC(g));
+
+			chkC[g] = new BoutonComp(choixCompetences[g][0], choixCompetences[g][1],
+					Integer.parseInt(choixCompetences[g][2]), (persoDisque.getInitComp(g)));
 			containerCompetence.add(chkC[g]);
 		}
 		scroll4.setBackground(Color.white);
@@ -390,6 +393,42 @@ public class FenDM extends JFrame implements DataDM {
 			}
 		});
 		
+		scroll4.addMouseListener(new MouseListener() {
+			
+			 
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				scroll4.setToolTipText("<html>Nv1 : 1 Point d'exp<br> Nv2 : 2 Point d'exp<br> Nv3 : 4 Point d'exp<br>"
+						+ "Nv4 : 8 Point d'exp<br> Nv5 : 12 Point d'exp<br> Nv6 : 16 Point d'exp </html>");
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				scroll4.setToolTipText(null);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		container.add(containerAction);
 
@@ -433,22 +472,41 @@ public class FenDM extends JFrame implements DataDM {
 	}
 
 	public int etatCompetences() {
+
 		int ptCompetence = 0;
 		for (int jdc = 0; jdc < choixCompetences.length; jdc++) {
-			if (chkC[jdc].isSelected() == true) {
 
-				ptCompetence = ptCompetence + Integer.parseInt(chkC[jdc].getText().substring(0, 2));
-				initchkC.remove(jdc);
-				initchkC.add(jdc, true);
+			persoDisque.addInitComp(jdc, chkC[jdc].getBoutonComp());
 
-			} else {
-				initchkC.remove(jdc);
-				initchkC.add(jdc, false);
+			switch ((chkC[jdc].getBoutonComp())) {
+
+			case -1:
+				ptCompetence = ptCompetence;
+				break;
+			case 0:
+				ptCompetence = ptCompetence + 1;
+				break;
+			case 1:
+				ptCompetence = ptCompetence + 2;
+				break;
+			case 2:
+				ptCompetence = ptCompetence + 4;
+				break;
+			case 3:
+				ptCompetence = ptCompetence + 8;
+				break;
+			case 4:
+				ptCompetence = ptCompetence + 12;
+				break;
+			case 5:
+				ptCompetence = ptCompetence + 16;
+				break;
+
 			}
 
 		}
-		persoDisque.setInitchkC(initchkC);
 		return ptCompetence;
+
 	}
 
 	public int etatLangues() {
@@ -493,31 +551,6 @@ public class FenDM extends JFrame implements DataDM {
 		return appOut;
 	}
 
-	private static void initVar1() {
-		initchkA.clear();
-		initchkD.clear();
-		initchkC.clear();
-		//initchkL.clear();
-		initchkM.clear();
-
-		for (int v = 0; v < choixAvantages.length; v++) {
-			initchkA.add(false);
-		}
-		for (int w = 0; w < choixDesavantages.length; w++) {
-			initchkD.add(false);
-		}
-		for (int t = 0; t < choixCompetences.length; t++) {
-			initchkC.add(false);
-		}
-		for (int v = 0; v < choixLangues.length; v++) {
-			initchkL.add(false);
-		}
-		for (int w = 0; w < choixMagie.length; w++) {
-			initchkM.add(false);
-		}
-
-	}
-
 	public static ArrayList<Boolean> getInitchkA() {
 		return initchkA;
 	}
@@ -526,8 +559,9 @@ public class FenDM extends JFrame implements DataDM {
 		return initchkD;
 	}
 
-	public static ArrayList<Boolean> getInitchkC() {
-		return initchkC;
+	public static ArrayList<Boolean> getInitComp() {
+		return initComp;
+
 	}
 
 	public static ArrayList<Boolean> getInitchkL() {
@@ -537,5 +571,6 @@ public class FenDM extends JFrame implements DataDM {
 	public static ArrayList<Boolean> getInitchkM() {
 		return initchkM;
 	}
-
+	
+	
 }

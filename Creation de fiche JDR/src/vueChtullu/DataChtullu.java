@@ -1,9 +1,16 @@
 package vueChtullu;
 
+import modelChtullu.ChargementDataCht;
+
 public interface DataChtullu {
 	
+	ChargementDataCht chargement = new ChargementDataCht();
+	
 
-	String[] choixMetier = {"Aucun", "Antiquaire", "Artiste", "Artiste de cabaret", "Athlete", "Avocat", "Criminel", "Detective prive", "Dilettante", "Ecrivain", "Fantassin", "Fermier", "Guerrier tribal", "Ingenieur", "Inspecteur de police", "Journaliste", "Medecin", "Missionnaire", "Musicien", "Officier", "Parapsychologue", "Pecheur", "Policier", "Pretre", "Proffesseur", "Revolutionnaire", "Vagabond"};
+	//String[] choixMetier = {"Aucun", "Antiquaire", "Artiste", "Artiste de cabaret", "Athlete", "Avocat", "Criminel", "Detective prive", "Dilettante", "Ecrivain", "Fantassin", "Fermier", "Guerrier tribal", "Ingenieur", "Inspecteur de police", "Journaliste", "Medecin", "Missionnaire", "Musicien", "Officier", "Parapsychologue", "Pecheur", "Policier", "Pretre", "Proffesseur", "Revolutionnaire", "Vagabond"};
+	
+	String[] choixMetier = chargement.ChargementMetier();
+	
 	String[] competence = {"Anthropologie", "Archéologie", "Art", "Art Martiaux", "Astronomie", "Baratin", "Bibliothéque", "Camouflage", "Chimie", "Comptabilité", "Conduire Auto", "Conduire Engin Lourd", "Crédit", "Discrétion", "Dissimulation", "Droit", "Ecouter", "Electricité", "Esquiver (DEX*2%)", "Géologie", "Grimper", "Histoire", "Histoire Naturel", "Lancer", "Langues Etrangéres", "Langue Natale (EDU*5%)", "Marchandage", "Mecanique", "Médecine", "Monter à Cheval", "Mythe de Chtullu", "Nager", "Navigation", "Occultisme", "Persuasion", "Pharmacoogie", "Photographie", "Physique", "Piloter", "Permiers Soins", "Psychanalyse", "Psychologie", "Sauter", "Se Cacher", "Serrurerie", "Suivre une Piste", "Trouver Objet Caché", "Arme de Poing", "Fusil", "Fusil de Chasse", "Mitrailette", "Mitrailleuse", "Coup de Pied", "Coup de Poing", "Coup de Tête", "Lutte", "Eloquence", "DessinerCarte", "Chanter", "Botanique", "Pickpocket", "SoignerEmpoisonnement", "SoignerMaladie"};
 	
 	String[] langue = {"Aucun", "Français", "Anglais", "Allemand", "Latin", "Espagnole", "Japonnais", "Chinoix", "Russe"};
@@ -18,7 +25,7 @@ public interface DataChtullu {
 									"Rapière/Epée lourde       10%        1D6+1+BD    -            -            15",
 									"Sabre de cavalerie        15%        1D8+1+BD    -            -            20",
 									"Nerf de boeuf             40%        1D8 + BD    -            -            4",
-									"Garrot/Corde de piano     15%        �tranglement-            -            1",
+									"Garrot/Corde de piano     15%        étranglement-            -            1",
 									"Fouet                      5%        1D3         3            -            4",
 									"Lance de cavalerie        10%        1D8+1+BD    3            -            15",
 									};
@@ -47,7 +54,7 @@ public interface DataChtullu {
 			0, 0, 5, 20, 5, 5, 0, 25, 10, 5, 15, 0, 10, 0, 0, 30, 0, 5, 25, 10, 0, 10, 25, 20, 25, 30, 15, 15, 25, 50,
 			10, 25, 0, 0, 0, 0, 0, 0, 0 };
 	
-	String[] diplomeP = { "Aucun", "Certificat d'étude", "Brevet", "Bac", "Ingenieur", "Master", "maitre de conf" };
+	String[] diplomeP = { "Aucun", "Certificat étude", "Brevet", "Bac", "Ingenieur", "Master", "maitre de conf" };
 	
 	String[] nationnaliteP = { "Français", "Allemand", "Anglais", "Irlandais", "italien", "Espagnole", "Hollandais",
 			"Belge", "Portugais", "Suisse", "Autrichien", "Polonais", "Russe", "Suédois", "Finlandais", "Norvégiens",
@@ -57,5 +64,9 @@ public interface DataChtullu {
 			"Colombien", "Argentien", "Brezilien", "Vénézuelien", "Australien", "Neozélandais", "Haïtien", "Iselandais",
 			"Cubain", "Arménien", "Bolivien", "Bulgare", "Chilien", "Danois", "Georgien", "Luxembourgeois", "Panamien",
 			"Péruvien", "Ukrainien", "Yemenien", "Tripolitien", "Palatien", "Koubanais", "Rhonan" };
+
+	
+	
+	
 	
 }

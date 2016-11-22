@@ -79,9 +79,7 @@ public class EditionJRTM extends JFrame implements DataJRTM{
 
 		public void paintComponent(Graphics g) {
 
-			Font font = new Font("Times New Roman", Font.BOLD, 20);
 			Font font2 = new Font("Times New Roman", Font.BOLD, 16);
-			Font font3 = new Font("Times New Roman", Font.PLAIN, 17);
 			Font font4 = new Font("Times New Roman", Font.BOLD, 18);
 
 			g.setFont(font4);
@@ -316,7 +314,6 @@ public class EditionJRTM extends JFrame implements DataJRTM{
 	public String SelecChemin() {
 		// permet de choisir la destination et le nom de la fiche pour
 		// l'enregistrement
-		JOptionPane jop2 = new JOptionPane();
 		String monFichier = "";
 		JFileChooser cheminInt = new JFileChooser();
 
