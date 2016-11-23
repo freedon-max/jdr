@@ -77,7 +77,6 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		this.setBackground(Color.white);
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
 		InitVar();
@@ -230,7 +229,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 			}
 		});
 
-		containerPerso.add(new JLabelP(" Proffession : ", font));
+		containerPerso.add(new JLabelP(" Profession : ", font));
 		proffs.setBackground(Color.white);
 		proffs.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(proffs);
@@ -343,6 +342,7 @@ public class FenJRTM extends JFrame implements DataJRTM {
 		for (int h = 0; h < choixLangues.length; h++) {
 			chkL[h] = new JCheckBox(choixLangues[h] + " au degré " + persoTM.get2DegLangue(h), persoTM.get2InitchkL(h));
 			containerLangue.add(chkL[h]);
+			chkL[h].setBackground(Color.WHITE);
 		}
 
 		containerCar.setLayout(new GridLayout(0, 2, 0, 0));

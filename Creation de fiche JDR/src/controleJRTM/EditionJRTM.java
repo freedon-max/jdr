@@ -48,7 +48,6 @@ public class EditionJRTM extends JFrame implements DataJRTM{
 		aff.setSize(1100, 1500);
 		container2.setSize(1100, 1500);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
 		Icon icon = new ImageIcon(new ImageIcon("img/edit/JRTMEdit.png").getImage()

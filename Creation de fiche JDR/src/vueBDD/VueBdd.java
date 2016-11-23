@@ -19,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.TableColumn;
 
@@ -34,48 +33,50 @@ import modelChtullu.ReadBDDChtullu;
 import modelDM.ReadBDDDM;
 import modelJRTM.ReadJRTM;
 
-public class VueBDDGen extends JFrame {
+public class VueBdd extends JFrame {
 
-	private static final Logger logger = LogManager.getLogger(VueBDDGen.class.getName());
+	private static final Logger logger = LogManager.getLogger(VueBdd.class.getName());
 
 	private static String data = "";
 	private static ArrayList<String> dataTittle = new ArrayList<String>();
 	static private ArrayList<ArrayList<String>> dataOut = new ArrayList<ArrayList<String>>();
 
-	private static String req =  null;
-	private static JTextField requete = new JTextField(req);
-
-	private JPanel container = new JPanel();
+	private static String req = null;
 	
+
+	private static JPanel container = new JPanel();
+
 	private static int var;
 	private static int var4;
 
-	public VueBDDGen() {
+	public VueBdd() {
+
+		this.setLocationRelativeTo(null);
+		this.setTitle("Gestion BDD");
+		this.setSize(700, 400);
+		this.getContentPane().add(container);
+		Screen();
+
+		this.setVisible(true);
+	}
+
+	public void Screen() {
+
 		Cnx(req);
-		
 		final String[] title = new String[var + 1];
 		final String[][] datajT = new String[var4 + 1][var + 1];
-
 
 		JPanel container3 = new JPanel();
 		container3.setBackground(Color.WHITE);
 		JPanel containerBouton = new JPanel();
 		JButton bouton = new JButton("Actualiser");
 		bouton.setBackground(Color.WHITE);
-		JButton chtullu  = new JButton("Chtullu");
+		JButton chtullu = new JButton("Chtullu");
 		chtullu.setBackground(Color.WHITE);
 		JButton dM = new JButton("Disque Monde");
 		dM.setBackground(Color.WHITE);
 		JButton jRTM = new JButton("Terre du milieu");
 		jRTM.setBackground(Color.WHITE);
-
-
-		this.setLocationRelativeTo(null);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Gestion BDD");
-		this.setSize(700, 400);
-
-		// Les donn�es du tableau
 
 		for (int h = 0; h <= var4; h++) {
 			ArrayList<String> temp2 = new ArrayList<String>();
@@ -92,22 +93,22 @@ public class VueBDDGen extends JFrame {
 			title[g] = dataTittle.get(g).toString();
 		}
 		final JTable tableau = new JTable(datajT, title);
-		
+
 		tableau.setBackground(UIManager.getColor("Button.background"));
 		tableau.setFillsViewportHeight(true);
-		
+
 		TableColumn col = tableau.getColumnModel().getColumn(0);
-        col.setPreferredWidth(15);
-        
-        TableColumn col3 = tableau.getColumnModel().getColumn(3);
-        col3.setPreferredWidth(25);
-        
-		
+		col.setPreferredWidth(15);
+
+		TableColumn col3 = tableau.getColumnModel().getColumn(3);
+		col3.setPreferredWidth(25);
+
+		container.removeAll();
 		container.setBackground(Color.WHITE);
 
 		// affichage
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-		this.getContentPane().add(container);
+
 		container3.setLayout(new BoxLayout(container3, BoxLayout.X_AXIS));
 		container3.add(chtullu);
 		container3.add(dM);
@@ -117,7 +118,7 @@ public class VueBDDGen extends JFrame {
 		containerBouton.setLayout(new BoxLayout(containerBouton, BoxLayout.LINE_AXIS));
 		containerBouton.add(bouton);
 		container.add(containerBouton);
-		
+
 		bouton.addActionListener(new Reload());
 
 		chtullu.addActionListener((new ActionListener() {
@@ -125,16 +126,14 @@ public class VueBDDGen extends JFrame {
 				req = "SELECT id, jeux, nom, sexe, prof, nat, date FROM chtullu WHERE date IS NOT NULL";
 				dataOut.clear();
 				Run();
-				dispose();
 			}
 		}));
-		
+
 		dM.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				req = "SELECT id, jeux, nom, sexe, prof, race, date FROM disquemonde WHERE date IS NOT NULL";
 				dataOut.clear();
 				Run();
-				dispose();
 			}
 		}));
 		jRTM.addActionListener((new ActionListener() {
@@ -142,7 +141,6 @@ public class VueBDDGen extends JFrame {
 				req = "SELECT id, jeux, nom, sexe, prof, race, date FROM terremilieu WHERE date IS NOT NULL";
 				dataOut.clear();
 				Run();
-				dispose();
 			}
 		}));
 
@@ -151,8 +149,8 @@ public class VueBDDGen extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				String str2 = datajT[tableau.getSelectedRow()][0];
 				String strJeux = datajT[tableau.getSelectedRow()][1];
-				Lanceur(strJeux, str2);			
-				
+				Lanceur(strJeux, str2);
+
 			}
 
 			public void mouseEntered(MouseEvent e) {
@@ -167,24 +165,24 @@ public class VueBDDGen extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 			}
 		});
-
 		repaint();
 		revalidate();
-		this.setVisible(true);
+
 	}
 
-	public static void Run() {
+	public void Run() {
 		Cnx(req);
-		VueBDDGen fen = new VueBDDGen();
-		fen.setVisible(true);
+		Screen();
+
 	}
 
 	private class Reload implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			dataOut.clear();
-			setRequete(requete.getText());
+			setRequete(
+					"SELECT id, jeux, nom, sexe, prof, date FROM chtullu WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM disquemonde WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM terremilieu WHERE date IS NOT NULL");
 			Run();
-			dispose();
+
 		}
 	}
 
@@ -196,7 +194,7 @@ public class VueBDDGen extends JFrame {
 
 		if (arg4 == null) {
 			arg4 = "SELECT id, jeux, nom, sexe, prof, date FROM chtullu WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM disquemonde WHERE date IS NOT NULL UNION SELECT id, jeux, nom, sexe, prof, date FROM terremilieu WHERE date IS NOT NULL";
-			
+
 		}
 
 		try {
@@ -204,14 +202,12 @@ public class VueBDDGen extends JFrame {
 			ResultSet result = state.executeQuery(arg4);
 			ResultSetMetaData resultMeta = result.getMetaData();
 
-			
-			for (int i = 1; i <= resultMeta.getColumnCount(); i++) {				
+			for (int i = 1; i <= resultMeta.getColumnCount(); i++) {
 				tempT.add(resultMeta.getColumnName(i).toUpperCase());
 			}
 			dataTittle = tempT;
 			setCol(resultMeta.getColumnCount());
 
-			
 			while (result.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
 				for (int i = 1; i <= resultMeta.getColumnCount(); i++) {
@@ -224,7 +220,7 @@ public class VueBDDGen extends JFrame {
 				dataOut.add(temp);
 				vartemp++;
 				setLigne(vartemp);
-								
+
 			}
 			result.close();
 			state.close();
@@ -262,19 +258,15 @@ public class VueBDDGen extends JFrame {
 		}
 	}
 
-	
-	
 	private void Lanceur(String arg, String str) {
-		
+
 		if (arg.equals("Chtullu")) {
 			ReadBDDChtullu readCht = new ReadBDDChtullu(str);
 			new ControleFenCht(readCht.getPersoCht(), true);
-		}
-		else if (arg.equals("Discworld")){
+		} else if (arg.equals("Discworld")) {
 			ReadBDDDM readDM = new ReadBDDDM(str);
 			new ControleFenDM(readDM.getPersoDM(), true);
-		}
-		else if (arg.equals("JRTM")){
+		} else if (arg.equals("JRTM")) {
 			ReadJRTM readJRTM = new ReadJRTM(str);
 			new ControleFenJRTM(readJRTM.getPersoJRTM(), true);
 		}

@@ -52,7 +52,6 @@ public class EditCht extends JFrame implements DataChtullu {
 		aff.setSize(1100, 1500);
 		container2.setSize(1100, 1500);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
 		Icon icon = new ImageIcon(new ImageIcon("img/edit/chtulhu-1920.jpg").getImage()

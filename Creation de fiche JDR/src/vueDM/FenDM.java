@@ -83,7 +83,6 @@ public class FenDM extends JFrame implements DataDM {
 		this.setBackground(Color.white);
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(container);
 		container.setBackground(Color.white);
 
@@ -209,7 +208,7 @@ public class FenDM extends JFrame implements DataDM {
 				controle.ItemNat();
 			}
 		});
-		containerPerso.add(new JLabelP(" Proffession : ", font));
+		containerPerso.add(new JLabelP(" Profession : ", font));
 
 		proffs.setBackground(Color.white);
 		proffs.setPreferredSize(new Dimension(100, 20));
@@ -318,6 +317,7 @@ public class FenDM extends JFrame implements DataDM {
 		for (int g = 0; g < choixAvantages.length; g++) {
 			chkA[g] = new JCheckBox(choixAvantages[g], persoDisque.getInitchkA(g));
 			containerAvantages.add(chkA[g]);
+			chkA[g].setBackground(Color.white);
 		}
 
 		scroll.setBackground(Color.white);
@@ -329,6 +329,7 @@ public class FenDM extends JFrame implements DataDM {
 		for (int h = 0; h < choixDesavantages.length; h++) {
 			chkD[h] = new JCheckBox(choixDesavantages[h], persoDisque.getInitchkD(h));
 			containerDesavantages.add(chkD[h]);
+			chkD[h].setBackground(Color.white);
 		}
 		scroll2.setBackground(Color.white);
 		containerComp.add(scroll2);
@@ -339,6 +340,7 @@ public class FenDM extends JFrame implements DataDM {
 		for (int h = 0; h < choixLangues.length; h++) {
 			chkL[h] = new JCheckBox(choixLangues[h], persoDisque.getInitchkL(h));
 			containerLangue.add(chkL[h]);
+			chkL[h].setBackground(Color.white);
 		}
 		scroll5.setBackground(Color.white);
 		containerComp.add(scroll5);
@@ -350,9 +352,7 @@ public class FenDM extends JFrame implements DataDM {
 		containerCompetence.setBackground(Color.white);
 		containerCompetence.add(comp);
 		for (int g = 0; g < choixCompetences.length; g++) {
-			// chkC[g] = new JCheckBox(choixCompetences[g],
-			// persoDisque.getInitchkC(g));
-
+			
 			chkC[g] = new BoutonComp(choixCompetences[g][0], choixCompetences[g][1],
 					Integer.parseInt(choixCompetences[g][2]), (persoDisque.getInitComp(g)));
 			containerCompetence.add(chkC[g]);
@@ -366,6 +366,7 @@ public class FenDM extends JFrame implements DataDM {
 		for (int r = 0; r < choixMagie.length; r++) {
 			chkM[r] = new JCheckBox(choixMagie[r], persoDisque.getInitchkM(r));
 			containerMagie.add(chkM[r]);
+			chkM[r].setBackground(Color.white);
 		}
 		scroll3.setBackground(Color.white);
 		containerCompetence4.add(scroll3);

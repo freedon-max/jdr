@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import controleAdmin.ControleFenAdmin;
 import vueChtullu.DataChtullu;
+import javax.swing.JSeparator;
 
 public class FenAdmin extends JFrame implements DataChtullu{
 	
@@ -84,7 +85,6 @@ public class FenAdmin extends JFrame implements DataChtullu{
 		
 	
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Interface Admin");
 		this.setSize(500, 400);
 
@@ -194,7 +194,12 @@ public class FenAdmin extends JFrame implements DataChtullu{
 		containerDM.add(new JLabel(" "));
 		containerDM.add(bouton2);
 		containerDM.add(new JLabel(" "));
+		
+		JSeparator separator = new JSeparator();
+		containerDM.add(separator);
+		
 		containerDM.add(new JLabel(" "));
+		
 		
 		JLabel label_9 = new JLabel("Création Sort :  ");
 		label_9.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import controleAdmin.ControleFenAdmin;
-import vueBDD.VueBDDGen;
+import vueBDD.VueBdd;
 import vueChtullu.BontonAccueil;
 
 public class Accueil extends JFrame {
@@ -97,43 +97,42 @@ public class Accueil extends JFrame {
 
 	class EcranChtullu implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			LanceurCht  fenCht = new LanceurCht();
+			new LanceurCht();
 
 		}
 	}
 
 	class EcranDM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			LanceurDM fenDm = new LanceurDM();
+			new LanceurDM();
 
 		}
 	}
 	
 	class EcranJRTM implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			LanceurJRTM fenTM = new LanceurJRTM();
+			new LanceurJRTM();
 
 		}
 	}
 	
 	class EcranBDD implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			VueBDDGen bdd = new VueBDDGen();
+			new VueBdd();
 
 		}
 	}
 
 	class EcranEdition implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			ControleFenAdmin Edit = new ControleFenAdmin();
+			new ControleFenAdmin();
 
 		}
 	}
 	
 	class Propos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("test");
-			APropos fenAPropos = new APropos();
+			new APropos();
 
 		}
 	}

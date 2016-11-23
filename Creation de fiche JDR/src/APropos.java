@@ -64,7 +64,7 @@ public class APropos extends JFrame{
 	container.add(new JLabelP("   Jeu de rôle de la terre du milieu : I.C.E 1er édition", font));
 	container.add(new JLabelP(" ", font));
 	container.add(new JLabelP(" ", font));
-	container.add(new JLabelP("Version 1.2 ", font2));
+	container.add(new JLabelP("Version 1.4 ", font2));
 	containerT.add(container);
 	
 	Icon img = new ImageIcon(new ImageIcon("img/edit/mort.jpg").getImage().getScaledInstance(270, 500, Image.SCALE_DEFAULT));

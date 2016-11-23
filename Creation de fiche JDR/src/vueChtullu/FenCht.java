@@ -80,8 +80,7 @@ public class FenCht extends JFrame implements DataChtullu {
 		this.setBackground(Color.white);
 		this.setFont(font);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		competenceBool = persoCht.getCompetenceBool();
 		competenceBool2 = persoCht.getCompetenceBool2();
 		Screen1();
@@ -183,7 +182,7 @@ public class FenCht extends JFrame implements DataChtullu {
 		containerPerso.add(age);
 		containerPerso.add(new JLabelP(" Nationnalité : ", font));
 		containerPerso.add(nationalite);
-		containerPerso.add(new JLabelP(" Proffession : ", font));
+		containerPerso.add(new JLabelP(" Profession : ", font));
 		metier.setBackground(Color.white);
 		metier.setPreferredSize(new Dimension(100, 20));
 		containerPerso.add(metier);

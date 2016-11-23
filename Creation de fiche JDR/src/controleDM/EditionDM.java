@@ -75,7 +75,6 @@ public class EditionDM extends JFrame implements DataDM {
 		aff.setSize(1100, 1500);
 		container2.setSize(1100, 1500);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
 		Icon icon = new ImageIcon(new ImageIcon("img/edit/discquemondebase.jpg").getImage()
